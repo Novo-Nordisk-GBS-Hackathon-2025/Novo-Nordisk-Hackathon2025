@@ -2,8 +2,6 @@ streamlit
 pandas
 plotly
 numpy
-re
-io
-json
-datetime
-warnings
+requests
+feedparser
+beautifulsoup4

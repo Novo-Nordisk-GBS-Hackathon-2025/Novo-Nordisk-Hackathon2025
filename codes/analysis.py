@@ -728,7 +728,7 @@ def main():
         
         treatment_data = comprehensive_analysis['treatment_patterns']
         
-        # ✅ Treatment adoption comparison (removed Traditional Diabetes)
+        # ✅ Treatment adoption comparison (REMOVED Traditional Diabetes entry)
         treatment_adoption = pd.DataFrame([
             ['Lifestyle - Diet', treatment_data['lifestyle_interventions']['diet_modification']['urban_adoption'],
              treatment_data['lifestyle_interventions']['diet_modification']['rural_adoption']],
@@ -736,6 +736,7 @@ def main():
              treatment_data['lifestyle_interventions']['exercise_programs']['rural_adoption']],
             ['GLP-1 Agonists', treatment_data['pharmacological_treatments']['glp1_agonists']['urban_penetration'],
              treatment_data['pharmacological_treatments']['glp1_agonists']['rural_penetration']]
+            # ✅ REMOVED: Traditional Diabetes line that was causing the issue
         ], columns=['Treatment Type', 'Urban Adoption %', 'Rural Adoption %'])
         
         fig_treatment = px.bar(treatment_adoption, x='Treatment Type', y=['Urban Adoption %', 'Rural Adoption %'],

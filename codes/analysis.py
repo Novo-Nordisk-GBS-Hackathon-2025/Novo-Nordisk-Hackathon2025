@@ -518,7 +518,7 @@ def main():
     # ✅ UPDATED HEADER (removed Rankings from analysis areas)
     st.markdown("""
     <div class="main-header">
-        <h2>A comprehensive market analysis to quantify obesity prevalence, patient profiles, and treatment patterns in India, providing data-driven insights to inform the commercial strategy for Wegovy"</h2>
+        <h2>A comprehensive market analysis to quantify obesity prevalence, patient profiles, and treatment patterns in India, providing data-driven insights to inform the commercial strategy for Wegovy</h2>
         <p><strong>Analysis Areas:</strong> Gender • Geographic & Rankings • Comorbidity • Treatment</p>
     </div>
     """, unsafe_allow_html=True)

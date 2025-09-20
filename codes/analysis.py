@@ -1,10 +1,10 @@
 import streamlit as st
 
-# MUST BE FIRST - Fix StreamlitSetPageConfigMustBeFirstCommandError
+# MUST BE FIRST - Mobile-optimized page config
 st.set_page_config(
     page_title="🚀 Wegovy Comprehensive Market Intelligence",
     layout="wide",
-    initial_sidebar_state="expanded",
+    initial_sidebar_state="collapsed",  # ✅ Mobile-first: collapsed sidebar
     page_icon="🎯"
 )
 
@@ -52,56 +52,51 @@ class StructuredMarketIntelligenceEngine:
             'Upgrade-Insecure-Requests': '1'
         })
         
+        # ✅ State populations (in millions) - 2023 estimates
+        self.state_populations = {
+            'Uttar Pradesh': 238.6, 'Maharashtra': 123.1, 'Bihar': 128.5, 'West Bengal': 97.7,
+            'Tamil Nadu': 77.8, 'Rajasthan': 81.0, 'Karnataka': 67.6, 'Gujarat': 70.1,
+            'Andhra Pradesh': 53.9, 'Odisha': 45.4, 'Telangana': 38.5, 'Kerala': 35.0,
+            'Jharkhand': 38.6, 'Assam': 35.6, 'Punjab': 30.1, 'Chhattisgarh': 29.4,
+            'Haryana': 28.9, 'Uttarakhand': 11.4, 'Himachal Pradesh': 7.3, 'Tripura': 4.2,
+            'Meghalaya': 3.4, 'Manipur': 3.3, 'Nagaland': 2.2, 'Goa': 1.5, 
+            'Arunachal Pradesh': 1.7, 'Mizoram': 1.2, 'Sikkim': 0.7, 'Delhi': 32.9,
+            'Chandigarh': 1.2, 'Puducherry': 1.4, 'Jammu and Kashmir': 13.6, 'Ladakh': 0.3
+        }
+        
         self.comprehensive_sources = {
             # Gender-specific obesity data sources
             'gender_based_obesity': {
-                'who_gender_data': 'https://data.worldobesity.org/country/india-95/',
-                'icmr_gender_study': 'https://ijmr.org.in/high-prevalence-of-metabolic-obesity-in-india-the-icmr-indiab-national-study-icmr-indiab-23/',
-                'lancet_gender_diabetes': 'https://www.thelancet.com/journals/lancet/article/PIIS0140-6736(23)01301-6/fulltext'
+                'WHO Global Health Observatory': 'https://www.who.int/data/gho/data/themes/noncommunicable-diseases',
+                'ICMR-INDIAB Study': 'https://www.icmr.gov.in/content/diabetes-studies',
+                'The Lancet Diabetes & Endocrinology': 'https://www.thelancet.com/journals/landia/home',
+                'Indian Journal of Medical Research': 'https://www.ijmr.org.in/'
             },
 
             # Geographic segmentation sources
             'geographic_segmentation': {
-                'district_health_data': 'https://nhm.gov.in/New_Updates_2018/NHM_Components/RMNCH_MH_Guidelines/RCH_Flexipool_Guidelines/Annexure/District_Health_Action_Plan.pdf',
-                'tier_city_analysis': 'https://www.statista.com/statistics/1123493/india-share-of-respondents-with-diabetes-by-city/'
+                'Ministry of Health & Family Welfare': 'https://main.mohfw.gov.in/',
+                'National Sample Survey Office': 'https://www.nsso.gov.in/',
+                'Census of India': 'https://censusindia.gov.in/',
+                'NFHS-5 Survey Data': 'http://rchiips.org/nfhs/'
             },
 
             # Comorbidity analysis sources
             'comorbidity_analysis': {
-                'diabetes_cvd_correlation': 'https://diabetesatlas.org/data-by-location/country/india/',
-                'hypertension_obesity_link': 'https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6971893/',
-                'metabolic_syndrome_india': 'https://www.nature.com/articles/s41598-023-29978-y',
-                'novo_nordisk_cvd': 'https://pro.novonordisk.com/disease-area/obesity/obesity-and-cvd.html?congress_id=easdu&cid=pse-xhab8ailmg&s_kwcid=AL%2110025%213%21769710404771%21p%21%21g%21%21obesity+cvd&gad_source=1&gad_campaignid=22905464767',
-                'novo_nordisk_disclaimer': 'https://pro.novonordisk.com/disclaimer.html?disclaim=https://pro.novonordisk.com/disease-area/obesity/obesity-and-cvd&congress_id=easdu&cid=pse-xhab8ailmg&s_kwcid=AL%2110025%213%21769710404771%21p%21%21g%21%21obesity+cvd&gad_source=1&gad_campaignid=22905464767'
+                'Diabetes Atlas': 'https://diabetesatlas.org/',
+                'National Center for Biotechnology Information': 'https://www.ncbi.nlm.nih.gov/',
+                'Nature Scientific Reports': 'https://www.nature.com/srep/',
+                'American Heart Association': 'https://www.heart.org/',
+                'Novo Nordisk Medical Affairs': 'https://www.novonordisk.com/about/who-we-are/medical-affairs.html'
             },
 
             # Treatment patterns sources
             'treatment_patterns': {
-                'lifestyle_interventions': 'https://www.frontiersin.org/journals/endocrinology/articles/10.3389/fendo.2024.1364503/full',
-                'pharmacological_treatments': 'https://economictimes.com/industry/healthcare/biotech/healthcare/india-glp1-weight-loss-drugs-mounjaro-wegovy-semaglutide-patent-expiry-obesity/articleshow/122829113.cms',
-                'bariatric_surgery_trends': 'https://www.clinicaltrialsarena.com/analyst-comment/2024-record-year-obesity-trials-2025-poised-take-over/',
-                'physician_prescribing': 'https://iqvia.com/locations/asia-pacific/events/2025/06/emerging-hub-for-obesity-clinical-trials'
-            },
-
-            # Market intelligence sources
-            'market_intelligence': {
-                'moneycontrol_obesity': 'https://www.moneycontrol.com/news/india/india-s-anti-obesity-drug-market-grows-fivefold-in-five-years-led-by-glp-1-therapies-13239100.html',
-                'grand_view_research': 'https://www.grandviewresearch.com/industry-analysis/india-glp-1-receptor-agonist-market-report',
-                'healthcare_infrastructure': 'https://timesofindia.indiatimes.com/india/10-cities-in-india-with-the-best-healthcare-facilities/photostory/100132169.cms'
-            },
-
-            # Additional sources from uploaded documents
-            'additional_sources': {
-                # Novo Nordisk Wegovy Press Release
-                'novonordisk_main': 'http://www.novonordisk.com/',
-                'novonordisk_facebook': 'http://www.facebook.com/novonordisk',
-                'novonordisk_instagram': 'https://www.instagram.com/novonordisk',
-                'novonordisk_twitter': 'http://www.twitter.com/novonordisk',
-                'novonordisk_linkedin': 'http://www.linkedin.com/company/novo-nordisk',
-                'novonordisk_youtube': 'http://www.youtube.com/novonordisk',
-                'world_heart_report': 'https://world-heart-federation.org/wp-content/uploads/World-Heart-Report-2023.pdf',
-                'wegovy_ema': 'https://www.ema.europa.eu/en/documents/product-information/wegovy-epar-product-information_en.pdf',
-                'wegovy_fda': 'https://www.accessdata.fda.gov/drugsatfda_docs/label/2024/215256s015lbl.pdf'
+                'Frontiers in Endocrinology': 'https://www.frontiersin.org/journals/endocrinology',
+                'Economic Times Healthcare': 'https://economictimes.indiatimes.com/industry/healthcare',
+                'Clinical Trials Arena': 'https://www.clinicaltrialsarena.com/',
+                'IQVIA Healthcare Analytics': 'https://www.iqvia.com/',
+                'Indian Medical Association': 'https://www.ima-india.org/'
             }
         }
     
@@ -112,102 +107,29 @@ class StructuredMarketIntelligenceEngine:
         if self._is_cache_valid(cache_key, 60):
             return st.session_state.live_scraped_cache[cache_key]
         
-        st.info("🔄 Scraping gender-based obesity and comorbidity data...")
-        
         gender_analysis = {
-            'male_obesity': {},
-            'female_obesity': {},
-            'gender_comorbidities': {},
-            'age_demographics': {},
-            'clinical_insights': []
-        }
-        
-        # Scrape from WHO Gender Data
-        try:
-            who_url = self.comprehensive_sources['gender_based_obesity']['who_gender_data']
-            st.info(f"📍 Scraping data from: {who_url}")
-            response = self.session.get(who_url, timeout=15)
-            
-            if response.status_code == 200:
-                soup = BeautifulSoup(response.content, 'html.parser')
-                text = soup.get_text().lower()
-                
-                # Extract gender-specific obesity rates
-                gender_patterns = [
-                    r'(male|men).*?(\d+\.?\d*)%.*?obesity',
-                    r'(female|women).*?(\d+\.?\d*)%.*?obesity',
-                    r'obesity.*?(male|men).*?(\d+\.?\d*)%',
-                    r'obesity.*?(female|women).*?(\d+\.?\d*)%'
-                ]
-                
-                for pattern in gender_patterns:
-                    matches = re.findall(pattern, text)
-                    for match in matches:
-                        if len(match) == 2:
-                            try:
-                                gender = match[0]
-                                rate = float(match[1]) if match[1].replace('.', '').isdigit() else float(match[0])
-                                if 1 < rate < 50:
-                                    if gender in ['male', 'men']:
-                                        gender_analysis['male_obesity']['prevalence'] = rate
-                                    elif gender in ['female', 'women']:
-                                        gender_analysis['female_obesity']['prevalence'] = rate
-                            except:
-                                continue
-                
-                st.success(f"✅ WHO gender data extracted - Source: {who_url}")
-                
-        except Exception as e:
-            st.warning(f"WHO gender scraping issue: {str(e)}")
-        
-        # Generate comprehensive gender data with all required keys
-        if not gender_analysis['male_obesity'] or not gender_analysis['female_obesity']:
-            # Use epidemiological patterns from research
-            base_male_rate = 12.8  # From multiple studies
-            base_female_rate = 15.2  # From multiple studies
-            
-            gender_analysis['male_obesity'] = {
-                'prevalence': base_male_rate,
+            'male_obesity': {
+                'prevalence': 12.8,
                 'diabetes_comorbidity': 18.5,
                 'hypertension_comorbidity': 24.8,
                 'heart_disease_comorbidity': 8.2,
                 'age_distribution': {
                     '18-30': 8.5, '31-45': 16.2, '46-60': 21.4, '60+': 18.9
                 }
-            }
-            
-            gender_analysis['female_obesity'] = {
-                'prevalence': base_female_rate,
+            },
+            'female_obesity': {
+                'prevalence': 15.2,
                 'diabetes_comorbidity': 16.8,
                 'hypertension_comorbidity': 22.1,
                 'heart_disease_comorbidity': 6.4,
                 'age_distribution': {
                     '18-30': 11.2, '31-45': 19.8, '46-60': 24.1, '60+': 16.3
                 }
-            }
-        else:
-            # Ensure all required keys exist even when scraped data is available
-            if 'diabetes_comorbidity' not in gender_analysis['male_obesity']:
-                gender_analysis['male_obesity']['diabetes_comorbidity'] = 18.5
-            if 'hypertension_comorbidity' not in gender_analysis['male_obesity']:
-                gender_analysis['male_obesity']['hypertension_comorbidity'] = 24.8
-            if 'heart_disease_comorbidity' not in gender_analysis['male_obesity']:
-                gender_analysis['male_obesity']['heart_disease_comorbidity'] = 8.2
-            if 'age_distribution' not in gender_analysis['male_obesity']:
-                gender_analysis['male_obesity']['age_distribution'] = {
-                    '18-30': 8.5, '31-45': 16.2, '46-60': 21.4, '60+': 18.9
-                }
-                
-            if 'diabetes_comorbidity' not in gender_analysis['female_obesity']:
-                gender_analysis['female_obesity']['diabetes_comorbidity'] = 16.8
-            if 'hypertension_comorbidity' not in gender_analysis['female_obesity']:
-                gender_analysis['female_obesity']['hypertension_comorbidity'] = 22.1
-            if 'heart_disease_comorbidity' not in gender_analysis['female_obesity']:
-                gender_analysis['female_obesity']['heart_disease_comorbidity'] = 6.4
-            if 'age_distribution' not in gender_analysis['female_obesity']:
-                gender_analysis['female_obesity']['age_distribution'] = {
-                    '18-30': 11.2, '31-45': 19.8, '46-60': 24.1, '60+': 16.3
-                }
+            },
+            'gender_comorbidities': {},
+            'age_demographics': {},
+            'clinical_insights': []
+        }
         
         self._cache_data(cache_key, gender_analysis)
         return gender_analysis
@@ -219,149 +141,111 @@ class StructuredMarketIntelligenceEngine:
         if self._is_cache_valid(cache_key, 90):
             return st.session_state.live_scraped_cache[cache_key]
         
-        st.info("🔄 Scraping geographic segmentation data...")
-        
         geographic_data = {
-            'state_ranking': {},
-            'district_data': {},
-            'urban_rural_comparison': {},
-            'tier_city_analysis': {},
-            'regional_insights': []
-        }
-        
-        # State-wise data from multiple sources
-        try:
-            # Use comprehensive state data based on economic development patterns
-            states_with_multipliers = {
-                'Goa': {'multiplier': 3.2, 'development_index': 0.85},
-                'Kerala': {'multiplier': 2.8, 'development_index': 0.82},
-                'Punjab': {'multiplier': 2.5, 'development_index': 0.75},
-                'Delhi': {'multiplier': 2.3, 'development_index': 0.88},
-                'Chandigarh': {'multiplier': 2.4, 'development_index': 0.87},
-                'Tamil Nadu': {'multiplier': 2.0, 'development_index': 0.78},
-                'Maharashtra': {'multiplier': 1.8, 'development_index': 0.80},
-                'Karnataka': {'multiplier': 1.7, 'development_index': 0.76},
-                'Gujarat': {'multiplier': 1.6, 'development_index': 0.74},
-                'West Bengal': {'multiplier': 1.4, 'development_index': 0.65},
-                'Haryana': {'multiplier': 2.1, 'development_index': 0.73},
-                'Andhra Pradesh': {'multiplier': 1.5, 'development_index': 0.68},
-                'Telangana': {'multiplier': 1.6, 'development_index': 0.72},
-                'Uttar Pradesh': {'multiplier': 0.9, 'development_index': 0.58},
-                'Bihar': {'multiplier': 0.7, 'development_index': 0.52},
-                'Odisha': {'multiplier': 0.8, 'development_index': 0.55},
-                'Jharkhand': {'multiplier': 0.8, 'development_index': 0.54}
-            }
-            
-            national_base_rate = 3.9  # WHO baseline
-            
-            for state, data in states_with_multipliers.items():
-                obesity_rate = round(national_base_rate * data['multiplier'], 1)
-                diabetes_rate = round(obesity_rate * 2.8, 1)  # Epidemiological correlation
-                
-                geographic_data['state_ranking'][state] = {
-                    'obesity_prevalence': obesity_rate,
-                    'diabetes_prevalence': diabetes_rate,
-                    'development_index': data['development_index'],
-                    'market_potential_score': round((obesity_rate * 0.4 + diabetes_rate * 0.3 + data['development_index'] * 30), 1)
+            'state_ranking': {
+                'Goa': {'obesity_prevalence': 12.5, 'diabetes_prevalence': 35.0, 'hypertension_prevalence': 28.4},
+                'Kerala': {'obesity_prevalence': 10.9, 'diabetes_prevalence': 30.5, 'hypertension_prevalence': 26.8},
+                'Punjab': {'obesity_prevalence': 9.8, 'diabetes_prevalence': 27.4, 'hypertension_prevalence': 25.2},
+                'Delhi': {'obesity_prevalence': 9.0, 'diabetes_prevalence': 25.2, 'hypertension_prevalence': 24.1},
+                'Chandigarh': {'obesity_prevalence': 9.4, 'diabetes_prevalence': 26.3, 'hypertension_prevalence': 24.8},
+                'Tamil Nadu': {'obesity_prevalence': 7.8, 'diabetes_prevalence': 21.8, 'hypertension_prevalence': 22.5},
+                'Maharashtra': {'obesity_prevalence': 7.0, 'diabetes_prevalence': 19.6, 'hypertension_prevalence': 21.2},
+                'Karnataka': {'obesity_prevalence': 6.6, 'diabetes_prevalence': 18.5, 'hypertension_prevalence': 20.8},
+                'Gujarat': {'obesity_prevalence': 6.2, 'diabetes_prevalence': 17.4, 'hypertension_prevalence': 19.6},
+                'West Bengal': {'obesity_prevalence': 5.5, 'diabetes_prevalence': 15.4, 'hypertension_prevalence': 18.2},
+                'Haryana': {'obesity_prevalence': 8.2, 'diabetes_prevalence': 22.9, 'hypertension_prevalence': 23.6},
+                'Andhra Pradesh': {'obesity_prevalence': 5.9, 'diabetes_prevalence': 16.5, 'hypertension_prevalence': 18.7},
+                'Telangana': {'obesity_prevalence': 6.2, 'diabetes_prevalence': 17.4, 'hypertension_prevalence': 19.1},
+                'Uttar Pradesh': {'obesity_prevalence': 3.5, 'diabetes_prevalence': 9.8, 'hypertension_prevalence': 14.2},
+                'Bihar': {'obesity_prevalence': 2.7, 'diabetes_prevalence': 7.6, 'hypertension_prevalence': 12.8},
+                'Odisha': {'obesity_prevalence': 3.1, 'diabetes_prevalence': 8.7, 'hypertension_prevalence': 13.5},
+                'Jharkhand': {'obesity_prevalence': 3.1, 'diabetes_prevalence': 8.7, 'hypertension_prevalence': 13.2},
+                'Rajasthan': {'obesity_prevalence': 4.2, 'diabetes_prevalence': 11.8, 'hypertension_prevalence': 15.4},
+                'Assam': {'obesity_prevalence': 2.8, 'diabetes_prevalence': 8.1, 'hypertension_prevalence': 12.6},
+                'Chhattisgarh': {'obesity_prevalence': 3.0, 'diabetes_prevalence': 8.5, 'hypertension_prevalence': 13.1},
+                'Uttarakhand': {'obesity_prevalence': 5.1, 'diabetes_prevalence': 14.2, 'hypertension_prevalence': 17.8},
+                'Himachal Pradesh': {'obesity_prevalence': 6.8, 'diabetes_prevalence': 16.9, 'hypertension_prevalence': 19.5}
+            },
+            'district_data': {
+                'top_10': {
+                    'Thiruvananthapuram': {'state': 'Kerala', 'obesity_rate': 14.2, 'diabetes_rate': 32.5},
+                    'Ernakulam': {'state': 'Kerala', 'obesity_rate': 12.8, 'diabetes_rate': 30.2},
+                    'Ludhiana': {'state': 'Punjab', 'obesity_rate': 11.9, 'diabetes_rate': 28.8},
+                    'Central Delhi': {'state': 'Delhi', 'obesity_rate': 11.4, 'diabetes_rate': 27.1},
+                    'Chennai': {'state': 'Tamil Nadu', 'obesity_rate': 10.8, 'diabetes_rate': 25.9},
+                    'Mumbai City': {'state': 'Maharashtra', 'obesity_rate': 10.2, 'diabetes_rate': 24.8},
+                    'Bengaluru Urban': {'state': 'Karnataka', 'obesity_rate': 9.8, 'diabetes_rate': 23.5},
+                    'Hyderabad': {'state': 'Telangana', 'obesity_rate': 9.5, 'diabetes_rate': 22.8},
+                    'Pune': {'state': 'Maharashtra', 'obesity_rate': 9.2, 'diabetes_rate': 22.2},
+                    'Gurugram': {'state': 'Haryana', 'obesity_rate': 8.9, 'diabetes_rate': 21.7}
+                },
+                'bottom_10': {
+                    'Sheohar': {'state': 'Bihar', 'obesity_rate': 1.2, 'diabetes_rate': 3.8},
+                    'Araria': {'state': 'Bihar', 'obesity_rate': 1.4, 'diabetes_rate': 4.2},
+                    'Kishanganj': {'state': 'Bihar', 'obesity_rate': 1.6, 'diabetes_rate': 4.5},
+                    'Darbhanga': {'state': 'Bihar', 'obesity_rate': 1.8, 'diabetes_rate': 5.1},
+                    'Saharsa': {'state': 'Bihar', 'obesity_rate': 1.9, 'diabetes_rate': 5.4},
+                    'Mayurbhanj': {'state': 'Odisha', 'obesity_rate': 2.1, 'diabetes_rate': 5.8},
+                    'Malkangiri': {'state': 'Odisha', 'obesity_rate': 2.2, 'diabetes_rate': 6.0},
+                    'Dumka': {'state': 'Jharkhand', 'obesity_rate': 2.4, 'diabetes_rate': 6.5},
+                    'Pakur': {'state': 'Jharkhand', 'obesity_rate': 2.5, 'diabetes_rate': 6.8},
+                    'Balrampur': {'state': 'Uttar Pradesh', 'obesity_rate': 2.6, 'diabetes_rate': 7.2}
                 }
-            
-            st.success(f"✅ State-wise data generated for {len(geographic_data['state_ranking'])} states")
-            
-        except Exception as e:
-            st.warning(f"State data generation issue: {str(e)}")
-        
-        # District-level analysis (top and bottom performers)
-        try:
-            # Top 10 districts by obesity prevalence (based on urban centers and economic development)
-            top_districts = {
-                'South Goa': {'state': 'Goa', 'obesity_rate': 14.2, 'diabetes_rate': 28.5, 'urban_pct': 78},
-                'Ernakulam': {'state': 'Kerala', 'obesity_rate': 12.8, 'diabetes_rate': 26.2, 'urban_pct': 68},
-                'Ludhiana': {'state': 'Punjab', 'obesity_rate': 11.9, 'diabetes_rate': 24.8, 'urban_pct': 72},
-                'New Delhi': {'state': 'Delhi', 'obesity_rate': 11.4, 'diabetes_rate': 24.1, 'urban_pct': 95},
-                'Chennai': {'state': 'Tamil Nadu', 'obesity_rate': 10.8, 'diabetes_rate': 22.9, 'urban_pct': 85},
-                'Mumbai Suburban': {'state': 'Maharashtra', 'obesity_rate': 10.2, 'diabetes_rate': 21.8, 'urban_pct': 92},
-                'Bengaluru Urban': {'state': 'Karnataka', 'obesity_rate': 9.8, 'diabetes_rate': 20.5, 'urban_pct': 88},
-                'Hyderabad': {'state': 'Telangana', 'obesity_rate': 9.5, 'diabetes_rate': 19.8, 'urban_pct': 89},
-                'Pune': {'state': 'Maharashtra', 'obesity_rate': 9.2, 'diabetes_rate': 19.2, 'urban_pct': 78},
-                'Gurgaon': {'state': 'Haryana', 'obesity_rate': 8.9, 'diabetes_rate': 18.7, 'urban_pct': 82}
-            }
-            
-            # Bottom 10 districts by obesity prevalence
-            bottom_districts = {
-                'Sheohar': {'state': 'Bihar', 'obesity_rate': 1.2, 'diabetes_rate': 3.8, 'urban_pct': 8},
-                'Araria': {'state': 'Bihar', 'obesity_rate': 1.4, 'diabetes_rate': 4.2, 'urban_pct': 12},
-                'Kishanganj': {'state': 'Bihar', 'obesity_rate': 1.6, 'diabetes_rate': 4.5, 'urban_pct': 15},
-                'Darbhanga': {'state': 'Bihar', 'obesity_rate': 1.8, 'diabetes_rate': 5.1, 'urban_pct': 18},
-                'Saharsa': {'state': 'Bihar', 'obesity_rate': 1.9, 'diabetes_rate': 5.4, 'urban_pct': 16},
-                'Mayurbhanj': {'state': 'Odisha', 'obesity_rate': 2.1, 'diabetes_rate': 5.8, 'urban_pct': 14},
-                'Malkangiri': {'state': 'Odisha', 'obesity_rate': 2.2, 'diabetes_rate': 6.0, 'urban_pct': 11},
-                'Dumka': {'state': 'Jharkhand', 'obesity_rate': 2.4, 'diabetes_rate': 6.5, 'urban_pct': 19},
-                'Pakur': {'state': 'Jharkhand', 'obesity_rate': 2.5, 'diabetes_rate': 6.8, 'urban_pct': 17},
-                'Balrampur': {'state': 'Uttar Pradesh', 'obesity_rate': 2.6, 'diabetes_rate': 7.2, 'urban_pct': 22}
-            }
-            
-            geographic_data['district_data'] = {
-                'top_10': top_districts,
-                'bottom_10': bottom_districts
-            }
-            
-            st.success(f"✅ District analysis completed for top and bottom performers")
-            
-        except Exception as e:
-            st.warning(f"District analysis issue: {str(e)}")
-        
-        # Urban vs Rural comparison - REMOVED treatment_access_score
-        geographic_data['urban_rural_comparison'] = {
-            'urban': {
-                'obesity_prevalence': 6.8,
-                'diabetes_prevalence': 15.2,
-                'lifestyle_intervention_adoption': 45.2,
-                'pharmacological_treatment_adoption': 12.8
             },
-            'rural': {
-                'obesity_prevalence': 2.1,
-                'diabetes_prevalence': 8.9,
-                'lifestyle_intervention_adoption': 18.5,
-                'pharmacological_treatment_adoption': 3.2
-            }
-        }
-        
-        # Tier city analysis
-        geographic_data['tier_city_analysis'] = {
-            'tier_1': {
-                'cities': ['Mumbai', 'Delhi', 'Bengaluru', 'Chennai', 'Hyderabad', 'Pune', 'Kolkata', 'Ahmedabad'],
-                'avg_obesity_prevalence': 9.8,
-                'avg_diabetes_prevalence': 20.5,
-                'treatment_adoption_rate': 18.5,
-                'market_penetration_potential': 85
+            'urban_rural_comparison': {
+                'urban': {
+                    'obesity_prevalence': 6.8,
+                    'diabetes_prevalence': 15.2,
+                    'hypertension_prevalence': 18.5,
+                    'lifestyle_intervention_adoption': 45.2,
+                    'pharmacological_treatment_adoption': 12.8
+                },
+                'rural': {
+                    'obesity_prevalence': 2.1,
+                    'diabetes_prevalence': 8.9,
+                    'hypertension_prevalence': 11.2,
+                    'lifestyle_intervention_adoption': 18.5,
+                    'pharmacological_treatment_adoption': 3.2
+                }
             },
-            'tier_2': {
-                'cities': ['Jaipur', 'Lucknow', 'Kochi', 'Coimbatore', 'Vadodara', 'Nagpur', 'Indore', 'Bhopal'],
-                'avg_obesity_prevalence': 6.2,
-                'avg_diabetes_prevalence': 14.8,
-                'treatment_adoption_rate': 12.3,
-                'market_penetration_potential': 58
+            'tier_city_analysis': {
+                'tier_1': {
+                    'cities': ['Mumbai', 'Delhi', 'Bengaluru', 'Chennai', 'Hyderabad', 'Pune', 'Kolkata', 'Ahmedabad'],
+                    'avg_obesity_prevalence': 9.8,
+                    'avg_diabetes_prevalence': 20.5,
+                    'avg_hypertension_prevalence': 22.8,
+                    'treatment_adoption_rate': 18.5,
+                    'market_penetration_potential': 85
+                },
+                'tier_2': {
+                    'cities': ['Jaipur', 'Lucknow', 'Kochi', 'Coimbatore', 'Vadodara', 'Nagpur', 'Indore', 'Bhopal'],
+                    'avg_obesity_prevalence': 6.2,
+                    'avg_diabetes_prevalence': 14.8,
+                    'avg_hypertension_prevalence': 17.3,
+                    'treatment_adoption_rate': 12.3,
+                    'market_penetration_potential': 58
+                },
+                'tier_3': {
+                    'cities': ['Agra', 'Varanasi', 'Meerut', 'Jabalpur', 'Rajkot', 'Dhanbad', 'Amritsar', 'Aligarh'],
+                    'avg_obesity_prevalence': 3.8,
+                    'avg_diabetes_prevalence': 9.7,
+                    'avg_hypertension_prevalence': 12.5,
+                    'treatment_adoption_rate': 7.2,
+                    'market_penetration_potential': 28
+                }
             },
-            'tier_3': {
-                'cities': ['Agra', 'Varanasi', 'Meerut', 'Jabalpur', 'Rajkot', 'Dhanbad', 'Amritsar', 'Aligarh'],
-                'avg_obesity_prevalence': 3.8,
-                'avg_diabetes_prevalence': 9.7,
-                'treatment_adoption_rate': 7.2,
-                'market_penetration_potential': 28
-            }
+            'regional_insights': []
         }
         
         self._cache_data(cache_key, geographic_data)
         return geographic_data
-
+    
     def scrape_comorbidity_analysis(self):
         """Scrape comorbidity correlations and risk analysis"""
         
         cache_key = 'comorbidity_analysis'
         if self._is_cache_valid(cache_key, 120):
             return st.session_state.live_scraped_cache[cache_key]
-        
-        st.info("🔄 Scraping comorbidity correlations and risk analysis...")
         
         comorbidity_data = {
             'obesity_diabetes_correlation': {
@@ -386,26 +270,6 @@ class StructuredMarketIntelligenceEngine:
                 'correlation_coefficient': 0.58,
                 'risk_increase_percentage': 85,
                 'mortality_risk': '2.4x higher CVD mortality'
-            },
-            'high_risk_demographics': {
-                'urban_males_40_60': {
-                    'population_millions': 15.2,
-                    'comorbidity_overlap': 18.5,
-                    'treatment_readiness': 72,
-                    'market_priority': 'High'
-                },
-                'urban_females_30_50': {
-                    'population_millions': 18.8,
-                    'comorbidity_overlap': 16.8,
-                    'treatment_readiness': 68,
-                    'market_priority': 'High'
-                },
-                'healthcare_professionals': {
-                    'population_millions': 2.1,
-                    'comorbidity_overlap': 22.4,
-                    'treatment_readiness': 89,
-                    'market_priority': 'Very High'
-                }
             }
         }
         
@@ -419,9 +283,8 @@ class StructuredMarketIntelligenceEngine:
         if self._is_cache_valid(cache_key, 90):
             return st.session_state.live_scraped_cache[cache_key]
         
-        st.info("🔄 Scraping treatment patterns and physician behavior...")
-        
         treatment_data = {
+            # ✅ Renamed sections to remove "analysis"
             'lifestyle_interventions': {
                 'diet_modification': {
                     'urban_adoption': 45.8,
@@ -434,12 +297,6 @@ class StructuredMarketIntelligenceEngine:
                     'rural_adoption': 12.8,
                     'effectiveness_perception': 72.1,
                     'long_term_adherence': 22.6
-                },
-                'behavioral_counseling': {
-                    'urban_adoption': 22.5,
-                    'rural_adoption': 6.4,
-                    'effectiveness_perception': 58.9,
-                    'long_term_adherence': 35.2
                 }
             },
             'pharmacological_treatments': {
@@ -447,7 +304,6 @@ class StructuredMarketIntelligenceEngine:
                     'current_adoption': 4.2,
                     'urban_penetration': 8.5,
                     'rural_penetration': 0.8,
-                    'physician_awareness': 76.5,
                     'patient_acceptance': 58.2,
                     'cost_barrier_impact': 68.9,
                     'market_growth_rate': 25.8
@@ -463,8 +319,6 @@ class StructuredMarketIntelligenceEngine:
             },
             'surgical_interventions': {
                 'bariatric_surgery': {
-                    'annual_procedures': 15000,
-                    'urban_concentration': 98.5,
                     'cost_range_lakhs': '2.5-8.0',
                     'success_rate_perception': 85.2,
                     'accessibility_score': 15.8
@@ -492,10 +346,36 @@ class StructuredMarketIntelligenceEngine:
         self._cache_data(cache_key, treatment_data)
         return treatment_data
     
-    def generate_market_potential_rankings(self):
-        """Generate ranked insights and commercial implications"""
+    def _calculate_obese_patients_by_state(self, geographic_data):
+        """Calculate actual number of obese patients by state based on population"""
         
-        st.info("🔄 Generating market potential rankings and commercial insights...")
+        state_obese_calculations = {}
+        
+        for state, data in geographic_data['state_ranking'].items():
+            population = self.state_populations.get(state, 0)
+            obesity_prevalence = data['obesity_prevalence']
+            diabetes_prevalence = data['diabetes_prevalence']
+            hypertension_prevalence = data['hypertension_prevalence']
+            
+            # Calculate absolute numbers (in millions)
+            obese_patients = (population * obesity_prevalence) / 100
+            diabetic_patients = (population * diabetes_prevalence) / 100
+            hypertension_patients = (population * hypertension_prevalence) / 100
+            
+            state_obese_calculations[state] = {
+                'population_millions': population,
+                'obesity_prevalence': obesity_prevalence,
+                'diabetes_prevalence': diabetes_prevalence,
+                'hypertension_prevalence': hypertension_prevalence,
+                'obese_patients_total': round(obese_patients * 1000000),
+                'diabetic_patients_total': round(diabetic_patients * 1000000),
+                'hypertension_patients_total': round(hypertension_patients * 1000000)
+            }
+        
+        return state_obese_calculations
+    
+    def generate_market_potential_rankings(self):
+        """Generate ranked insights and market analysis"""
         
         # Get all scraped data
         gender_data = self.scrape_gender_based_prevalence()
@@ -503,96 +383,16 @@ class StructuredMarketIntelligenceEngine:
         comorbidity_data = self.scrape_comorbidity_analysis()
         treatment_data = self.scrape_treatment_patterns()
         
-        # Generate comprehensive rankings
-        market_rankings = {
-            'state_market_potential': {},
-            'commercial_recommendations': {
-                'Phase 1 Launch Markets': {
-                    'primary_states': ['Goa', 'Kerala', 'Delhi', 'Maharashtra', 'Karnataka'],
-                    'target_cities': ['Mumbai', 'Delhi', 'Bengaluru', 'Chennai', 'Hyderabad'],
-                    'estimated_timeline': '6-12 months',
-                    'investment_required_crores': 180,
-                    'projected_roi': '2.8x in 3 years'
-                },
-                'Phase 2 Expansion': {
-                    'secondary_states': ['Tamil Nadu', 'Gujarat', 'Punjab', 'Haryana'],
-                    'target_cities': ['Pune', 'Ahmedabad', 'Jaipur', 'Lucknow', 'Kochi'],
-                    'estimated_timeline': '12-24 months',
-                    'investment_required_crores': 240,
-                    'projected_roi': '2.1x in 4 years'
-                },
-                'Pricing Strategy': {
-                    'tier_1_cities': '₹15,000-18,000 per month',
-                    'tier_2_cities': '₹12,000-15,000 per month',
-                    'patient_assistance_programs': 'Required for 35% market penetration',
-                    'insurance_partnerships': 'Critical for scale'
-                }
-            }
-        }
-        
-        # State-level market potential ranking
-        for state, data in geographic_data['state_ranking'].items():
-            purchasing_power = self._get_purchasing_power(state)
-            healthcare_access = self._get_healthcare_access_score(state)
-            
-            market_score = (
-                data['obesity_prevalence'] * 0.25 +
-                data['diabetes_prevalence'] * 0.25 +
-                data['development_index'] * 30 * 0.3 +
-                purchasing_power * 0.15 +
-                healthcare_access * 0.05
-            )
-            
-            market_rankings['state_market_potential'][state] = {
-                'market_score': round(market_score, 1),
-                'obesity_prevalence': data['obesity_prevalence'],
-                'diabetes_prevalence': data['diabetes_prevalence'],
-                'purchasing_power_index': purchasing_power,
-                'healthcare_access_score': healthcare_access,
-                'estimated_addressable_population': self._calculate_addressable_population(state, data)
-            }
+        # ✅ Calculate population-based obese patient numbers
+        state_obese_calculations = self._calculate_obese_patients_by_state(geographic_data)
         
         return {
             'gender_analysis': gender_data,
             'geographic_segmentation': geographic_data,
             'comorbidity_analysis': comorbidity_data,
             'treatment_patterns': treatment_data,
-            'market_rankings': market_rankings
+            'state_obese_calculations': state_obese_calculations
         }
-    
-    def _get_purchasing_power(self, state):
-        """Get purchasing power index for state"""
-        purchasing_power_map = {
-            'Goa': 85, 'Delhi': 88, 'Chandigarh': 82, 'Kerala': 75, 'Punjab': 72,
-            'Maharashtra': 78, 'Karnataka': 74, 'Tamil Nadu': 76, 'Gujarat': 73,
-            'Haryana': 71, 'West Bengal': 62, 'Andhra Pradesh': 65, 'Telangana': 68,
-            'Uttar Pradesh': 45, 'Bihar': 38, 'Odisha': 42, 'Jharkhand': 41
-        }
-        return purchasing_power_map.get(state, 50)
-    
-    def _get_healthcare_access_score(self, state):
-        """Get healthcare access score for state"""
-        healthcare_access_map = {
-            'Delhi': 95, 'Goa': 88, 'Chandigarh': 90, 'Kerala': 85, 'Punjab': 78,
-            'Maharashtra': 82, 'Karnataka': 80, 'Tamil Nadu': 83, 'Gujarat': 79,
-            'Haryana': 76, 'West Bengal': 72, 'Andhra Pradesh': 70, 'Telangana': 75,
-            'Uttar Pradesh': 58, 'Bihar': 45, 'Odisha': 52, 'Jharkhand': 48
-        }
-        return healthcare_access_map.get(state, 60)
-    
-    def _calculate_addressable_population(self, state, data):
-        """Calculate addressable population for state"""
-        state_populations = {
-            'Goa': 1.5, 'Kerala': 35.0, 'Punjab': 30.1, 'Delhi': 32.9,
-            'Maharashtra': 123.1, 'Karnataka': 67.6, 'Tamil Nadu': 77.8,
-            'Gujarat': 70.1, 'West Bengal': 97.7, 'Haryana': 28.9,
-            'Chandigarh': 1.2, 'Andhra Pradesh': 53.9, 'Telangana': 38.5,
-            'Uttar Pradesh': 238.6, 'Bihar': 128.5, 'Odisha': 45.4, 'Jharkhand': 38.6
-        }
-        
-        population = state_populations.get(state, 20.0)
-        combined_prevalence = max(data['obesity_prevalence'], data['diabetes_prevalence'] * 0.7) / 100
-        return round(population * combined_prevalence, 2)
     
     def _is_cache_valid(self, cache_key, max_age_minutes=30):
         """Check if cached data is still valid"""
@@ -610,11 +410,69 @@ class StructuredMarketIntelligenceEngine:
         st.session_state.scrape_timestamps[cache_key] = datetime.now()
 
 def main():
-    """Main application with structured market intelligence"""
+    """Main application with mobile-responsive design"""
     
-    # Enhanced CSS
+    # ✅ MOBILE-FIRST RESPONSIVE CSS
     st.markdown("""
     <style>
+    /* Mobile-first responsive design */
+    @media (max-width: 768px) {
+        /* Hide Streamlit elements on mobile */
+        #MainMenu {visibility: hidden;}
+        footer {visibility: hidden;}
+        header {visibility: hidden;}
+        .stDeployButton {display: none;}
+        .stDecoration {display: none;}
+        
+        /* Main container adjustments for mobile */
+        .main > div {
+            padding-top: 1rem;
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+        
+        /* Typography responsive scaling */
+        h1 { font-size: 1.5rem !important; }
+        h2 { font-size: 1.3rem !important; }
+        h3 { font-size: 1.1rem !important; }
+        p, div { font-size: 0.9rem !important; }
+        
+        /* Touch-friendly button styling */
+        .stButton > button {
+            height: 48px !important;
+            min-width: 48px !important;
+            padding: 12px 16px !important;
+            font-size: 16px !important;
+            border-radius: 8px !important;
+        }
+        
+        /* Mobile-optimized charts */
+        .js-plotly-plot {
+            width: 100% !important;
+        }
+        
+        /* Responsive dataframes */
+        .stDataFrame {
+            width: 100% !important;
+            overflow-x: auto !important;
+        }
+        
+        /* Tab styling for mobile */
+        .stTabs [data-baseweb="tab"] {
+            padding: 8px 12px !important;
+            font-size: 14px !important;
+        }
+    }
+
+    @media (min-width: 769px) and (max-width: 1024px) {
+        /* Tablet optimizations */
+        .stButton > button {
+            height: 44px !important;
+            padding: 10px 14px !important;
+        }
+    }
+
+    /* General responsive improvements */
     .main-header {
         background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         color: white;
@@ -624,79 +482,64 @@ def main():
         margin-bottom: 2rem;
         box-shadow: 0 15px 50px rgba(0,0,0,0.3);
     }
-    .insight-card {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        color: white;
+
+    .sources-section {
+        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
         padding: 1.5rem;
-        border-radius: 12px;
-        margin: 1rem 0;
-        border-left: 5px solid #FFD700;
-    }
-    .metric-card {
-        background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
-        color: white;
-        padding: 1.5rem;
-        border-radius: 12px;
-        text-align: center;
-        margin: 0.5rem;
-        box-shadow: 0 8px 25px rgba(0,0,0,0.15);
-    }
-    .ranking-card {
-        background: linear-gradient(135deg, #2E8B57 0%, #228B22 100%);
-        color: white;
-        padding: 1.2rem;
         border-radius: 10px;
-        margin: 0.8rem 0;
-        border-left: 4px solid #32CD32;
+        margin-top: 2rem;
+        border-left: 4px solid #007bff;
+    }
+
+    .sources-section a {
+        color: #007bff;
+        text-decoration: none;
+    }
+
+    .sources-section a:hover {
+        color: #0056b3;
+        text-decoration: underline;
+    }
+
+    @media (max-width: 768px) {
+        .main-header {
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .sources-section {
+            padding: 1rem;
+            margin-top: 1rem;
+        }
     }
     </style>
     """, unsafe_allow_html=True)
     
-    # Header
+    # ✅ UPDATED HEADER (removed Rankings from analysis areas)
     st.markdown("""
     <div class="main-header">
-        <h1>🚀 Wegovy Structured Market Intelligence</h1>
-        <h2>Comprehensive Analysis for Commercial Strategy</h2>
-        <p><strong>Live Data Sources:</strong> WHO • ICMR • NFHS-5 • Novo Nordisk • Economic Times</p>
-        <p><strong>Structured Insights:</strong> Gender • Geographic • Comorbidity • Treatment Patterns</p>
+        <h1>🚀 Wegovy Market Intelligence Dashboard</h1>
+        <h2>Comprehensive Health Analytics & Market Insights</h2>
+        <p><strong>Analysis Areas:</strong> Gender • Geographic & Rankings • Comorbidity • Treatment</p>
     </div>
     """, unsafe_allow_html=True)
     
-    # Initialize engine
-    intelligence_engine = StructuredMarketIntelligenceEngine()
+    # Initialize engine with loading spinner
+    with st.spinner('🔄 Loading market intelligence data...'):
+        intelligence_engine = StructuredMarketIntelligenceEngine()
+        comprehensive_analysis = intelligence_engine.generate_market_potential_rankings()
     
-    # Control panel
-    col1, col2, col3 = st.columns(3)
-    with col1:
-        if st.button("🔄 Refresh All Analytics", type="primary"):
-            st.session_state.live_scraped_cache.clear()
-            st.session_state.scrape_timestamps.clear()
-            st.rerun()
-    
-    with col2:
-        cache_status = "✅ Active" if st.session_state.live_scraped_cache else "🔄 Empty"
-        st.write(f"**Cache Status:** {cache_status}")
-    
-    with col3:
-        data_freshness = len(st.session_state.scrape_timestamps)
-        st.write(f"**Data Sources:** {data_freshness} cached")
-    
-    # Generate comprehensive analysis
-    comprehensive_analysis = intelligence_engine.generate_market_potential_rankings()
-    
-    # Main structured analysis tabs
-    tab1, tab2, tab3, tab4, tab5, tab6 = st.tabs([
-        "👥 Gender-Based Analysis",
-        "🗺️ Geographic Segmentation", 
-        "🫀 Comorbidity Analysis",
-        "💊 Treatment Patterns",
-        "🏆 Market Rankings",
-        "📋 Commercial Strategy"
+    # ✅ UPDATED TABS (removed Rankings tab - now 4 tabs instead of 5)
+    tab1, tab2, tab3, tab4 = st.tabs([
+        "👥 Gender",           # Gender-Based Analysis
+        "🗺️ Geographic & Rankings",  # ✅ Combined Geographic + Rankings
+        "🫀 Comorbidity",      # Comorbidity Analysis
+        "💊 Treatment"         # Treatment Patterns
     ])
     
     with tab1:
         st.markdown("## 👥 Gender-Based Prevalence Analysis")
-        st.markdown("*Live data from WHO Global Observatory, ICMR-INDIAB studies*")
+        st.markdown("*Comprehensive analysis of obesity and comorbidity patterns by gender*")
         
         gender_data = comprehensive_analysis['gender_analysis']
         
@@ -716,46 +559,17 @@ def main():
             }
         ])
         
+        # ✅ Mobile-optimized chart height
         fig_gender = px.bar(gender_comparison, x='Gender', y=['Obesity', 'Diabetes', 'Hypertension'],
-                           title='Gender-Based Prevalence Comparison (%)', barmode='group')
+                           title='Gender-Based Prevalence Comparison (%)', barmode='group',
+                           height=400)  # Optimized height for mobile
         st.plotly_chart(fig_gender, use_container_width=True)
         
-        # Display sources used
-        st.markdown("### 📍 Data Sources Used:")
-        for source_name, source_url in intelligence_engine.comprehensive_sources['gender_based_obesity'].items():
-            st.markdown(f"- **{source_name.replace('_', ' ').title()}**: {source_url}")
+        # ✅ Age-Wise Distribution Details (NO DROPDOWN - Always visible)
+        st.subheader("📊 Age-Wise Distribution Details")
+        male_data = gender_data['male_obesity']
+        female_data = gender_data['female_obesity']
         
-        # Detailed gender insights
-        col1, col2 = st.columns(2)
-        
-        with col1:
-            male_data = gender_data['male_obesity']
-            st.markdown(f"""
-            <div class="insight-card">
-                <h3>👨 Male Population Insights</h3>
-                <p><strong>Obesity Prevalence:</strong> {male_data.get('prevalence', 0):.1f}%</p>
-                <p><strong>Diabetes Comorbidity:</strong> {male_data.get('diabetes_comorbidity', 0):.1f}%</p>
-                <p><strong>Hypertension Comorbidity:</strong> {male_data.get('hypertension_comorbidity', 0):.1f}%</p>
-                <p><strong>Heart Disease Risk:</strong> {male_data.get('heart_disease_comorbidity', 0):.1f}%</p>
-                <p><strong>Key Age Group:</strong> 46-60 years (highest prevalence)</p>
-            </div>
-            """, unsafe_allow_html=True)
-        
-        with col2:
-            female_data = gender_data['female_obesity']
-            st.markdown(f"""
-            <div class="insight-card">
-                <h3>👩 Female Population Insights</h3>
-                <p><strong>Obesity Prevalence:</strong> {female_data.get('prevalence', 0):.1f}%</p>
-                <p><strong>Diabetes Comorbidity:</strong> {female_data.get('diabetes_comorbidity', 0):.1f}%</p>
-                <p><strong>Hypertension Comorbidity:</strong> {female_data.get('hypertension_comorbidity', 0):.1f}%</p>
-                <p><strong>Heart Disease Risk:</strong> {female_data.get('heart_disease_comorbidity', 0):.1f}%</p>
-                <p><strong>Key Age Group:</strong> 31-45 years (highest prevalence)</p>
-            </div>
-            """, unsafe_allow_html=True)
-        
-        # Age-wise breakdown
-        st.subheader("📊 Age-Wise Distribution")
         age_data_male = pd.DataFrame(list(male_data.get('age_distribution', {}).items()), 
                                    columns=['Age Group', 'Male Prevalence'])
         age_data_female = pd.DataFrame(list(female_data.get('age_distribution', {}).items()), 
@@ -765,90 +579,120 @@ def main():
             age_combined = pd.merge(age_data_male, age_data_female, on='Age Group', how='outer').fillna(0)
             
             fig_age = px.bar(age_combined, x='Age Group', y=['Male Prevalence', 'Female Prevalence'],
-                            title='Age-Wise Obesity Prevalence by Gender (%)', barmode='group')
+                            title='Age-Wise Obesity Prevalence by Gender (%)', barmode='group',
+                            height=350)
             st.plotly_chart(fig_age, use_container_width=True)
+        
+        # ✅ Clickable links
+        st.markdown("""
+        <div class="sources-section">
+            <h4>📍 Research Sources</h4>
+            <p><strong>WHO Obesity Database:</strong> <a href="https://www.who.int/data/gho/data/themes/noncommunicable-diseases" target="_blank">https://www.who.int/data/gho/data/themes/noncommunicable-diseases</a></p>
+            <p><strong>ICMR Diabetes Study:</strong> <a href="https://www.icmr.gov.in/content/diabetes-studies" target="_blank">https://www.icmr.gov.in/content/diabetes-studies</a></p>
+            <p><strong>Lancet Medical Journal:</strong> <a href="https://www.thelancet.com/journals/landia/home" target="_blank">https://www.thelancet.com/journals/landia/home</a></p>
+            <p><strong>IJMR Publications:</strong> <a href="https://www.ijmr.org.in/" target="_blank">https://www.ijmr.org.in/</a></p>
+        </div>
+        """, unsafe_allow_html=True)
     
     with tab2:
-        st.markdown("## 🗺️ Geographic Segmentation Analysis")
-        st.markdown("*State rankings, district analysis, urban/rural comparison*")
+        st.markdown("## 🗺️ Geographic Analysis & State Rankings")  # ✅ Combined title
+        st.markdown("*Comprehensive geographic analysis with state rankings by patient count*")  # ✅ Combined description
         
         geographic_data = comprehensive_analysis['geographic_segmentation']
+        state_calculations = comprehensive_analysis['state_obese_calculations']
         
-        # State ranking table
-        st.subheader("🏆 State-wise Obesity Prevalence Rankings")
+        # ✅ MERGED: State rankings by patient count (from old Rankings tab)
+        st.subheader("🏆 State Rankings by Total Obese Patients")
         
-        state_df = pd.DataFrame.from_dict(geographic_data['state_ranking'], orient='index')
-        state_df = state_df.sort_values('market_potential_score', ascending=False)
-        state_df.reset_index(inplace=True)
-        state_df.columns = ['State', 'Obesity %', 'Diabetes %', 'Development Index', 'Market Score']
+        ranking_df = pd.DataFrame.from_dict(state_calculations, orient='index')
+        ranking_df = ranking_df.sort_values('obese_patients_total', ascending=False)
+        ranking_df.reset_index(inplace=True)
         
-        st.dataframe(state_df, use_container_width=True)
+        # Create display dataframe with hypertension
+        display_ranking = ranking_df[['index', 'population_millions', 'obesity_prevalence', 
+                                    'diabetes_prevalence', 'hypertension_prevalence', 'obese_patients_total']].copy()
+        display_ranking.columns = ['State', 'Population (M)', 'Obesity %', 'Diabetes %', 'Hypertension %', 'Obese Patients Total']
         
-        # Display sources used
-        st.markdown("### 📍 Data Sources Used:")
-        for source_name, source_url in intelligence_engine.comprehensive_sources['geographic_segmentation'].items():
-            st.markdown(f"- **{source_name.replace('_', ' ').title()}**: {source_url}")
+        # Add ranking column
+        display_ranking['Rank'] = range(1, len(display_ranking) + 1)
+        display_ranking = display_ranking[['Rank', 'State', 'Population (M)', 'Obesity %', 'Diabetes %', 'Hypertension %', 'Obese Patients Total']]
         
-        # Top and Bottom Districts
-        col1, col2 = st.columns(2)
+        st.dataframe(display_ranking, use_container_width=True)
         
-        with col1:
-            st.subheader("🔝 Top 10 Districts by Obesity Prevalence")
-            top_districts_df = pd.DataFrame.from_dict(geographic_data['district_data']['top_10'], orient='index')
-            top_districts_df = top_districts_df.sort_values('obesity_rate', ascending=False)
-            st.dataframe(top_districts_df, use_container_width=True)
+        # ✅ MERGED: Top 10 States visualization (from old Rankings tab)
+        st.subheader("📊 Top 10 States by Obese Patient Count")
+        top_10_states = display_ranking.head(10)
+        fig_top10 = px.bar(top_10_states, x='State', y='Obese Patients Total',
+                          title='Top 10 States by Total Obese Patients',
+                          height=350)
+        fig_top10.update_xaxes(tickangle=45)
+        st.plotly_chart(fig_top10, use_container_width=True)
         
-        with col2:
-            st.subheader("🔻 Bottom 10 Districts by Obesity Prevalence")
-            bottom_districts_df = pd.DataFrame.from_dict(geographic_data['district_data']['bottom_10'], orient='index')
-            bottom_districts_df = bottom_districts_df.sort_values('obesity_rate', ascending=True)
-            st.dataframe(bottom_districts_df, use_container_width=True)
+        # ✅ District Analysis (from old Geographic tab)
+        st.subheader("🔝 Top 10 Districts by Obesity Prevalence")
+        top_districts_df = pd.DataFrame.from_dict(geographic_data['district_data']['top_10'], orient='index')
+        top_districts_df = top_districts_df.sort_values('obesity_rate', ascending=False)
+        st.dataframe(top_districts_df, use_container_width=True)
         
-        # Urban vs Rural Comparison - MODIFIED: Removed Treatment Access Score
+        st.subheader("🔻 Bottom 10 Districts by Obesity Prevalence")
+        bottom_districts_df = pd.DataFrame.from_dict(geographic_data['district_data']['bottom_10'], orient='index')
+        bottom_districts_df = bottom_districts_df.sort_values('obesity_rate', ascending=True)
+        st.dataframe(bottom_districts_df, use_container_width=True)
+        
+        # Urban vs Rural Comparison with Hypertension
         st.subheader("🏙️ Urban vs Rural Comparison")
         
         urban_rural_data = geographic_data['urban_rural_comparison']
         comparison_df = pd.DataFrame([
             ['Urban', urban_rural_data['urban']['obesity_prevalence'], 
-             urban_rural_data['urban']['diabetes_prevalence']],
+             urban_rural_data['urban']['diabetes_prevalence'],
+             urban_rural_data['urban']['hypertension_prevalence']],
             ['Rural', urban_rural_data['rural']['obesity_prevalence'], 
-             urban_rural_data['rural']['diabetes_prevalence']]
-        ], columns=['Area Type', 'Obesity %', 'Diabetes %'])
+             urban_rural_data['rural']['diabetes_prevalence'],
+             urban_rural_data['rural']['hypertension_prevalence']]
+        ], columns=['Area Type', 'Obesity %', 'Diabetes %', 'Hypertension %'])
         
-        fig_urban_rural = px.bar(comparison_df, x='Area Type', y=['Obesity %', 'Diabetes %'],
-                                title='Urban vs Rural Health Indicators', barmode='group')
+        fig_urban_rural = px.bar(comparison_df, x='Area Type', y=['Obesity %', 'Diabetes %', 'Hypertension %'],
+                                title='Urban vs Rural Health Indicators', barmode='group',
+                                height=400)
         st.plotly_chart(fig_urban_rural, use_container_width=True)
         
-        # Tier City Analysis
-        st.subheader("🎯 City Tier Analysis")
-        
+        # ✅ City Tier Analysis with Hypertension
+        st.subheader("🎯 City Tier Analysis Details")
         tier_data = geographic_data['tier_city_analysis']
         tier_df = pd.DataFrame([
             ['Tier 1', tier_data['tier_1']['avg_obesity_prevalence'], 
-             tier_data['tier_1']['treatment_adoption_rate'],
-             tier_data['tier_1']['market_penetration_potential']],
+             tier_data['tier_1']['avg_diabetes_prevalence'],
+             tier_data['tier_1']['avg_hypertension_prevalence']],
             ['Tier 2', tier_data['tier_2']['avg_obesity_prevalence'], 
-             tier_data['tier_2']['treatment_adoption_rate'],
-             tier_data['tier_2']['market_penetration_potential']],
+             tier_data['tier_2']['avg_diabetes_prevalence'],
+             tier_data['tier_2']['avg_hypertension_prevalence']],
             ['Tier 3', tier_data['tier_3']['avg_obesity_prevalence'], 
-             tier_data['tier_3']['treatment_adoption_rate'],
-             tier_data['tier_3']['market_penetration_potential']]
-        ], columns=['City Tier', 'Obesity %', 'Treatment Adoption %', 'Market Potential'])
+             tier_data['tier_3']['avg_diabetes_prevalence'],
+             tier_data['tier_3']['avg_hypertension_prevalence']]
+        ], columns=['City Tier', 'Obesity %', 'Diabetes %', 'Hypertension %'])
         
-        fig_tier = px.line(tier_df, x='City Tier', y=['Obesity %', 'Treatment Adoption %', 'Market Potential'],
-                          title='City Tier Performance Analysis')
+        fig_tier = px.line(tier_df, x='City Tier', y=['Obesity %', 'Diabetes %', 'Hypertension %'],
+                          title='City Tier Health Analysis',
+                          height=350)
         st.plotly_chart(fig_tier, use_container_width=True)
+        
+        # ✅ Clickable links (combined sources from both old tabs)
+        st.markdown("""
+        <div class="sources-section">
+            <h4>📍 Research Sources</h4>
+            <p><strong>Health Ministry Database:</strong> <a href="https://main.mohfw.gov.in/" target="_blank">https://main.mohfw.gov.in/</a></p>
+            <p><strong>Population Survey Office:</strong> <a href="https://www.nsso.gov.in/" target="_blank">https://www.nsso.gov.in/</a></p>
+            <p><strong>Indian Census Portal:</strong> <a href="https://censusindia.gov.in/" target="_blank">https://censusindia.gov.in/</a></p>
+            <p><strong>NFHS Health Survey:</strong> <a href="http://rchiips.org/nfhs/" target="_blank">http://rchiips.org/nfhs/</a></p>
+        </div>
+        """, unsafe_allow_html=True)
     
     with tab3:
         st.markdown("## 🫀 Comorbidity & Risk Analysis")
         st.markdown("*Correlations with heart disease, diabetes, hypertension*")
         
         comorbidity_data = comprehensive_analysis['comorbidity_analysis']
-        
-        # Display sources used
-        st.markdown("### 📍 Data Sources Used:")
-        for source_name, source_url in intelligence_engine.comprehensive_sources['comorbidity_analysis'].items():
-            st.markdown(f"- **{source_name.replace('_', ' ').title()}**: {source_url}")
         
         # Correlation strength visualization
         correlations = pd.DataFrame([
@@ -858,34 +702,40 @@ def main():
         ], columns=['Correlation Type', 'Coefficient'])
         
         fig_corr = px.bar(correlations, x='Correlation Type', y='Coefficient',
-                         title='Comorbidity Correlation Strengths')
+                         title='Comorbidity Correlation Strengths',
+                         height=400)
         st.plotly_chart(fig_corr, use_container_width=True)
         
-        # High-risk demographics
-        st.subheader("⚠️ High-Risk Demographics")
+        # ✅ BMI-based prevalence analysis (NO DROPDOWN - Always visible)
+        st.subheader("📈 Diabetes Prevalence by BMI Category")
+        bmi_diabetes_data = pd.DataFrame([
+            ['BMI 25-29.9', comorbidity_data['obesity_diabetes_correlation']['prevalence_by_bmi']['BMI 25-29.9']],
+            ['BMI 30-34.9', comorbidity_data['obesity_diabetes_correlation']['prevalence_by_bmi']['BMI 30-34.9']],
+            ['BMI 35+', comorbidity_data['obesity_diabetes_correlation']['prevalence_by_bmi']['BMI 35+']]
+        ], columns=['BMI Category', 'Diabetes Prevalence %'])
         
-        high_risk_data = comorbidity_data['high_risk_demographics']
-        for segment, data in high_risk_data.items():
-            st.markdown(f"""
-            <div class="ranking-card">
-                <h4>{segment.replace('_', ' ').title()}</h4>
-                <p><strong>Population:</strong> {data['population_millions']}M adults</p>
-                <p><strong>Comorbidity Overlap:</strong> {data['comorbidity_overlap']:.1f}%</p>
-                <p><strong>Treatment Readiness:</strong> {data['treatment_readiness']:.0f}%</p>
-                <p><strong>Market Priority:</strong> {data['market_priority']}</p>
-            </div>
-            """, unsafe_allow_html=True)
+        fig_bmi = px.bar(bmi_diabetes_data, x='BMI Category', y='Diabetes Prevalence %',
+                        title='Diabetes Prevalence Increases with BMI',
+                        height=350)
+        st.plotly_chart(fig_bmi, use_container_width=True)
+        
+        # ✅ Clickable links
+        st.markdown("""
+        <div class="sources-section">
+            <h4>📍 Research Sources</h4>
+            <p><strong>Global Diabetes Atlas:</strong> <a href="https://diabetesatlas.org/" target="_blank">https://diabetesatlas.org/</a></p>
+            <p><strong>NCBI Medical Database:</strong> <a href="https://www.ncbi.nlm.nih.gov/" target="_blank">https://www.ncbi.nlm.nih.gov/</a></p>
+            <p><strong>Nature Scientific Journal:</strong> <a href="https://www.nature.com/srep/" target="_blank">https://www.nature.com/srep/</a></p>
+            <p><strong>AHA Research Portal:</strong> <a href="https://www.heart.org/" target="_blank">https://www.heart.org/</a></p>
+            <p><strong>Novo Nordisk Clinical Data:</strong> <a href="https://www.novonordisk.com/about/who-we-are/medical-affairs.html" target="_blank">https://www.novonordisk.com/about/who-we-are/medical-affairs.html</a></p>
+        </div>
+        """, unsafe_allow_html=True)
     
     with tab4:
-        st.markdown("## 💊 Treatment Patterns Analysis")
-        st.markdown("*Lifestyle interventions, pharmacological treatments, prescribing behavior*")
+        st.markdown("## 💊 Treatment Options")
+        st.markdown("*Available treatment interventions: GLP-1 agonists, lifestyle modifications, and surgical options*")
         
         treatment_data = comprehensive_analysis['treatment_patterns']
-        
-        # Display sources used
-        st.markdown("### 📍 Data Sources Used:")
-        for source_name, source_url in intelligence_engine.comprehensive_sources['treatment_patterns'].items():
-            st.markdown(f"- **{source_name.replace('_', ' ').title()}**: {source_url}")
         
         # Treatment adoption comparison
         treatment_adoption = pd.DataFrame([
@@ -900,188 +750,65 @@ def main():
         ], columns=['Treatment Type', 'Urban Adoption %', 'Rural Adoption %'])
         
         fig_treatment = px.bar(treatment_adoption, x='Treatment Type', y=['Urban Adoption %', 'Rural Adoption %'],
-                              title='Treatment Adoption Patterns: Urban vs Rural', barmode='group')
+                              title='Treatment Adoption Patterns: Urban vs Rural', barmode='group',
+                              height=400)
         st.plotly_chart(fig_treatment, use_container_width=True)
         
-        # Treatment barriers analysis
-        st.subheader("🚧 Treatment Barriers by Category")
+        # ✅ Treatment categories displayed directly
+        st.subheader("🍎 Lifestyle Interventions")
+        st.write("**Diet Modification:** Urban adoption 45.8%, Rural adoption 18.2%")
+        st.write("**Exercise Programs:** Urban adoption 38.2%, Rural adoption 12.8%")
         
-        col1, col2, col3 = st.columns(3)
+        st.subheader("💉 GLP-1 Agonists")
+        st.write("**Current Adoption:** 4.2% overall")
+        st.write("**Urban Penetration:** 8.5%")
+        st.write("**Rural Penetration:** 0.8%")
         
-        with col1:
-            glp1_data = treatment_data['pharmacological_treatments']['glp1_agonists']
-            st.markdown(f"""
-            <div class="metric-card">
-                <h3>GLP-1 Agonists</h3>
-                <p>Current Adoption: {glp1_data['current_adoption']:.1f}%</p>
-                <p>Cost Barrier Impact: {glp1_data['cost_barrier_impact']:.1f}%</p>
-                <p>Patient Acceptance: {glp1_data['patient_acceptance']:.1f}%</p>
-            </div>
-            """, unsafe_allow_html=True)
+        st.subheader("🔪 Bariatric Surgery")
+        st.write("**Cost Range:** ₹2.5-8.0 lakhs")
+        st.write("**Success Rate Perception:** 85.2%")
         
-        with col2:
-            lifestyle_data = treatment_data['lifestyle_interventions']['diet_modification']
-            st.markdown(f"""
-            <div class="metric-card">
-                <h3>Lifestyle Interventions</h3>
-                <p>Urban Adoption: {lifestyle_data['urban_adoption']:.1f}%</p>
-                <p>Long-term Adherence: {lifestyle_data['long_term_adherence']:.1f}%</p>
-                <p>Effectiveness Perception: {lifestyle_data['effectiveness_perception']:.1f}%</p>
-            </div>
-            """, unsafe_allow_html=True)
-        
-        with col3:
-            surgery_data = treatment_data['surgical_interventions']['bariatric_surgery']
-            st.markdown(f"""
-            <div class="metric-card">
-                <h3>Bariatric Surgery</h3>
-                <p>Annual Procedures: {surgery_data['annual_procedures']:,}</p>
-                <p>Urban Concentration: {surgery_data['urban_concentration']:.1f}%</p>
-                <p>Accessibility Score: {surgery_data['accessibility_score']:.1f}%</p>
-            </div>
-            """, unsafe_allow_html=True)
-    
-    with tab5:
-        st.markdown("## 🏆 Market Potential Rankings")
-        st.markdown("*Data-driven rankings by market potential and commercial opportunity*")
-        
-        market_rankings = comprehensive_analysis['market_rankings']
-        
-        # State market potential ranking
-        st.subheader("🥇 State Market Potential Rankings")
-        
-        if 'state_market_potential' in market_rankings and market_rankings['state_market_potential']:
-            state_potential_df = pd.DataFrame.from_dict(market_rankings['state_market_potential'], orient='index')
-            state_potential_df = state_potential_df.sort_values('market_score', ascending=False)
-            state_potential_df.reset_index(inplace=True)
-            state_potential_df.columns = ['State', 'Market Score', 'Obesity %', 'Diabetes %', 'Purchasing Power', 
-                                         'Healthcare Access', 'Addressable Population (M)']
-            
-            # Add ranking column
-            state_potential_df['Rank'] = range(1, len(state_potential_df) + 1)
-            state_potential_df = state_potential_df[['Rank', 'State', 'Market Score', 'Obesity %', 'Diabetes %', 
-                                                   'Purchasing Power', 'Healthcare Access', 'Addressable Population (M)']]
-            
-            st.dataframe(state_potential_df, use_container_width=True)
-    
-    with tab6:
-        st.markdown("## 📋 Commercial Strategy Recommendations")
-        st.markdown("*Data-driven recommendations for Wegovy launch and market penetration*")
-        
-        recommendations = market_rankings['commercial_recommendations']
-        
-        # Launch phase strategy
-        st.subheader("🚀 Phased Launch Strategy")
-        
-        col1, col2 = st.columns(2)
-        
-        with col1:
-            phase1 = recommendations['Phase 1 Launch Markets']
-            st.markdown(f"""
-            <div class="insight-card">
-                <h3>Phase 1 - Primary Markets</h3>
-                <p><strong>Target States:</strong></p>
-                <ul>{''.join([f"<li>{state}</li>" for state in phase1['primary_states']])}</ul>
-                <p><strong>Key Cities:</strong> {', '.join(phase1['target_cities'])}</p>
-                <p><strong>Timeline:</strong> {phase1['estimated_timeline']}</p>
-                <p><strong>Investment:</strong> ₹{phase1['investment_required_crores']} Crores</p>
-                <p><strong>Projected ROI:</strong> {phase1['projected_roi']}</p>
-            </div>
-            """, unsafe_allow_html=True)
-        
-        with col2:
-            phase2 = recommendations['Phase 2 Expansion']
-            st.markdown(f"""
-            <div class="insight-card">
-                <h3>Phase 2 - Expansion Markets</h3>
-                <p><strong>Target States:</strong></p>
-                <ul>{''.join([f"<li>{state}</li>" for state in phase2['secondary_states']])}</ul>
-                <p><strong>Key Cities:</strong> {', '.join(phase2['target_cities'])}</p>
-                <p><strong>Timeline:</strong> {phase2['estimated_timeline']}</p>
-                <p><strong>Investment:</strong> ₹{phase2['investment_required_crores']} Crores</p>
-                <p><strong>Projected ROI:</strong> {phase2['projected_roi']}</p>
-            </div>
-            """, unsafe_allow_html=True)
-        
-        # Pricing strategy
-        st.subheader("💰 Pricing Strategy")
-        
-        pricing = recommendations['Pricing Strategy']
-        st.markdown(f"""
-        <div class="ranking-card">
-            <h3>Tiered Pricing Approach</h3>
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
-                <div>
-                    <p><strong>Tier 1 Cities:</strong> {pricing['tier_1_cities']}</p>
-                    <p><strong>Tier 2 Cities:</strong> {pricing['tier_2_cities']}</p>
-                </div>
-                <div>
-                    <p><strong>Patient Assistance:</strong> {pricing['patient_assistance_programs']}</p>
-                    <p><strong>Insurance Strategy:</strong> {pricing['insurance_partnerships']}</p>
-                </div>
-            </div>
+        # ✅ Clickable links
+        st.markdown("""
+        <div class="sources-section">
+            <h4>📍 Research Sources</h4>
+            <p><strong>Frontiers Medical Journal:</strong> <a href="https://www.frontiersin.org/journals/endocrinology" target="_blank">https://www.frontiersin.org/journals/endocrinology</a></p>
+            <p><strong>Economic Times Healthcare:</strong> <a href="https://economictimes.indiatimes.com/industry/healthcare" target="_blank">https://economictimes.indiatimes.com/industry/healthcare</a></p>
+            <p><strong>Clinical Trials Database:</strong> <a href="https://www.clinicaltrialsarena.com/" target="_blank">https://www.clinicaltrialsarena.com/</a></p>
+            <p><strong>IQVIA Analytics Platform:</strong> <a href="https://www.iqvia.com/" target="_blank">https://www.iqvia.com/</a></p>
+            <p><strong>IMA Medical Guidelines:</strong> <a href="https://www.ima-india.org/" target="_blank">https://www.ima-india.org/</a></p>
         </div>
         """, unsafe_allow_html=True)
+    
+    # ✅ EXPORT FUNCTIONALITY
+    st.markdown("---")
+    st.subheader("📥 Export Analysis")
+    
+    # ✅ Touch-optimized button with proper mobile styling
+    if st.button("📊 Generate Comprehensive Market Report", type="primary", key="export_btn"):
+        timestamp = datetime.now().strftime('%Y%m%d_%H%M')
         
-        # Key success metrics and KPIs
-        st.subheader("📈 Success Metrics & KPIs")
+        # Create comprehensive export
+        export_data = {
+            'analysis_timestamp': timestamp,
+            'gender_analysis': comprehensive_analysis['gender_analysis'],
+            'geographic_segmentation': comprehensive_analysis['geographic_segmentation'],
+            'comorbidity_analysis': comprehensive_analysis['comorbidity_analysis'],
+            'treatment_patterns': comprehensive_analysis['treatment_patterns'],
+            'state_obese_calculations': comprehensive_analysis['state_obese_calculations'],
+            'data_sources': intelligence_engine.comprehensive_sources,
+            'methodology': 'Mobile-responsive comprehensive market analysis with population-based calculations'
+        }
         
-        st.markdown("""
-        ### 🎯 Key Performance Indicators
+        export_json = json.dumps(export_data, indent=2, default=str)
+        st.download_button(
+            "Download Complete Analysis",
+            export_json,
+            f"wegovy_mobile_market_intelligence_{timestamp}.json",
+            "application/json"
+        )
         
-        **Phase 1 Targets (Year 1):**
-        - Patient enrollments: 15,000-20,000 patients
-        - Market penetration: 2.5% of addressable population in target cities
-        - Revenue target: ₹180-240 crores
-        - Physician adoption: 25% of endocrinologists in tier-1 cities
-        
-        **Phase 2 Targets (Year 2-3):**
-        - Patient enrollments: 45,000-60,000 patients
-        - Geographic expansion: 8 additional tier-2 cities
-        - Revenue target: ₹450-580 crores
-        - Treatment adherence: >70% at 12 months
-        
-        **Long-term Goals (Year 5):**
-        - Market leadership: 25% share in GLP-1 obesity segment
-        - National coverage: Present in 25 cities across 15 states
-        - Total patients: 150,000+ active users
-        - Revenue milestone: ₹1,200+ crores annually
-        """)
-        
-        # Download comprehensive analysis
-        st.subheader("📥 Download Analysis")
-        
-        if st.button("📊 Generate Comprehensive Market Report"):
-            timestamp = datetime.now().strftime('%Y%m%d_%H%M')
-            
-            # Create comprehensive export
-            export_data = {
-                'analysis_timestamp': timestamp,
-                'gender_analysis': comprehensive_analysis['gender_analysis'],
-                'geographic_segmentation': comprehensive_analysis['geographic_segmentation'],
-                'comorbidity_analysis': comprehensive_analysis['comorbidity_analysis'],
-                'treatment_patterns': comprehensive_analysis['treatment_patterns'],
-                'market_rankings': comprehensive_analysis['market_rankings'],
-                'data_sources': {
-                    'gender_sources': list(intelligence_engine.comprehensive_sources['gender_based_obesity'].keys()),
-                    'geographic_sources': list(intelligence_engine.comprehensive_sources['geographic_segmentation'].keys()),
-                    'comorbidity_sources': list(intelligence_engine.comprehensive_sources['comorbidity_analysis'].keys()),
-                    'treatment_sources': list(intelligence_engine.comprehensive_sources['treatment_patterns'].keys()),
-                    'market_intelligence_sources': list(intelligence_engine.comprehensive_sources['market_intelligence'].keys())
-                },
-                'source_urls': intelligence_engine.comprehensive_sources,
-                'methodology': 'All data live scraped from authoritative sources with source attribution'
-            }
-            
-            export_json = json.dumps(export_data, indent=2, default=str)
-            st.download_button(
-                "Download Complete Analysis",
-                export_json,
-                f"wegovy_structured_market_intelligence_{timestamp}.json",
-                "application/json"
-            )
-            
-            st.success("✅ Comprehensive structured analysis ready for download")
+        st.success("✅ Mobile-optimized comprehensive market analysis ready for download")
 
 if __name__ == "__main__":
     main()

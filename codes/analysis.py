@@ -89,7 +89,7 @@ class StructuredMarketIntelligenceEngine:
                 'American Heart Association': 'https://www.heart.org/',
                 'Novo Nordisk Medical Affairs': 'https://www.novonordisk.com/about/who-we-are/medical-affairs.html'
             },
-
+            
             # Treatment patterns sources
             'treatment_patterns': {
                 'Frontiers in Endocrinology': 'https://www.frontiersin.org/journals/endocrinology',
@@ -284,7 +284,7 @@ class StructuredMarketIntelligenceEngine:
             return st.session_state.live_scraped_cache[cache_key]
         
         treatment_data = {
-            # ✅ Renamed sections to remove "analysis"
+            # ✅ Removed traditional_diabetes_drugs section
             'lifestyle_interventions': {
                 'diet_modification': {
                     'urban_adoption': 45.8,
@@ -307,14 +307,6 @@ class StructuredMarketIntelligenceEngine:
                     'patient_acceptance': 58.2,
                     'cost_barrier_impact': 68.9,
                     'market_growth_rate': 25.8
-                },
-                'traditional_diabetes_drugs': {
-                    'current_adoption': 42.8,
-                    'urban_penetration': 65.2,
-                    'rural_penetration': 28.4,
-                    'physician_awareness': 95.8,
-                    'patient_acceptance': 78.5,
-                    'cost_barrier_impact': 35.2
                 }
             },
             'surgical_interventions': {
@@ -518,7 +510,7 @@ def main():
     # ✅ UPDATED HEADER (removed Rankings from analysis areas)
     st.markdown("""
     <div class="main-header">
-        <h2>A comprehensive market analysis to quantify obesity prevalence, patient profiles, and treatment patterns in India, providing data-driven insights to inform the commercial strategy for Wegovy</h2>
+        <h2>A comprehensive market analysis to quantify obesity prevalence, patient profiles, and treatment patterns in India, providing data-driven insights to inform the commercial strategy for Wegovy</h2>
         <p><strong>Analysis Areas:</strong> Gender • Geographic & Rankings • Comorbidity • Treatment</p>
     </div>
     """, unsafe_allow_html=True)
@@ -736,16 +728,14 @@ def main():
         
         treatment_data = comprehensive_analysis['treatment_patterns']
         
-        # Treatment adoption comparison
+        # ✅ Treatment adoption comparison (removed Traditional Diabetes)
         treatment_adoption = pd.DataFrame([
             ['Lifestyle - Diet', treatment_data['lifestyle_interventions']['diet_modification']['urban_adoption'],
              treatment_data['lifestyle_interventions']['diet_modification']['rural_adoption']],
             ['Lifestyle - Exercise', treatment_data['lifestyle_interventions']['exercise_programs']['urban_adoption'],
              treatment_data['lifestyle_interventions']['exercise_programs']['rural_adoption']],
             ['GLP-1 Agonists', treatment_data['pharmacological_treatments']['glp1_agonists']['urban_penetration'],
-             treatment_data['pharmacological_treatments']['glp1_agonists']['rural_penetration']],
-            ['Traditional Diabetes', treatment_data['pharmacological_treatments']['traditional_diabetes_drugs']['urban_penetration'],
-             treatment_data['pharmacological_treatments']['traditional_diabetes_drugs']['rural_penetration']]
+             treatment_data['pharmacological_treatments']['glp1_agonists']['rural_penetration']]
         ], columns=['Treatment Type', 'Urban Adoption %', 'Rural Adoption %'])
         
         fig_treatment = px.bar(treatment_adoption, x='Treatment Type', y=['Urban Adoption %', 'Rural Adoption %'],

@@ -209,7 +209,7 @@ class StructuredMarketIntelligenceEngine:
         # District-level rates estimated beyond state-level NFHS data
         comprehensive_districts = {
             # Maharashtra (Rank 1)
-            'Mumbai City': {'state': 'Maharashtra', 'obesity_rate': 10.2, 'tier': 'Tier 1'},
+            'Mumbai ': {'state': 'Maharashtra', 'obesity_rate': 10.2, 'tier': 'Tier 1'},
             'Pune': {'state': 'Maharashtra', 'obesity_rate': 9.2, 'tier': 'Tier 1'},
             'Thane': {'state': 'Maharashtra', 'obesity_rate': 8.9, 'tier': 'Tier 1'},
             'Nashik': {'state': 'Maharashtra', 'obesity_rate': 7.8, 'tier': 'Tier 2'},

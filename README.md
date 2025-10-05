@@ -1,19 +1,15 @@
 🧠 Novo-Nordisk-Hackathon2025: 
 "A comprehensive market analysis to quantify obesity prevalence, patient profiles, and treatment patterns in India, providing data-driven insights to inform the commercial strategy for Wegovy"
 
-👥 Team Members
+# 👥 Team Members
 
-Manish M Kumar (Team Lead)
+1. Manish M Kumar (Team Lead)
+2. Abhishek Ramesh Shettigar
+3. Beven Nelson
+4. Elna Sara Sanu
+5. Neela KS
 
-Abhishek Ramesh Shettigar
-
-Beven Nelson
-
-Elna Sara Sanu
-
-Neela KS
-
-📘 Project Overview
+# 📘 Project Overview
 
 This Streamlit-based Market Intelligence Dashboard acts as a decision-support engine for Wegovy in India.
 

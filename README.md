@@ -19,7 +19,7 @@ This Streamlit-based Market Intelligence Dashboard acts as a decision-support en
 
 It combines NFHS-5 national health survey data, peer-reviewed journals, and industry market reports to identify geographic, demographic, and therapeutic opportunities for obesity management.
 
-🔗 Live Demo: Wegovy Market Intelligence Dashboard
+🔗 Live Demo:-https://novo-nordisk-hackathon2025-8adxnittedsk6gbmrfbgy3.streamlit.app/
 
 NOTE:🧾 Some datasets are partially hardcoded to preserve reproducibility and accuracy.
 All such data points are verified against published research and cited in this README.

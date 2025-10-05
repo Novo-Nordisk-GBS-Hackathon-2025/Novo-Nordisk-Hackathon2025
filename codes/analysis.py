@@ -8,7 +8,7 @@ from datetime import datetime, timedelta
 # --- Streamlit Configuration ---
 # Must be at the top level of the script
 st.set_page_config(
-    page_title="🚀 Wegovy Comprehensive Market Intelligence",
+    page_title=" Wegovy Comprehensive Market Analysis for stratergies",
     layout="wide",
     initial_sidebar_state="collapsed",
     page_icon="🎯"
@@ -466,7 +466,7 @@ def main():
     st.markdown(
         """
         <div class="main-header">
-            <h2>🚀 A comprehensive market analysis to quantify obesity prevalence, patient profiles, and treatment patterns in India, providing data-driven insights to inform the commercial strategy for Wegovy</h2>
+            <h2> A comprehensive market analysis to quantify obesity prevalence, patient profiles, and treatment patterns in India, providing data-driven insights to inform the commercial strategy for Wegovy</h2>
             <p><strong>Analysis Areas:</strong> Geographic & Rankings • Gender • Treatment</p>
         </div>
         """,
@@ -584,15 +584,15 @@ def main():
         
         st.plotly_chart(fig_tier, use_container_width=True)
         
-        # Sources 
+        # Sources  <- MODIFIED SECTION
         st.markdown(f"""
         <div class="sources-section">
             <h3 style="margin-top: 0;">Data Sources - Geographic & Rankings (NFHS-5 Data)</h3>
             <ul>
                 <li><strong>NFHS-5 Raw Counts:</strong> Used headcounts from NFHS-5 2021 (Figure 4, BMC Public Health) to calculate state totals.</li>
                 <li><strong>Urban/Rural Obesity Prevalence:</strong> Male obesity prevalence (BMI &ge; 30.0) figures for Urban (6.6%) and Rural (3.3%) areas are cited from NFHS-5 2021 data (Table 2, BMC Public Health).</li>
-                <li><strong>NFHS-5 Data (Headcount/Table 2 - BMC Public Health):</strong> <a href="https://doi.org/10.1186/s12889-024-18784-4" target="_blank">Temporal change in prevalence of BMI categories in India (BMC Public Health)</a></li>
-                <li><strong>NFHS-5 Data (Spatial Clustering/Hotspots - PLoS ONE):</strong> <a href="https://doi.org/10.1371/journal.pone.0305205" target="_blank">Spatial clustering of overweight/obesity among women in India (PLoS ONE)</a></li>
+                <li><strong>NFHS-5 Data (Headcount/Table 2 - BMC Public Health):</strong> <a href="https://doi.org/10.1186/s12889-024-18784-4" target="_blank">https://doi.org/10.1186/s12889-024-18784-4</a></li>
+                <li><strong>NFHS-5 Data (Spatial Clustering/Hotspots - PLoS ONE):</strong> <a href="https://doi.org/10.1371/journal.pone.0305205" target="_blank">https://doi.org/10.1371/journal.pone.0305205</a></li>
             </ul>
         </div>
         """, unsafe_allow_html=True)
@@ -677,16 +677,16 @@ def main():
         st.write(f"Cost Range: **₹{treatment_data['surgical_interventions']['bariatric_surgery']['cost_range_lakhs']} lakhs** (Varies significantly by city/hospital) ")
         st.write(f"Success Rate Perception: **{treatment_data['surgical_interventions']['bariatric_surgery']['success_rate_perception']}**")
         
-        # Sources
+        # Sources <- MODIFIED SECTION
         st.markdown(f"""
         <div class="sources-section">
             <h4>📍 Research Sources - Treatment Patterns</h4>
             <ul>
-                <li><strong>AOD Market Value (₹{treatment_data['pharmacological_treatments']['glp1_agonists']['anti_obesity_market_value_cr']} Cr, Mar 2025) & GLP-1 Pricing/Competition:</strong> <a href="https://m.economictimes.com/industry/healthcare/biotech/pharmaceuticals/a-big-fat-fight-has-just-broken-out-in-india/articleshow/122049705.cms" target="_blank">The Economic Times: A big fat fight has just broken out in India</a></li>
-                <li><strong>GLP-1 Market Growth Rate (CAGR 2025-2030):</strong> <a href="https://www.grandviewresearch.com/industry-analysis/india-glp-1-receptor-agonist-market-report" target="_blank">India GLP-1 Receptor Agonist Market (Grand View Research)</a></li>
-                <li><strong>GLP-1 Patient Openness/Barriers (77.3% Openness, Cost Barrier):</strong> <a href="https://www.iosrjournals.org/iosr-jpbs/papers/Vol19-issue6/Ser-2/L1906027179.pdf" target="_blank">Rogers' Model And The Strategic Adoption Of GLP-1 Receptor Agonists (IOSR Journal)</a></li>
-                <li>**Bariatric Surgery Cost Range (₹2.25-8.0 lakhs):** <a href="https://nobesity.in/weight-loss-surgery-cost-in-india/" target="_blank">NObesity: Weight Loss Surgery Cost in India</a> (Cost range from market aggregator/clinic, up to ₹8.0 lakhs)</li>
-                <li>**Lifestyle Intervention:** <a href="https://www.frontiersin.org/journals/endocrinology/articles/10.3389/fendo.2024.1382814/full" target="_blank">Lifestyle Intervention (Basis) Research Article</a></li>
+                <li><strong>AOD Market Value (₹{treatment_data['pharmacological_treatments']['glp1_agonists']['anti_obesity_market_value_cr']} Cr, Mar 2025) & GLP-1 Pricing/Competition:</strong> <a href="https://m.economictimes.com/industry/healthcare/biotech/pharmaceuticals/a-big-fat-fight-has-just-broken-out-in-india/articleshow/122049705.cms" target="_blank">https://m.economictimes.com/industry/healthcare/biotech/pharmaceuticals/a-big-fat-fight-has-just-broken-out-in-india/articleshow/122049705.cms</a></li>
+                <li><strong>GLP-1 Market Growth Rate (CAGR 2025-2030):</strong> <a href="https://www.grandviewresearch.com/industry-analysis/india-glp-1-receptor-agonist-market-report" target="_blank">https://www.grandviewresearch.com/industry-analysis/india-glp-1-receptor-agonist-market-report</a></li>
+                <li><strong>GLP-1 Patient Openness/Barriers (77.3% Openness, Cost Barrier):</strong> <a href="https://www.iosrjournals.org/iosr-jpbs/papers/Vol19-issue6/Ser-2/L1906027179.pdf" target="_blank">https://www.iosrjournals.org/iosr-jpbs/papers/Vol19-issue6/Ser-2/L1906027179.pdf</a></li>
+                <li>**Bariatric Surgery Cost Range (₹2.25-8.0 lakhs):** <a href="https://nobesity.in/weight-loss-surgery-cost-in-india/" target="_blank">https://nobesity.in/weight-loss-surgery-cost-in-india/</a> (Cost range from market aggregator/clinic, up to ₹8.0 lakhs)</li>
+                <li>**Lifestyle Intervention:** <a href="https://www.frontiersin.org/journals/endocrinology/articles/10.3389/fendo.2024.1382814/full" target="_blank">https://www.frontiersin.org/journals/endocrinology/articles/10.3389/fendo.2024.1382814/full</a></li>
                 
             
         </div>

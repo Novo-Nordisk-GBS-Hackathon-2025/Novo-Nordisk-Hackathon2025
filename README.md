@@ -37,6 +37,7 @@ Bariatric Surgery Cost Range	Market Aggregator	Nobesity India
 Lifestyle Intervention Context	Clinical Literature	Frontiers in Endocrinology (2024)
 🧩 Dashboard Architecture & Key Analytical Tabs
 
+# Dashboard
 The dashboard is divided into three analytical tabs, each focused on strategic decision areas.
 
 🗺️ Tab 1: Geographic & State Rankings

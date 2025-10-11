@@ -42,10 +42,12 @@ Metric	Source / Derivation	Key Insight
 State Rankings	NFHS-5 obesity headcounts (BMC Public Health, 2024)	Top states: Maharashtra, Tamil Nadu, Uttar Pradesh. Comorbidities: diabetes, hypertension.
 Urban vs. Rural	NFHS-5 (Urban Male: 6.6%, Rural Male: 3.3%)	Significant urban–rural gap.
 City Tier Analysis	Derived from NFHS-5 & population clusters	Tier 1 market potential ≈ 85%, Tier 3 ≈ 28%.
+
 👥 Tab 2: Gender & Age Segmentation
 Metric	Source / Derivation	Key Insight
 Gender Prevalence	NFHS-5 (Female: 6.3%, Male: 4.2%)	Female obesity market ≈ 1.5× male.
 Age Distribution	NFHS-5 + epidemiological estimates	Primary target: 46–60 years.
+
 💊 Tab 3: Treatment Options & Market Dynamics
 Metric	Source / Derivation	Key Insight
 GLP-1 Market Growth	34.3% CAGR (Grand View Research)	Fastest-growing obesity drug segment.

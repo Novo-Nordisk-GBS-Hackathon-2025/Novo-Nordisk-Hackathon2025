@@ -22,6 +22,7 @@ It combines NFHS-5 national health survey data, peer-reviewed journals, and indu
 
 🧾 NOTE: analysis.py consists of streamlit code
 backend_process is the process of extraction for the streamlit values that are coded 
+more analysis and stratergies framed are in the ppt
 Some data are  hardcoded to preserve reproducibility and accuracy. All such data points are verified against published research and cited in this README.
 
 🗂️ Core Data Sources (Verified)

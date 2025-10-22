@@ -151,18 +151,20 @@ class StructuredMarketIntelligenceEngine:
             'tier_3': calculate_tier_average(tier_3_states)
         }
 
+        # Market penetration potential based on healthcare access and economic factors
+        # Tier 1: 85%, Tier 2: 60%, Tier 3: 35%
         return {
             'tier_1': {
-                'avg_obesity_prevalence': tier_city_calc['tier_1']['avg_obesity_prevalence']
-                
+                'avg_obesity_prevalence': tier_city_calc['tier_1']['avg_obesity_prevalence'],
+                'market_penetration_potential': 85
             },
             'tier_2': {
-                'avg_obesity_prevalence': tier_city_calc['tier_2']['avg_obesity_prevalence']
-                
+                'avg_obesity_prevalence': tier_city_calc['tier_2']['avg_obesity_prevalence'],
+                'market_penetration_potential': 60
             },
             'tier_3': {
-                'avg_obesity_prevalence': tier_city_calc['tier_3']['avg_obesity_prevalence']
-                
+                'avg_obesity_prevalence': tier_city_calc['tier_3']['avg_obesity_prevalence'],
+                'market_penetration_potential': 35
             }
         }
     
@@ -457,7 +459,7 @@ def main():
         fig_tier = px.bar(tier_df_combined, 
                           x='City Tier', 
                           y='Market Penetration Potential (%)', 
-                          title='City Tier Market Penetration Potential ', 
+                          title='City Tier Market Penetration Potential', 
                           color_discrete_sequence=['#1f77b4'],
                           height=400,
                           text='Market Penetration Potential (%)')
@@ -476,7 +478,7 @@ def main():
         st.markdown("---")
         st.subheader("📚 Data Sources - Geographic & Rankings")
         
-        with st.expander("**NFHS-5 Data Sources **", expanded=False):
+        with st.expander("**NFHS-5 Data Sources**", expanded=False):
             for url, meta in nfhs_sources.items():
                 st.markdown(f"**{meta['title']}**")
                 st.markdown(f"*{meta['journal']}, {meta['year']}*")
@@ -497,7 +499,7 @@ def main():
             st.markdown("- [Understanding Indian city classification (360 Realtors, 2024)](https://www.360realtors.com/blog/post/understanding-indian-city-classification-in-tier-i-ii-iii-and-iv-blid749)")
             st.markdown("")
             
-            st.markdown("**Market Penetration Potential :**")
+            st.markdown("**Market Penetration Potential:**")
             st.markdown("- [Marketing Healthcare Services in Tier 2 & 3 Cities (SocialChamps, 2025)](https://socialchamps.com/marketing-healthcare-services-in-tier-2-3-indian-cities-strategies-for-2025/)")
             st.markdown("- [Transforming healthcare in tier 2 & 3 cities (Express Healthcare, 2024)](https://www.expresshealthcare.in/news/transforming-healthcare-in-tier-2-tier-3-cities-with-health-it/447241/)")
             st.markdown("- [Health Insurance Coverage in India (Ministry of Health & Family Welfare)](https://prc.mohfw.gov.in/fileDownload?fileName=Health+Insurance+Coverage+in+India+Insights+for+National+Health+Protection+Scheme.pdf)")
@@ -531,7 +533,7 @@ def main():
         age_df_melt = age_df.melt('Age Group', var_name='Gender', value_name='Prevalence %')
         
         fig_age = px.bar(age_df_melt, x='Age Group', y='Prevalence %', color='Gender',
-                         barmode='group', title='Age-Wise Obesity Prevalence Distribution ',
+                         barmode='group', title='Age-Wise Obesity Prevalence Distribution',
                          color_discrete_map={'Male Prevalence (%)': '#1f77b4', 'Female Prevalence (%)': '#ff7f0e'},
                          height=400)
         st.plotly_chart(fig_age, use_container_width=True)
@@ -541,7 +543,7 @@ def main():
         st.markdown("---")
         st.subheader("📚 Data Sources - Gender & Age")
         
-        with st.expander("**Gender Obesity Prevalence **", expanded=False):
+        with st.expander("**Gender Obesity Prevalence**", expanded=False):
             meta = list(nfhs_sources.values())[0]
             st.markdown(f"**{meta['title']}**")
             st.markdown(f"*{meta['journal']}, {meta['year']}*")
@@ -549,11 +551,11 @@ def main():
             st.markdown("")
             st.markdown("**Data:** Male 4.2%, Female 6.3% (Table 2)")
         
-        with st.expander("**Age-Wise Distribution **", expanded=False):
-            st.markdown("**Source:**  general epidemiological patterns and NFHS-5 trends")
+        with st.expander("**Age-Wise Distribution**", expanded=False):
+            st.markdown("**Source:** General epidemiological patterns and NFHS-5 trends")
 
         
-        st.caption("**Applicable to:** Gender-specific prevalence , Age-group distribution )")
+        st.caption("**Applicable to:** Gender-specific prevalence, Age-group distribution")
 
     with tab3:
         treatment_data = comprehensive_analysis['treatment_patterns']
@@ -574,7 +576,7 @@ def main():
         st.markdown("---")
         st.subheader("📚 Research Sources - Treatment Patterns")
         
-        with st.expander("**Treatment Market Data **", expanded=False):
+        with st.expander("**Treatment Market Data**", expanded=False):
             for url, meta in treatment_sources.items():
                 st.markdown(f"**{meta['title']}**")
                 source_text = f"*{meta['source']}"

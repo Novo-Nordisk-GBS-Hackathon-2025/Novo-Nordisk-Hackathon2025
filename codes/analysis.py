@@ -5,7 +5,7 @@ from datetime import datetime
 
 
 st.set_page_config(
-    page_title=" Wegovy Comprehensive Market Analysis for stratergies",
+    page_title="Wegovy Comprehensive Market Analysis for strategies",
     layout="wide",
     initial_sidebar_state="collapsed",
     page_icon="🎯"
@@ -63,7 +63,7 @@ class StructuredMarketIntelligenceEngine:
             'Sikkim': {'severely_moderately_thin': 4201, 'mildly_thin': 6013, 'normal': 247273, 'overweight': 135334, 'obese': 26092}
         }
         
-        #  Using raw URLs as dictionary keys for NFHS and Treatment Sources ---
+        # Using raw URLs as dictionary keys for NFHS and Treatment Sources
         self.comprehensive_sources = {
             'nfhs5_data': {
                 'https://doi.org/10.1186/s12889-024-18784-4': 'NFHS-5 Data (Headcount/Table 2 - BMC Public Health)',
@@ -94,7 +94,7 @@ class StructuredMarketIntelligenceEngine:
             # Obesity prevalence (BMI >= 30.0) calculated directly from NFHS-5 raw counts
             obesity_percentage = (data['obese'] / total_population) * 100
             
-            
+            # Comorbidity estimates based on epidemiological associations
             diabetes_percentage = obesity_percentage * 2.1 
             hypertension_percentage = obesity_percentage * 2.3 
             
@@ -113,7 +113,7 @@ class StructuredMarketIntelligenceEngine:
         """Calculates city tier averages strictly based on NFHS-5 state data for internal consistency."""
         state_data = self._calculate_obesity_percentages_from_nfhs5()
         
-        
+        # City tier classification based on economic and infrastructure development
         tier_1_states = ['Maharashtra', 'Tamil Nadu', 'Karnataka', 'Gujarat', 'West Bengal', 'Telangana', 'Kerala', 'Delhi']
         tier_2_states = ['Punjab', 'Haryana', 'Uttarakhand', 'Himachal Pradesh', 'Goa', 'Manipur', 'Tripura']
         tier_3_states = ['Uttar Pradesh', 'Bihar', 'Rajasthan', 'Madhya Pradesh', 'Odisha', 'Assam', 'Jharkhand', 'Chhattisgarh']
@@ -135,7 +135,7 @@ class StructuredMarketIntelligenceEngine:
             'tier_3': calculate_tier_average(tier_3_states)
         }
 
-        
+        # Market penetration potential is estimated based on market assumptions (not from NFHS-5)
         return {
             'tier_1': {
                 'avg_obesity_prevalence': tier_city_calc['tier_1']['avg_obesity_prevalence'],
@@ -154,30 +154,26 @@ class StructuredMarketIntelligenceEngine:
     def scrape_gender_based_prevalence(self):
         """Pulls verified gender prevalence and age distribution."""
         
-        
-        
         # Overall prevalence figures are verified against BMC Public Health article (Table 2, 2021 data)
         gender_analysis = {
             'male_obesity': {
                 'prevalence': 4.2,  # VERIFIED: NFHS-5 2021 Male Obesity Prevalence 
                 'age_distribution': {
-                    '18-30': 8.5, '31-45': 16.2, '46-60': 21.4, '60+': 18.9 # Distribution estimated for market insight
+                    '18-30': 8.5, '31-45': 16.2, '46-60': 21.4, '60+': 18.9  # Distribution estimated for market insight
                 }
             },
             'female_obesity': {
                 'prevalence': 6.3,  # VERIFIED: NFHS-5 2021 Female Obesity Prevalence
                 'age_distribution': {
-                    '18-30': 11.2, '31-45': 19.8, '46-60': 24.1, '60+': 16.3 # Distribution estimated for market insight
+                    '18-30': 11.2, '31-45': 19.8, '46-60': 24.1, '60+': 16.3  # Distribution estimated for market insight
                 }
             }
         }
-        
         
         return gender_analysis
     
     def scrape_geographic_segmentation(self):
         """Scrape geographic segmentation data using NFHS-5 DATA and market estimates."""
-        
         
         state_obesity_data = self._calculate_obesity_percentages_from_nfhs5()
         tier_city_calc = self._calculate_tier_city_data_from_nfhs5() 
@@ -185,74 +181,69 @@ class StructuredMarketIntelligenceEngine:
         top_10_states = sorted(state_obesity_data.items(), key=lambda x: x[1]['obese_population'], reverse=True)[:10]
         top_10_state_names = [state[0] for state in top_10_states]
         
-        # estimated values so wont be using the values
-        comprehensive_districts = {
-            # Maharashtra (Rank 1)
-            'Mumbai ': {'state': 'Maharashtra', 'obesity_rate': 10.2, 'tier': 'Tier 1'},
-            'Pune': {'state': 'Maharashtra', 'obesity_rate': 9.2, 'tier': 'Tier 1'},
-            'Thane': {'state': 'Maharashtra', 'obesity_rate': 8.9, 'tier': 'Tier 1'},
-            'Nashik': {'state': 'Maharashtra', 'obesity_rate': 7.8, 'tier': 'Tier 2'},
-            'Nagpur': {'state': 'Maharashtra', 'obesity_rate': 7.5, 'tier': 'Tier 2'},
-            'Aurangabad': {'state': 'Maharashtra', 'obesity_rate': 7.2, 'tier': 'Tier 2'},
+        # DISTRICTS FROM PDF PAPER (PLoS ONE article) - only districts explicitly mentioned
+        # These are hotspot districts identified in the spatial clustering analysis
+        districts_from_paper = {
+            # Tamil Nadu districts (hotspots)
+            'Kanniyakumari': {'state': 'Tamil Nadu', 'tier': 'Tier 2'},
+            'Coimbatore': {'state': 'Tamil Nadu', 'tier': 'Tier 2'},
+            'Thiruvallur': {'state': 'Tamil Nadu', 'tier': 'Tier 2'},
+            'Kancheepuram': {'state': 'Tamil Nadu', 'tier': 'Tier 2'},
+            'Vellore': {'state': 'Tamil Nadu', 'tier': 'Tier 2'},
+            'Tiruppur': {'state': 'Tamil Nadu', 'tier': 'Tier 2'},
+            'Namakkal': {'state': 'Tamil Nadu', 'tier': 'Tier 2'},
+            'Chennai': {'state': 'Tamil Nadu', 'tier': 'Tier 1'},
+            'Theni': {'state': 'Tamil Nadu', 'tier': 'Tier 3'},
+            'Thanjavur': {'state': 'Tamil Nadu', 'tier': 'Tier 3'},
+            'Thoothukkudi': {'state': 'Tamil Nadu', 'tier': 'Tier 3'},
+            'Madurai': {'state': 'Tamil Nadu', 'tier': 'Tier 2'},
+            'Erode': {'state': 'Tamil Nadu', 'tier': 'Tier 2'},
             
-            # Tamil Nadu (Rank 2) 
-            'Chennai': {'state': 'Tamil Nadu', 'obesity_rate': 10.8, 'tier': 'Tier 1'},
-            'Coimbatore': {'state': 'Tamil Nadu', 'obesity_rate': 8.2, 'tier': 'Tier 2'},
-            'Madurai': {'state': 'Tamil Nadu', 'obesity_rate': 7.9, 'tier': 'Tier 2'},
-            'Tiruchirappalli': {'state': 'Tamil Nadu', 'obesity_rate': 7.6, 'tier': 'Tier 2'},
-            'Salem': {'state': 'Tamil Nadu', 'obesity_rate': 7.3, 'tier': 'Tier 2'},
+            # Kerala districts (hotspots)
+            'Thiruvananthapuram': {'state': 'Kerala', 'tier': 'Tier 2'},
+            'Kollam': {'state': 'Kerala', 'tier': 'Tier 3'},
+            'Pathanamthitta': {'state': 'Kerala', 'tier': 'Tier 3'},
+            'Thrissur': {'state': 'Kerala', 'tier': 'Tier 2'},
+            'Alappuzha': {'state': 'Kerala', 'tier': 'Tier 3'},
+            'Kottayam': {'state': 'Kerala', 'tier': 'Tier 3'},
             
-            # Uttar Pradesh (Rank 3)
-            'Lucknow': {'state': 'Uttar Pradesh', 'obesity_rate': 6.8, 'tier': 'Tier 2'},
-            'Kanpur': {'state': 'Uttar Pradesh', 'obesity_rate': 6.2, 'tier': 'Tier 2'},
-            'Ghaziabad': {'state': 'Uttar Pradesh', 'obesity_rate': 6.0, 'tier': 'Tier 2'},
-            'Agra': {'state': 'Uttar Pradesh', 'obesity_rate': 5.8, 'tier': 'Tier 3'},
-            'Meerut': {'state': 'Uttar Pradesh', 'obesity_rate': 5.5, 'tier': 'Tier 3'},
-            'Varanasi': {'state': 'Uttar Pradesh', 'obesity_rate': 5.2, 'tier': 'Tier 3'},
+            # Andhra Pradesh districts (hotspots, excluding Kurnool)
+            'Guntur': {'state': 'Andhra Pradesh', 'tier': 'Tier 2'},
+            'West Godavari': {'state': 'Andhra Pradesh', 'tier': 'Tier 3'},
+            'East Godavari': {'state': 'Andhra Pradesh', 'tier': 'Tier 3'},
+            'Krishna': {'state': 'Andhra Pradesh', 'tier': 'Tier 3'},
             
-            # Karnataka (Rank 4)
-            'Bengaluru Urban': {'state': 'Karnataka', 'obesity_rate': 9.8, 'tier': 'Tier 1'},
-            'Mysuru': {'state': 'Karnataka', 'obesity_rate': 8.1, 'tier': 'Tier 2'},
-            'Hubli-Dharwad': {'state': 'Karnataka', 'obesity_rate': 7.4, 'tier': 'Tier 2'},
-            'Mangaluru': {'state': 'Karnataka', 'obesity_rate': 7.1, 'tier': 'Tier 2'},
+            # Telangana districts (hotspots)
+            'Hyderabad': {'state': 'Telangana', 'tier': 'Tier 1'},
+            'Medchal-Malkajgiri': {'state': 'Telangana', 'tier': 'Tier 2'},
             
-            # Andhra Pradesh (Rank 5)
-            'Visakhapatnam': {'state': 'Andhra Pradesh', 'obesity_rate': 8.7, 'tier': 'Tier 2'},
-            'Vijayawada': {'state': 'Andhra Pradesh', 'obesity_rate': 8.3, 'tier': 'Tier 2'},
-            'Guntur': {'state': 'Andhra Pradesh', 'obesity_rate': 7.8, 'tier': 'Tier 2'},
-            'Tirupati': {'state': 'Andhra Pradesh', 'obesity_rate': 7.5, 'tier': 'Tier 2'},
+            # Punjab districts (hotspots)
+            'Sahibzada Ajit Singh': {'state': 'Punjab', 'tier': 'Tier 2'},
+            'Jalandhar': {'state': 'Punjab', 'tier': 'Tier 2'},
+            'Fatehgarh Sahib': {'state': 'Punjab', 'tier': 'Tier 3'},
+            'Ludhiana': {'state': 'Punjab', 'tier': 'Tier 2'},
+            'Rupnagar': {'state': 'Punjab', 'tier': 'Tier 3'},
+            'Patiala': {'state': 'Punjab', 'tier': 'Tier 2'},
+            'Kapurthala': {'state': 'Punjab', 'tier': 'Tier 3'},
+            'Shahid Bhagat Singh Nagar': {'state': 'Punjab', 'tier': 'Tier 3'},
+            'Amritsar': {'state': 'Punjab', 'tier': 'Tier 2'},
+            'Hoshiarpur': {'state': 'Punjab', 'tier': 'Tier 3'},
             
-            # Gujarat (Rank 6)
-            'Ahmedabad': {'state': 'Gujarat', 'obesity_rate': 8.5, 'tier': 'Tier 1'},
-            'Surat': {'state': 'Gujarat', 'obesity_rate': 8.0, 'tier': 'Tier 1'},
-            'Vadodara': {'state': 'Gujarat', 'obesity_rate': 7.7, 'tier': 'Tier 2'},
-            'Rajkot': {'state': 'Gujarat', 'obesity_rate': 7.3, 'tier': 'Tier 2'},
+            # Haryana districts (hotspots)
+            'Jhajjar': {'state': 'Haryana', 'tier': 'Tier 3'},
+            'Ambala': {'state': 'Haryana', 'tier': 'Tier 2'},
+            'Panchkula': {'state': 'Haryana', 'tier': 'Tier 2'},
             
-            # West Bengal (Rank 7)
-            'Kolkata': {'state': 'West Bengal', 'obesity_rate': 8.9, 'tier': 'Tier 1'},
-            'Howrah': {'state': 'West Bengal', 'obesity_rate': 8.1, 'tier': 'Tier 2'},
-            'Durgapur': {'state': 'West Bengal', 'obesity_rate': 7.2, 'tier': 'Tier 2'},
-            'Asansol': {'state': 'West Bengal', 'obesity_rate': 6.8, 'tier': 'Tier 2'},
+            # Gujarat districts (high-low outliers)
+            'Kachchh': {'state': 'Gujarat', 'tier': 'Tier 3'},
             
-            # Bihar (Rank 8)
-            'Patna': {'state': 'Bihar', 'obesity_rate': 5.9, 'tier': 'Tier 2'},
-            'Gaya': {'state': 'Bihar', 'obesity_rate': 4.8, 'tier': 'Tier 3'},
-            'Bhagalpur': {'state': 'Bihar', 'obesity_rate': 4.5, 'tier': 'Tier 3'},
-            'Muzaffarpur': {'state': 'Bihar', 'obesity_rate': 4.2, 'tier': 'Tier 3'},
-            
-            # Telangana (Rank 9)
-            'Hyderabad': {'state': 'Telangana', 'obesity_rate': 9.5, 'tier': 'Tier 1'},
-            'Warangal': {'state': 'Telangana', 'obesity_rate': 7.8, 'tier': 'Tier 2'},
-            'Nizamabad': {'state': 'Telangana', 'obesity_rate': 7.2, 'tier': 'Tier 2'},
-            
-            # Kerala (Rank 10)
-            'Thiruvananthapuram': {'state': 'Kerala', 'obesity_rate': 14.2, 'tier': 'Tier 2'},
-            'Kochi': {'state': 'Kerala', 'obesity_rate': 13.5, 'tier': 'Tier 2'},
-            'Kozhikode': {'state': 'Kerala', 'obesity_rate': 12.8, 'tier': 'Tier 2'},
-            'Thrissur': {'state': 'Kerala', 'obesity_rate': 12.3, 'tier': 'Tier 2'}
+            # Maharashtra districts (high-low outliers)
+            'Dhule': {'state': 'Maharashtra', 'tier': 'Tier 3'},
+            'Jalgaon': {'state': 'Maharashtra', 'tier': 'Tier 3'}
         }
         
-        filtered_districts = {k: v for k, v in comprehensive_districts.items() if v['state'] in top_10_state_names}
+        # Filter districts to only include those from top 10 states
+        filtered_districts = {k: v for k, v in districts_from_paper.items() if v['state'] in top_10_state_names}
         
         geographic_data = {
             'state_ranking': state_obesity_data,
@@ -261,22 +252,19 @@ class StructuredMarketIntelligenceEngine:
             },
             'urban_rural_comparison': {
                 'urban': {
-                    'obesity_prevalence': 6.6, # VERIFIED: Male BMI >= 30.0 prevalence (NFHS-5, Table 2)
+                    'obesity_prevalence': 6.6,  # VERIFIED: Male BMI >= 30.0 prevalence (NFHS-5, Table 2)
                 },
                 'rural': {
-                    'obesity_prevalence': 3.3, # VERIFIED: Male BMI >= 30.0 prevalence (NFHS-5, Table 2)
+                    'obesity_prevalence': 3.3,  # VERIFIED: Male BMI >= 30.0 prevalence (NFHS-5, Table 2)
                 }
             },
             'tier_city_analysis': self._calculate_tier_city_data_from_nfhs5()
         }
         
-        # Removed cache logic (no work import)
         return geographic_data
     
     def scrape_treatment_patterns(self):
-
-        
-        
+        """Retrieve treatment pattern data from verified sources."""
         
         # Retained only verified data and essential lifestyle source
         treatment_data = {
@@ -286,18 +274,17 @@ class StructuredMarketIntelligenceEngine:
             },
             'pharmacological_treatments': {
                 'glp1_agonists': {
-                    'patient_acceptance': 77.3, # VERIFIED: IOSR Journal
+                    'patient_acceptance': 77.3,  # VERIFIED: IOSR Journal
                     'market_growth_rate': 34.3,  # VERIFIED: Grand View Research CAGR 2025-2030
-                    'anti_obesity_market_value_cr': 576.0 # VERIFIED: Economic Times (Mar 2025)
+                    'anti_obesity_market_value_cr': 576.0  # VERIFIED: Economic Times (Mar 2025)
                 }
             },
             'surgical_interventions': {
                 'bariatric_surgery': {
-                    'cost_range_lakhs': '2.25-8.0', # VERIFIED
+                    'cost_range_lakhs': '2.25-8.0',  # VERIFIED
                 }
             },
         }
-        
         
         return treatment_data
     
@@ -347,7 +334,7 @@ def main():
     # Initialize engine
     intelligence_engine = StructuredMarketIntelligenceEngine()
 
-    # Custom CSS for design (Kept as provided)
+    # Custom CSS for design
     st.markdown("""
     <style>
     /* Mobile-first responsive design */
@@ -401,7 +388,7 @@ def main():
     st.markdown(
         """
         <div class="main-header">
-            <h2> A comprehensive market analysis to quantify obesity prevalence, patient profiles, and treatment patterns in India, providing data-driven insights to inform the commercial strategy for Wegovy</h2>
+            <h2>A comprehensive market analysis to quantify obesity prevalence, patient profiles, and treatment patterns in India, providing data-driven insights to inform the commercial strategy for Wegovy</h2>
             <p><strong>Analysis Areas:</strong> Geographic & Rankings • Gender • Treatment</p>
         </div>
         """,
@@ -437,12 +424,10 @@ def main():
         ranking_df = pd.DataFrame.from_dict(state_calculations, orient='index')
         ranking_df = ranking_df.sort_values('obese_patients_total', ascending=False)
         
-        
         display_ranking = ranking_df[['obese_patients_total', 'obesity_prevalence']].copy()
         display_ranking.columns = ['Obese Patients Total', 'Obesity %']
         
         st.dataframe(display_ranking, use_container_width=True)
-        
         
         st.write("**Diabetes and hypertension are critical comorbidities that drive the therapeutic market for anti-obesity medications like Wegovy.**")
         
@@ -459,22 +444,23 @@ def main():
         fig_top10.update_xaxes(tickangle=45)
         st.plotly_chart(fig_top10, use_container_width=True)
         
-        # Districts from All Top 10 States
-        st.subheader("🔝 Major Districts to target from Top 10 States ")
+        # Districts from PDF Paper (only those explicitly mentioned)
+        st.subheader("🔝 Major Districts to Target from Top 10 States (Hotspots identified in PLoS ONE study)")
         
         top_10_state_names = display_ranking.head(10).index.tolist()
-        comprehensive_districts = geographic_data['district_data']['comprehensive']
-        districts_df = pd.DataFrame.from_dict(comprehensive_districts, orient='index')
+        districts_from_paper = geographic_data['district_data']['comprehensive']
+        districts_df = pd.DataFrame.from_dict(districts_from_paper, orient='index')
         state_rank_map = {state: idx for idx, state in enumerate(top_10_state_names)}
         
         districts_df['state_rank'] = districts_df['state'].map(state_rank_map)
-        districts_df = districts_df.sort_values(['state_rank', 'obesity_rate'], ascending=[True, False])
-        
+        districts_df = districts_df.sort_values(['state_rank', 'state'], ascending=[True, True])
         
         display_districts = districts_df[['state', 'tier']].copy()
         display_districts.columns = ['State', 'City Tier']
         
         st.dataframe(display_districts, use_container_width=True)
+        
+        st.info("**Note:** These districts were identified as hotspots (high-high clusters) or outliers in the spatial clustering analysis from NFHS-5 data (PLoS ONE study).")
         
         # Urban vs Rural Distribution Details (Only showing verified prevalence)
         st.subheader("🏙️ Urban vs Rural Comparison (NFHS-5 Prevalence)")
@@ -494,10 +480,9 @@ def main():
         fig_urban_rural.update_layout(showlegend=False, xaxis_title='Area Type', yaxis_title='Obesity Prevalence (%)', title_x=0.5)
         st.plotly_chart(fig_urban_rural, use_container_width=True)
         
-        # City Tier Analysis
+        # City Tier Analysis - CHANGED FROM LINE CHART TO BAR CHART
         st.subheader("🎯 City Tier Market Penetration Potential (Market Assumption)")
         tier_data = geographic_data['tier_city_analysis']
-        
         
         tier_df_combined = pd.DataFrame([
             ['Tier 1', tier_data['tier_1']['market_penetration_potential']],
@@ -505,26 +490,30 @@ def main():
             ['Tier 3', tier_data['tier_3']['market_penetration_potential']]
         ], columns=['City Tier', 'Market Penetration Potential (%)'])
         
-        
+        # Categorical ordering for better visualization
         tier_order = ['Tier 1', 'Tier 2', 'Tier 3']
         tier_df_combined['City Tier'] = pd.Categorical(tier_df_combined['City Tier'], categories=tier_order, ordered=True)
         tier_df_combined = tier_df_combined.sort_values('City Tier')
         
+        # CHANGED: Using BAR CHART instead of LINE CHART for categorical tier data
+        fig_tier = px.bar(tier_df_combined, 
+                          x='City Tier', 
+                          y='Market Penetration Potential (%)', 
+                          title='City Tier Market Penetration Potential (Estimated)', 
+                          color_discrete_sequence=['#1f77b4'],
+                          height=400,
+                          text='Market Penetration Potential (%)')
         
-        fig_tier = px.line(tier_df_combined, 
-                           x='City Tier', 
-                           y='Market Penetration Potential (%)', 
-                           title='City Tier Market Penetration Potential', 
-                           color_discrete_sequence=['#1f77b4'],
-                           markers=True, 
-                           height=400)
-        
+        fig_tier.update_traces(texttemplate='%{text}%', textposition='outside')
         fig_tier.update_layout(
             yaxis_title='Market Penetration Potential (%)',
-            hovermode="x unified"
+            xaxis_title='City Tier',
+            yaxis_range=[0, 100]
         )
         
         st.plotly_chart(fig_tier, use_container_width=True)
+        
+        st.info("**Note:** Market penetration potential values are estimated based on market assumptions regarding healthcare access, affordability, and awareness in different tier cities.")
         
         # Sources
         st.markdown(f"""
@@ -532,8 +521,9 @@ def main():
             <h3 style="margin-top: 0;">Data Sources - Geographic & Rankings</h3>
             <ul>
                 <li><strong>NFHS-5 Data (Headcount/Table 2 - BMC Public Health):</strong> <a href="{list(nfhs_source_urls.keys())[0]}" target="_blank">{list(nfhs_source_urls.keys())[0]}</a></li>
-                <li><strong>NFHS-5 Data (Spatial Clustering/Hotspots (PLoS ONE):</strong> <a href="{list(nfhs_source_urls.keys())[1]}" target="_blank">{list(nfhs_source_urls.keys())[1]}</a></li>
+                <li><strong>NFHS-5 Data (Spatial Clustering/Hotspots - PLoS ONE):</strong> <a href="{list(nfhs_source_urls.keys())[1]}" target="_blank">{list(nfhs_source_urls.keys())[1]}</a></li>
             </ul>
+            <p><strong>Applicable to:</strong> State obesity prevalence, district hotspot identification, urban/rural comparison, obese patient counts</p>
         </div>
         """, unsafe_allow_html=True)
         
@@ -568,6 +558,8 @@ def main():
                          color_discrete_map={'Male Prevalence (%)': '#1f77b4', 'Female Prevalence (%)': '#ff7f0e'},
                          height=400)
         st.plotly_chart(fig_age, use_container_width=True)
+        
+        st.info("**Note:** Age-wise distribution is estimated for market segmentation insights based on general epidemiological patterns.")
 
         # Sources (Only NFHS data is used here)
         st.markdown(f"""
@@ -575,8 +567,9 @@ def main():
             <h3 style="margin-top: 0;">Data Sources - Gender & Age</h3>
             <ul>
                 <li><strong>Gender Prevalence Source (BMC Public Health):</strong> <a href="{list(nfhs_source_urls.keys())[0]}" target="_blank">{list(nfhs_source_urls.keys())[0]}</a></li>
-                <li><strong>Age Distribution & Segmentation:</strong> Derived market intelligence from NFHS-5 trends and general epidemiological patterns.</li>
+                <li><strong>Age Distribution & Segmentation:</strong> Derived market intelligence from NFHS-5 trends and general epidemiological patterns (estimated for market insights).</li>
             </ul>
+            <p><strong>Applicable to:</strong> Male/female obesity prevalence rates</p>
         </div>
         """, unsafe_allow_html=True)
 
@@ -594,24 +587,24 @@ def main():
         st.markdown("## 💊 Treatment Options: Market Dynamics")
         st.markdown(f"*The Anti-Obesity Drug (AOD) Market grew fourfold to **₹{treatment_data['pharmacological_treatments']['glp1_agonists']['anti_obesity_market_value_cr']} Crore** (Mar 2025).*")
         
-        #  Lifestyle Intervention with verified source context (using raw link) ---
+        # Lifestyle Intervention with verified source context
         st.subheader("🍎 Lifestyle Interventions")
         st.markdown(f"""
-        **Comprehensive lifestyle interventions** are the **foundational treatment** for obesity which includes diet,gym etc.
+        **Comprehensive lifestyle interventions** are the **foundational treatment** for obesity which includes diet, gym, etc.
         """)
         
-        #  GLP-1 growth rate and acceptance
+        # GLP-1 growth rate and acceptance
         st.subheader(f"💉 GLP-1 Agonists (Market Growth: **{treatment_data['pharmacological_treatments']['glp1_agonists']['market_growth_rate']}%** CAGR)")
-        st.write(f"Patient Acceptance (Openness to New Therapies): **{treatment_data['pharmacological_treatments']['glp1_agonists']['patient_acceptance']}%** ")
+        st.write(f"Patient Acceptance (Openness to New Therapies): **{treatment_data['pharmacological_treatments']['glp1_agonists']['patient_acceptance']}%**")
         
-        #  Bariatric Surgery cost
+        # Bariatric Surgery cost
         st.subheader("🔪 Bariatric Surgery")
         st.write(f"Cost Range: **₹{treatment_data['surgical_interventions']['bariatric_surgery']['cost_range_lakhs']} lakhs**")
         
         # Sources
         st.markdown(f"""
         <div class="sources-section">
-            <h4>📍 Research Sources </h4>
+            <h4>📍 Research Sources</h4>
             <ul>
                 <li><strong>AOD Market Value/Pricing:</strong> <a href="{url_et}" target="_blank">{url_et}</a></li>
                 <li><strong>Market Growth Rate (CAGR):</strong> <a href="{url_gvr}" target="_blank">{url_gvr}</a></li>
@@ -619,6 +612,7 @@ def main():
                 <li><strong>Bariatric Surgery Cost:</strong> <a href="{url_nobesity}" target="_blank">{url_nobesity}</a></li>
                 <li><strong>Lifestyle Intervention (Clinical Basis):</strong> <a href="{url_frontiers}" target="_blank">{url_frontiers}</a></li>
             </ul>
+            <p><strong>Applicable to:</strong> Treatment market data, GLP-1 market growth, patient acceptance rates, treatment costs</p>
         </div>
         """, unsafe_allow_html=True)
 

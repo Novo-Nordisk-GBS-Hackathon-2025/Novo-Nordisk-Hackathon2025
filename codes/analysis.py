@@ -547,18 +547,6 @@ def main():
         display_districts.columns = ['State', 'City Tier']
         
         st.dataframe(display_districts, use_container_width=True)
-        
-        # Summary stats for districts
-        col1, col2, col3 = st.columns(3)
-        with col1:
-            st.metric("Total Target Districts", len(display_districts))
-        with col2:
-            tier_1_count = len(display_districts[display_districts['City Tier'] == 'Tier 1'])
-            st.metric("Tier 1 Districts", tier_1_count)
-        with col3:
-            hotspot_states = ['Tamil Nadu', 'Kerala', 'Andhra Pradesh', 'Telangana', 'Punjab', 'Haryana']
-            hotspot_count = len(display_districts[display_districts['State'].isin(hotspot_states)])
-            st.metric("Obesity Hotspot Districts", hotspot_count)
     
         
         st.subheader("🏙️ Urban vs Rural Comparison")

@@ -128,20 +128,20 @@ Focus on Tier 1 & Tier 2 cities, with high opportunity in these top states:
 - Patients: Individuals seeking medically supervised, long-term weight management solutions.
 
 # 🧩 Strategic Recommendations
-1. 🩺 Obesity Awareness Initiatives
+### 1. 🩺 Obesity Awareness Initiatives
 - Free Health Camps: BMI checks, basic tests, brochures, and family history screening.
 - VR Awareness Campaign: Immersive “life with poor health choices” experience.
 - Social Media Posters: Shareable visuals promoting healthy lifestyles.
 
-2. 🎓 Conferences & Workshops
+### 2. 🎓 Conferences & Workshops
 - Obesity Summits: Partner with IMA, RSSDI, and Endocrine Society of India.
 - Clinical Workshops: Train HCPs on eligibility, dosage, adherence, and side-effect management with visual transformation demos.
 
-3. 📱 Smart Wellness App & AI Chatbot
+### 3. 📱 Smart Wellness App & AI Chatbot
 - Features: Track weight, provide AI guidance, connect to doctors, send reminders, and log lifestyle feedback.
 - Retention: Launch “Wegovy Care” — weekly consultations, dietitian calls, dose reminders, and reward points.
 
-4. 💡 Other Strategies & Incentives
+### 4. 💡 Other Strategies & Incentives
 - Influencer Collaborations: Promote obesity awareness and modern solutions.
 - HCP Recognition: Awards and speaking opportunities at Novo Nordisk forums.
 - Patient Adherence Rewards: Points for milestones (3M, 6M, 1Y).

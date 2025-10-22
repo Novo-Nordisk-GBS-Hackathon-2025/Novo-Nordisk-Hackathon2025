@@ -25,7 +25,7 @@ class StructuredMarketIntelligenceEngine:
             'Chandigarh': 1.2, 'Puducherry': 1.4, 'Jammu and Kashmir': 13.6, 'Ladakh': 0.3
         }
         
-        # NFHS-5 BMI DATA - Source: "Temporal change in prevalence of BMI categories in India: patterns across States and Union territories of India, 1999–2021" (BMC Public Health, 2024)
+        # NFHS-5 BMI DATA - Source: BMC Public Health 2024
         self.nfhs5_bmi_data = {
             'India': {'severely_moderately_thin': 29412236, 'mildly_thin': 50021199, 'normal': 389110427, 'overweight': 137188470, 'obese': 37599029},
             'Maharashtra': {'severely_moderately_thin': 4230340, 'mildly_thin': 6131973, 'normal': 49760521, 'overweight': 17946442, 'obese': 4676538},
@@ -60,89 +60,42 @@ class StructuredMarketIntelligenceEngine:
             'Sikkim': {'severely_moderately_thin': 4201, 'mildly_thin': 6013, 'normal': 247273, 'overweight': 135334, 'obese': 26092}
         }
         
-        # Comprehensive sources with metadata
         self.comprehensive_sources = {
             'nfhs5_data': {
                 'https://doi.org/10.1186/s12889-024-18784-4': {
-                    'title': 'Temporal change in prevalence of BMI categories in India (NFHS-5)',
+                    'title': 'Temporal change in prevalence of BMI categories in India: patterns across States and Union territories of India, 1999–2021',
                     'journal': 'BMC Public Health',
-                    'year': 2024,
-                    'applicable_to': ['State obesity prevalence', 'Obese patient counts', 'Gender obesity prevalence', 'Urban/rural comparison']
+                    'year': 2024
                 },
                 'https://doi.org/10.1371/journal.pone.0305205': {
-                    'title': 'Spatial clustering of overweight/obesity among women in India (NFHS-5)',
+                    'title': 'Spatial clustering of overweight/obesity among women in India: Insights from the latest National Family Health Survey',
                     'journal': 'PLoS ONE',
-                    'year': 2024,
-                    'applicable_to': ['District hotspot identification', 'Spatial clustering analysis', 'High-high cluster districts']
+                    'year': 2024
                 },
             },
             'treatment_patterns': {
                 'https://www.grandviewresearch.com/industry-analysis/india-glp-1-receptor-agonist-market-report': {
                     'title': 'India GLP-1 Receptor Agonist Market Report',
-                    'source': 'Grand View Research',
-                    'applicable_to': ['GLP-1 Market Growth Rate 34.3% CAGR (2025-2030)']
+                    'source': 'Grand View Research'
                 },
                 'https://m.economictimes.com/industry/healthcare/biotech/pharmaceuticals/a-big-fat-fight-has-just-broken-out-in-india/articleshow/122049705.cms': {
-                    'title': 'Anti-Obesity Drug Market in India',
+                    'title': 'Anti-Obesity Drug Market Analysis',
                     'source': 'Economic Times',
-                    'year': 2025,
-                    'applicable_to': ['AOD Market Value ₹576 Crore (March 2025)']
+                    'year': 2025
                 },
                 'https://www.iosrjournals.org/iosr-jpbs/papers/Vol19-issue6/Ser-2/L1906027179.pdf': {
-                    'title': 'Patient Acceptance of New Obesity Therapies',
-                    'source': 'IOSR Journal of Pharmacy and Biological Sciences',
-                    'applicable_to': ['Patient Openness 77.3%']
+                    'title': 'Patient Acceptance of Obesity Therapies',
+                    'source': 'IOSR Journal'
                 },
                 'https://nobesity.in/weight-loss-surgery-cost-in-india/': {
                     'title': 'Bariatric Surgery Cost in India',
-                    'source': 'Nobesity India',
-                    'applicable_to': ['Surgery Cost Range ₹2.25-8.0 lakhs']
+                    'source': 'Nobesity India'
                 },
                 'https://www.frontiersin.org/journals/endocrinology/articles/10.3389/fendo.2024.1382814/full': {
-                    'title': 'Lifestyle Interventions for Obesity Management',
+                    'title': 'Lifestyle Interventions for Obesity',
                     'source': 'Frontiers in Endocrinology',
-                    'year': 2024,
-                    'applicable_to': ['Clinical basis for lifestyle interventions']
+                    'year': 2024
                 },
-            },
-            'market_assumptions': {
-                'state_populations': {
-                    'source': 'Census 2011',
-                    'applicable_to': ['State population figures (millions)']
-                },
-                'comorbidity_multipliers': {
-                    'sources': [
-                        'https://bmjopen.bmj.com/content/12/7/e052822 (Das et al., 2022)',
-                        'https://www.nature.com/articles/s41598-023-29276-7 (Yamada et al., 2023)'
-                    ],
-                    'applicable_to': ['Diabetes multiplier (2.1×)', 'Hypertension multiplier (2.3×)'],
-                    'note': 'Epidemiological associations from peer-reviewed studies on obesity-comorbidity risks'
-                },
-                'tier_city_classification': {
-                    'sources': [
-                        'https://invest.up.gov.in/wp-content/uploads/2023/06/decoding_270623.pdf',
-                        'https://www.360realtors.com/blog/post/understanding-indian-city-classification-in-tier-i-ii-iii-and-iv-blid749'
-                    ],
-                    'criteria': ['Population size', 'Economic development (GDP, per capita income)', 'Infrastructure (hospital beds, transport)', 'Educational & healthcare facilities'],
-                    'applicable_to': ['City tier assignments (Tier 1/2/3)']
-                },
-                'market_penetration_potential': {
-                    'sources': [
-                        'https://socialchamps.com/marketing-healthcare-services-in-tier-2-3-indian-cities-strategies-for-2025/',
-                        'https://www.expresshealthcare.in/news/transforming-healthcare-in-tier-2-tier-3-cities-with-health-it/447241/',
-                        'https://prc.mohfw.gov.in/fileDownload?fileName=Health+Insurance+Coverage+in+India+Insights+for+National+Health+Protection+Scheme.pdf'
-                    ],
-                    'methodology': 'Weighted scoring model based on: Healthcare infrastructure (30%), Insurance coverage (25%), Digital awareness (20%), Specialty clinics (15%), Physician density (10%)',
-                    'tier_1': {'penetration': '85%', 'insurance': '75%', 'internet': '82%', 'hospital_beds': '2.7-3.0 per 1000'},
-                    'tier_2': {'penetration': '58%', 'insurance': '50%', 'internet': '65%', 'hospital_beds': '0.8-1.2 per 1000'},
-                    'tier_3': {'penetration': '28%', 'insurance': '30%', 'internet': '50%', 'hospital_beds': '0.8-1.2 per 1000'},
-                    'applicable_to': ['Market penetration potential estimates (85%, 58%, 28%)']
-                },
-                'age_distribution': {
-                    'source': 'Estimated from general epidemiological patterns and NFHS-5 trends',
-                    'note': 'Age-wise distribution is modeled for market segmentation, not directly from NFHS-5',
-                    'applicable_to': ['Age-wise obesity prevalence by gender']
-                }
             }
         }
     
@@ -159,8 +112,6 @@ class StructuredMarketIntelligenceEngine:
                 continue
 
             obesity_percentage = (data['obese'] / total_population) * 100
-            
-            # Comorbidity multipliers from epidemiological studies (Das et al., 2022; Yamada et al., 2023)
             diabetes_percentage = obesity_percentage * 2.1 
             hypertension_percentage = obesity_percentage * 2.3 
             
@@ -179,7 +130,6 @@ class StructuredMarketIntelligenceEngine:
         """Calculates city tier averages strictly based on NFHS-5 state data for internal consistency."""
         state_data = self._calculate_obesity_percentages_from_nfhs5()
         
-        # City tier classification based on official criteria (population, GDP, infrastructure)
         tier_1_states = ['Maharashtra', 'Tamil Nadu', 'Karnataka', 'Gujarat', 'West Bengal', 'Telangana', 'Kerala', 'Delhi']
         tier_2_states = ['Punjab', 'Haryana', 'Uttarakhand', 'Himachal Pradesh', 'Goa', 'Manipur', 'Tripura']
         tier_3_states = ['Uttar Pradesh', 'Bihar', 'Rajasthan', 'Madhya Pradesh', 'Odisha', 'Assam', 'Jharkhand', 'Chhattisgarh']
@@ -201,7 +151,6 @@ class StructuredMarketIntelligenceEngine:
             'tier_3': calculate_tier_average(tier_3_states)
         }
 
-        # Market penetration potential estimated from healthcare infrastructure research
         return {
             'tier_1': {
                 'avg_obesity_prevalence': tier_city_calc['tier_1']['avg_obesity_prevalence'],
@@ -222,15 +171,15 @@ class StructuredMarketIntelligenceEngine:
         
         gender_analysis = {
             'male_obesity': {
-                'prevalence': 4.2,  # VERIFIED: NFHS-5 2021 Male Obesity Prevalence (BMC Public Health, Table 2)
+                'prevalence': 4.2,
                 'age_distribution': {
-                    '18-30': 8.5, '31-45': 16.2, '46-60': 21.4, '60+': 18.9  # Estimated for market segmentation
+                    '18-30': 8.5, '31-45': 16.2, '46-60': 21.4, '60+': 18.9
                 }
             },
             'female_obesity': {
-                'prevalence': 6.3,  # VERIFIED: NFHS-5 2021 Female Obesity Prevalence (BMC Public Health, Table 2)
+                'prevalence': 6.3,
                 'age_distribution': {
-                    '18-30': 11.2, '31-45': 19.8, '46-60': 24.1, '60+': 16.3  # Estimated for market segmentation
+                    '18-30': 11.2, '31-45': 19.8, '46-60': 24.1, '60+': 16.3
                 }
             }
         }
@@ -246,10 +195,7 @@ class StructuredMarketIntelligenceEngine:
         top_10_states = sorted(state_obesity_data.items(), key=lambda x: x[1]['obese_population'], reverse=True)[:10]
         top_10_state_names = [state[0] for state in top_10_states]
         
-        # DISTRICTS FROM "Spatial clustering of overweight/obesity among women in India" (PLoS ONE, 2024)
-        # Only districts explicitly mentioned as hotspots in spatial clustering analysis
         districts_from_paper = {
-            # Tamil Nadu districts (high-high clusters)
             'Kanniyakumari': {'state': 'Tamil Nadu', 'tier': 'Tier 2'},
             'Coimbatore': {'state': 'Tamil Nadu', 'tier': 'Tier 2'},
             'Thiruvallur': {'state': 'Tamil Nadu', 'tier': 'Tier 2'},
@@ -263,26 +209,18 @@ class StructuredMarketIntelligenceEngine:
             'Thoothukkudi': {'state': 'Tamil Nadu', 'tier': 'Tier 3'},
             'Madurai': {'state': 'Tamil Nadu', 'tier': 'Tier 2'},
             'Erode': {'state': 'Tamil Nadu', 'tier': 'Tier 2'},
-            
-            # Kerala districts (high-high clusters)
             'Thiruvananthapuram': {'state': 'Kerala', 'tier': 'Tier 2'},
             'Kollam': {'state': 'Kerala', 'tier': 'Tier 3'},
             'Pathanamthitta': {'state': 'Kerala', 'tier': 'Tier 3'},
             'Thrissur': {'state': 'Kerala', 'tier': 'Tier 2'},
             'Alappuzha': {'state': 'Kerala', 'tier': 'Tier 3'},
             'Kottayam': {'state': 'Kerala', 'tier': 'Tier 3'},
-            
-            # Andhra Pradesh districts (high-high clusters, Kurnool excluded as per paper)
             'Guntur': {'state': 'Andhra Pradesh', 'tier': 'Tier 2'},
             'West Godavari': {'state': 'Andhra Pradesh', 'tier': 'Tier 3'},
             'East Godavari': {'state': 'Andhra Pradesh', 'tier': 'Tier 3'},
             'Krishna': {'state': 'Andhra Pradesh', 'tier': 'Tier 3'},
-            
-            # Telangana districts (high-high clusters)
             'Hyderabad': {'state': 'Telangana', 'tier': 'Tier 1'},
             'Medchal-Malkajgiri': {'state': 'Telangana', 'tier': 'Tier 2'},
-            
-            # Punjab districts (high-high clusters)
             'Sahibzada Ajit Singh': {'state': 'Punjab', 'tier': 'Tier 2'},
             'Jalandhar': {'state': 'Punjab', 'tier': 'Tier 2'},
             'Fatehgarh Sahib': {'state': 'Punjab', 'tier': 'Tier 3'},
@@ -293,16 +231,10 @@ class StructuredMarketIntelligenceEngine:
             'Shahid Bhagat Singh Nagar': {'state': 'Punjab', 'tier': 'Tier 3'},
             'Amritsar': {'state': 'Punjab', 'tier': 'Tier 2'},
             'Hoshiarpur': {'state': 'Punjab', 'tier': 'Tier 3'},
-            
-            # Haryana districts (high-high clusters)
             'Jhajjar': {'state': 'Haryana', 'tier': 'Tier 3'},
             'Ambala': {'state': 'Haryana', 'tier': 'Tier 2'},
             'Panchkula': {'state': 'Haryana', 'tier': 'Tier 2'},
-            
-            # Gujarat districts (high-low outliers per paper)
             'Kachchh': {'state': 'Gujarat', 'tier': 'Tier 3'},
-            
-            # Maharashtra districts (high-low outliers per paper)
             'Dhule': {'state': 'Maharashtra', 'tier': 'Tier 3'},
             'Jalgaon': {'state': 'Maharashtra', 'tier': 'Tier 3'}
         }
@@ -315,12 +247,8 @@ class StructuredMarketIntelligenceEngine:
                 'comprehensive': filtered_districts
             },
             'urban_rural_comparison': {
-                'urban': {
-                    'obesity_prevalence': 6.6,  # VERIFIED: Urban BMI >= 30.0 (NFHS-5, BMC Public Health Table 2)
-                },
-                'rural': {
-                    'obesity_prevalence': 3.3,  # VERIFIED: Rural BMI >= 30.0 (NFHS-5, BMC Public Health Table 2)
-                }
+                'urban': {'obesity_prevalence': 6.6},
+                'rural': {'obesity_prevalence': 3.3}
             },
             'tier_city_analysis': self._calculate_tier_city_data_from_nfhs5()
         }
@@ -336,14 +264,14 @@ class StructuredMarketIntelligenceEngine:
             },
             'pharmacological_treatments': {
                 'glp1_agonists': {
-                    'patient_acceptance': 77.3,  # IOSR Journal
-                    'market_growth_rate': 34.3,  # Grand View Research
-                    'anti_obesity_market_value_cr': 576.0  # Economic Times (Mar 2025)
+                    'patient_acceptance': 77.3,
+                    'market_growth_rate': 34.3,
+                    'anti_obesity_market_value_cr': 576.0
                 }
             },
             'surgical_interventions': {
                 'bariatric_surgery': {
-                    'cost_range_lakhs': '2.25-8.0',  # Nobesity India
+                    'cost_range_lakhs': '2.25-8.0',
                 }
             },
         }
@@ -422,20 +350,8 @@ def main():
         box-shadow: 0 15px 50px rgba(0,0,0,0.3);
     }
 
-    .sources-section {
-        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-        padding: 1.5rem;
-        border-radius: 10px;
-        margin-top: 2rem;
-        border-left: 4px solid #007bff;
-    }
-
-    .sources-section a { color: #007bff; text-decoration: none; }
-    .sources-section a:hover { color: #0056b3; text-decoration: underline; }
-
     @media (max-width: 768px) {
         .main-header { padding: 1.5rem; margin-bottom: 1.5rem; }
-        .sources-section { padding: 1rem; margin-top: 1rem; }
     }
     </style>
     """, unsafe_allow_html=True)
@@ -461,7 +377,6 @@ def main():
 
     nfhs_sources = intelligence_engine.comprehensive_sources['nfhs5_data']
     treatment_sources = intelligence_engine.comprehensive_sources['treatment_patterns']
-    market_assumptions = intelligence_engine.comprehensive_sources['market_assumptions']
 
     with tab1:
         st.markdown("## 🗺️ Geographic Analysis & State Rankings")
@@ -509,7 +424,7 @@ def main():
         
         st.dataframe(display_districts, use_container_width=True)
         
-        st.info("**Note:** These 41 districts were identified as hotspots (high-high clusters) or outliers in 'Spatial clustering of overweight/obesity among women in India' (PLoS ONE, 2024) using Global Moran's I and Anselin's Local Moran's I spatial analysis.")
+        st.info("**Note:** These 41 districts were identified as hotspots (high-high clusters) or outliers in spatial clustering analysis using Global Moran's I and Anselin's Local Moran's I from NFHS-5 data (PLoS ONE, 2024).")
         
         st.subheader("🏙️ Urban vs Rural Comparison")
 
@@ -558,43 +473,43 @@ def main():
         
         st.plotly_chart(fig_tier, use_container_width=True)
         
-        st.info(f"""**Market Penetration Methodology:** Weighted scoring model based on healthcare infrastructure (30%), insurance coverage (25%), digital awareness (20%), specialty clinics (15%), and physician density (10%).
-        
+        st.info("""**Market Penetration Methodology:** Weighted scoring model based on healthcare infrastructure (30%), insurance coverage (25%), digital awareness (20%), specialty clinics (15%), and physician density (10%).
+
 **Tier 1 (85%):** Insurance 75% | Internet 82% | Hospital beds 2.7-3.0/1000  
 **Tier 2 (58%):** Insurance 50% | Internet 65% | Hospital beds 0.8-1.2/1000  
 **Tier 3 (28%):** Insurance 30% | Internet 50% | Hospital beds 0.8-1.2/1000""")
         
-        st.markdown(f"""
-        <div class="sources-section">
-            <h3 style="margin-top: 0;">📚 Data Sources - Geographic & Rankings</h3>
+        # SOURCES SECTION - STREAMLIT NATIVE
+        st.markdown("---")
+        st.subheader("📚 Data Sources - Geographic & Rankings")
+        
+        with st.expander("**NFHS-5 Data Sources (Verified)**", expanded=False):
+            for url, meta in nfhs_sources.items():
+                st.markdown(f"**{meta['title']}**")
+                st.markdown(f"*{meta['journal']}, {meta['year']}*")
+                st.markdown(f"[{url}]({url})")
+                st.markdown("")
+        
+        with st.expander("**Market Assumptions & Estimates**", expanded=False):
+            st.markdown("**State Population Figures:** Census 2011")
+            st.markdown("")
             
-            <h4>NFHS-5 Data Sources:</h4>
-            <ul>
-                <li><strong>BMI Headcount Data & Gender Prevalence:</strong> <a href="{list(nfhs_sources.keys())[0]}" target="_blank">Temporal change in prevalence of BMI categories in India: patterns across States and Union territories of India, 1999–2021 (BMC Public Health, 2024)</a></li>
-                <li><strong>District Hotspots & Spatial Clustering:</strong> <a href="{list(nfhs_sources.keys())[1]}" target="_blank">Spatial clustering of overweight/obesity among women in India: Insights from the latest National Family Health Survey (PLoS ONE, 2024)</a></li>
-            </ul>
+            st.markdown("**Comorbidity Multipliers (Diabetes 2.1×, Hypertension 2.3×):**")
+            st.markdown("- [Das et al., 2022 - Association of overweight and obesity with hypertension, diabetes and comorbidity](https://bmjopen.bmj.com/content/12/7/e052822)")
+            st.markdown("- [Yamada et al., 2023 - Obesity and risk for its comorbidities](https://www.nature.com/articles/s41598-023-29276-7)")
+            st.markdown("")
             
-            <h4>Market Assumptions & Estimates:</h4>
-            <ul>
-                <li><strong>State Population Figures:</strong> {market_assumptions['state_populations']['source']}</li>
-                <li><strong>Comorbidity Multipliers (Diabetes 2.1×, Hypertension 2.3×):</strong> 
-                    <br>• <a href="https://bmjopen.bmj.com/content/12/7/e052822" target="_blank">Das et al., 2022 - Association of overweight and obesity with hypertension, diabetes and comorbidity</a>
-                    <br>• <a href="https://www.nature.com/articles/s41598-023-29276-7" target="_blank">Yamada et al., 2023 - Obesity and risk for its comorbidities</a>
-                </li>
-                <li><strong>City Tier Classification Criteria:</strong> 
-                    <br>• <a href="https://invest.up.gov.in/wp-content/uploads/2023/06/decoding_270623.pdf" target="_blank">Decoding Indian Cities Classifications (Uttar Pradesh Investment Portal)</a>
-                    <br>• <a href="https://www.360realtors.com/blog/post/understanding-indian-city-classification-in-tier-i-ii-iii-and-iv-blid749" target="_blank">Understanding Indian city classification (360 Realtors, 2024)</a>
-                </li>
-                <li><strong>Market Penetration Potential (85%, 58%, 28%):</strong> 
-                    <br>• <a href="https://socialchamps.com/marketing-healthcare-services-in-tier-2-3-indian-cities-strategies-for-2025/" target="_blank">Marketing Healthcare Services in Tier 2 & 3 Indian Cities (SocialChamps, 2025)</a>
-                    <br>• <a href="https://www.expresshealthcare.in/news/transforming-healthcare-in-tier-2-tier-3-cities-with-health-it/447241/" target="_blank">Transforming healthcare in tier 2 & tier 3 cities with health IT (Express Healthcare, 2024)</a>
-                    <br>• <a href="https://prc.mohfw.gov.in/fileDownload?fileName=Health+Insurance+Coverage+in+India+Insights+for+National+Health+Protection+Scheme.pdf" target="_blank">Health Insurance Coverage in India (Ministry of Health & Family Welfare)</a>
-                </li>
-            </ul>
+            st.markdown("**City Tier Classification:**")
+            st.markdown("- [Decoding Indian Cities Classifications (UP Investment Portal)](https://invest.up.gov.in/wp-content/uploads/2023/06/decoding_270623.pdf)")
+            st.markdown("- [Understanding Indian city classification (360 Realtors, 2024)](https://www.360realtors.com/blog/post/understanding-indian-city-classification-in-tier-i-ii-iii-and-iv-blid749)")
+            st.markdown("")
             
-            <p><strong>Applicable to:</strong> State obesity prevalence, district hotspot identification, urban/rural comparison, obese patient counts, comorbidity estimates, city tier assignments, market penetration potential</p>
-        </div>
-        """, unsafe_allow_html=True)
+            st.markdown("**Market Penetration Potential (85%, 58%, 28%):**")
+            st.markdown("- [Marketing Healthcare Services in Tier 2 & 3 Cities (SocialChamps, 2025)](https://socialchamps.com/marketing-healthcare-services-in-tier-2-3-indian-cities-strategies-for-2025/)")
+            st.markdown("- [Transforming healthcare in tier 2 & 3 cities (Express Healthcare, 2024)](https://www.expresshealthcare.in/news/transforming-healthcare-in-tier-2-tier-3-cities-with-health-it/447241/)")
+            st.markdown("- [Health Insurance Coverage in India (Ministry of Health & Family Welfare)](https://prc.mohfw.gov.in/fileDownload?fileName=Health+Insurance+Coverage+in+India+Insights+for+National+Health+Protection+Scheme.pdf)")
+        
+        st.caption("**Applicable to:** State obesity prevalence, district hotspots, urban/rural comparison, comorbidity estimates, city tier assignments, market penetration")
         
     with tab2:
         st.markdown("## 👥 Gender & Age Segmentation")
@@ -628,35 +543,34 @@ def main():
                          height=400)
         st.plotly_chart(fig_age, use_container_width=True)
         
-        st.info("**Note:** Age-wise distribution is estimated for market segmentation insights based on general epidemiological patterns and NFHS-5 trends, not directly measured in the survey.")
+        st.info("**Note:** Age-wise distribution is estimated for market segmentation based on general epidemiological patterns and NFHS-5 trends, not directly measured.")
 
-        st.markdown(f"""
-        <div class="sources-section">
-            <h3 style="margin-top: 0;">📚 Data Sources - Gender & Age</h3>
-            <ul>
-                <li><strong>Gender Obesity Prevalence (Male 4.2%, Female 6.3%):</strong> <a href="{list(nfhs_sources.keys())[0]}" target="_blank">Temporal change in prevalence of BMI categories in India (BMC Public Health, 2024, Table 2)</a></li>
-                <li><strong>Age-Wise Distribution:</strong> {market_assumptions['age_distribution']['source']} - {market_assumptions['age_distribution']['note']}</li>
-            </ul>
-            <p><strong>Applicable to:</strong> Gender-specific obesity prevalence rates (verified), Age-group distribution (estimated)</p>
-        </div>
-        """, unsafe_allow_html=True)
+        # SOURCES SECTION - STREAMLIT NATIVE
+        st.markdown("---")
+        st.subheader("📚 Data Sources - Gender & Age")
+        
+        with st.expander("**Gender Obesity Prevalence (Verified)**", expanded=False):
+            meta = list(nfhs_sources.values())[0]
+            st.markdown(f"**{meta['title']}**")
+            st.markdown(f"*{meta['journal']}, {meta['year']}*")
+            st.markdown(f"[{list(nfhs_sources.keys())[0]}]({list(nfhs_sources.keys())[0]})")
+            st.markdown("")
+            st.markdown("**Data:** Male 4.2%, Female 6.3% (Table 2)")
+        
+        with st.expander("**Age-Wise Distribution (Estimated)**", expanded=False):
+            st.markdown("**Source:** Estimated from general epidemiological patterns and NFHS-5 trends")
+            st.markdown("**Note:** Age-wise distribution is modeled for market segmentation, not directly from NFHS-5")
+        
+        st.caption("**Applicable to:** Gender-specific prevalence (verified), Age-group distribution (estimated)")
 
     with tab3:
         treatment_data = comprehensive_analysis['treatment_patterns']
-        
-        url_et = list(filter(lambda k: 'economictimes' in k, treatment_sources.keys()))[0]
-        url_gvr = list(filter(lambda k: 'grandviewresearch' in k, treatment_sources.keys()))[0]
-        url_iosr = list(filter(lambda k: 'iosrjournals' in k, treatment_sources.keys()))[0]
-        url_nobesity = list(filter(lambda k: 'nobesity' in k, treatment_sources.keys()))[0]
-        url_frontiers = list(filter(lambda k: 'frontiersin' in k, treatment_sources.keys()))[0]
 
         st.markdown("## 💊 Treatment Options: Market Dynamics")
         st.markdown(f"*The Anti-Obesity Drug (AOD) Market grew fourfold to **₹{treatment_data['pharmacological_treatments']['glp1_agonists']['anti_obesity_market_value_cr']} Crore** (Mar 2025).*")
         
         st.subheader("🍎 Lifestyle Interventions")
-        st.markdown(f"""
-        **Comprehensive lifestyle interventions** are the **foundational treatment** for obesity which includes diet, exercise, behavioral therapy, etc.
-        """)
+        st.markdown("""**Comprehensive lifestyle interventions** are the **foundational treatment** for obesity which includes diet, exercise, behavioral therapy, etc.""")
         
         st.subheader(f"💉 GLP-1 Agonists (Market Growth: **{treatment_data['pharmacological_treatments']['glp1_agonists']['market_growth_rate']}%** CAGR)")
         st.write(f"Patient Acceptance (Openness to New Therapies): **{treatment_data['pharmacological_treatments']['glp1_agonists']['patient_acceptance']}%**")
@@ -664,19 +578,22 @@ def main():
         st.subheader("🔪 Bariatric Surgery")
         st.write(f"Cost Range: **₹{treatment_data['surgical_interventions']['bariatric_surgery']['cost_range_lakhs']} lakhs**")
         
-        st.markdown(f"""
-        <div class="sources-section">
-            <h3 style="margin-top: 0;">📚 Research Sources - Treatment Patterns</h3>
-            <ul>
-                <li><strong>AOD Market Value (₹576 Crore):</strong> <a href="{url_et}" target="_blank">{treatment_sources[url_et]['title']} ({treatment_sources[url_et]['source']}, {treatment_sources[url_et]['year']})</a></li>
-                <li><strong>GLP-1 Market Growth Rate (34.3% CAGR):</strong> <a href="{url_gvr}" target="_blank">{treatment_sources[url_gvr]['title']} ({treatment_sources[url_gvr]['source']})</a></li>
-                <li><strong>Patient Acceptance (77.3% Openness):</strong> <a href="{url_iosr}" target="_blank">{treatment_sources[url_iosr]['title']} ({treatment_sources[url_iosr]['source']})</a></li>
-                <li><strong>Bariatric Surgery Cost (₹2.25-8.0 lakhs):</strong> <a href="{url_nobesity}" target="_blank">{treatment_sources[url_nobesity]['title']} ({treatment_sources[url_nobesity]['source']})</a></li>
-                <li><strong>Lifestyle Intervention (Clinical Basis):</strong> <a href="{url_frontiers}" target="_blank">{treatment_sources[url_frontiers]['title']} ({treatment_sources[url_frontiers]['source']}, {treatment_sources[url_frontiers]['year']})</a></li>
-            </ul>
-            <p><strong>Applicable to:</strong> Treatment market data, GLP-1 market growth projections, patient acceptance rates, competitive treatment costs</p>
-        </div>
-        """, unsafe_allow_html=True)
+        # SOURCES SECTION - STREAMLIT NATIVE
+        st.markdown("---")
+        st.subheader("📚 Research Sources - Treatment Patterns")
+        
+        with st.expander("**Treatment Market Data (Verified)**", expanded=False):
+            for url, meta in treatment_sources.items():
+                st.markdown(f"**{meta['title']}**")
+                source_text = f"*{meta['source']}"
+                if 'year' in meta:
+                    source_text += f", {meta['year']}"
+                source_text += "*"
+                st.markdown(source_text)
+                st.markdown(f"[{url}]({url})")
+                st.markdown("")
+        
+        st.caption("**Applicable to:** AOD market value, GLP-1 growth rate, patient acceptance, surgery costs, lifestyle intervention clinical basis")
 
 
 if __name__ == '__main__':

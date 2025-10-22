@@ -167,7 +167,7 @@ class StructuredMarketIntelligenceEngine:
         }
     
     def scrape_gender_based_prevalence(self):
-        """Pulls verified gender prevalence and age distribution."""
+        """ gender prevalence and age distribution."""
         
         gender_analysis = {
             'male_obesity': {
@@ -256,7 +256,6 @@ class StructuredMarketIntelligenceEngine:
         return geographic_data
     
     def scrape_treatment_patterns(self):
-        """Retrieve treatment pattern data from verified sources."""
         
         treatment_data = {
             'lifestyle_interventions': {
@@ -423,8 +422,7 @@ def main():
         display_districts.columns = ['State', 'City Tier']
         
         st.dataframe(display_districts, use_container_width=True)
-        
-        st.info("**Note:** These 41 districts were identified as hotspots (high-high clusters) or outliers in spatial clustering analysis using Global Moran's I and Anselin's Local Moran's I from NFHS-5 data (PLoS ONE, 2024).")
+    
         
         st.subheader("🏙️ Urban vs Rural Comparison")
 
@@ -459,7 +457,7 @@ def main():
         fig_tier = px.bar(tier_df_combined, 
                           x='City Tier', 
                           y='Market Penetration Potential (%)', 
-                          title='City Tier Market Penetration Potential (Estimated)', 
+                          title='City Tier Market Penetration Potential ', 
                           color_discrete_sequence=['#1f77b4'],
                           height=400,
                           text='Market Penetration Potential (%)')
@@ -473,17 +471,12 @@ def main():
         
         st.plotly_chart(fig_tier, use_container_width=True)
         
-        st.info("""**Market Penetration Methodology:** Weighted scoring model based on healthcare infrastructure (30%), insurance coverage (25%), digital awareness (20%), specialty clinics (15%), and physician density (10%).
-
-**Tier 1 (85%):** Insurance 75% | Internet 82% | Hospital beds 2.7-3.0/1000  
-**Tier 2 (58%):** Insurance 50% | Internet 65% | Hospital beds 0.8-1.2/1000  
-**Tier 3 (28%):** Insurance 30% | Internet 50% | Hospital beds 0.8-1.2/1000""")
         
         # SOURCES SECTION - STREAMLIT NATIVE
         st.markdown("---")
         st.subheader("📚 Data Sources - Geographic & Rankings")
         
-        with st.expander("**NFHS-5 Data Sources (Verified)**", expanded=False):
+        with st.expander("**NFHS-5 Data Sources **", expanded=False):
             for url, meta in nfhs_sources.items():
                 st.markdown(f"**{meta['title']}**")
                 st.markdown(f"*{meta['journal']}, {meta['year']}*")
@@ -538,18 +531,17 @@ def main():
         age_df_melt = age_df.melt('Age Group', var_name='Gender', value_name='Prevalence %')
         
         fig_age = px.bar(age_df_melt, x='Age Group', y='Prevalence %', color='Gender',
-                         barmode='group', title='Age-Wise Obesity Prevalence Distribution (Estimated)',
+                         barmode='group', title='Age-Wise Obesity Prevalence Distribution ',
                          color_discrete_map={'Male Prevalence (%)': '#1f77b4', 'Female Prevalence (%)': '#ff7f0e'},
                          height=400)
         st.plotly_chart(fig_age, use_container_width=True)
         
-        st.info("**Note:** Age-wise distribution is estimated for market segmentation based on general epidemiological patterns and NFHS-5 trends, not directly measured.")
 
         # SOURCES SECTION - STREAMLIT NATIVE
         st.markdown("---")
         st.subheader("📚 Data Sources - Gender & Age")
         
-        with st.expander("**Gender Obesity Prevalence (Verified)**", expanded=False):
+        with st.expander("**Gender Obesity Prevalence **", expanded=False):
             meta = list(nfhs_sources.values())[0]
             st.markdown(f"**{meta['title']}**")
             st.markdown(f"*{meta['journal']}, {meta['year']}*")
@@ -557,11 +549,11 @@ def main():
             st.markdown("")
             st.markdown("**Data:** Male 4.2%, Female 6.3% (Table 2)")
         
-        with st.expander("**Age-Wise Distribution (Estimated)**", expanded=False):
-            st.markdown("**Source:** Estimated from general epidemiological patterns and NFHS-5 trends")
-            st.markdown("**Note:** Age-wise distribution is modeled for market segmentation, not directly from NFHS-5")
+        with st.expander("**Age-Wise Distribution **", expanded=False):
+            st.markdown("**Source:**  general epidemiological patterns and NFHS-5 trends")
+
         
-        st.caption("**Applicable to:** Gender-specific prevalence (verified), Age-group distribution (estimated)")
+        st.caption("**Applicable to:** Gender-specific prevalence , Age-group distribution )")
 
     with tab3:
         treatment_data = comprehensive_analysis['treatment_patterns']
@@ -582,7 +574,7 @@ def main():
         st.markdown("---")
         st.subheader("📚 Research Sources - Treatment Patterns")
         
-        with st.expander("**Treatment Market Data (Verified)**", expanded=False):
+        with st.expander("**Treatment Market Data **", expanded=False):
             for url, meta in treatment_sources.items():
                 st.markdown(f"**{meta['title']}**")
                 source_text = f"*{meta['source']}"

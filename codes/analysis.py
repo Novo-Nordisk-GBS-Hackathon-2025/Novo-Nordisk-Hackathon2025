@@ -487,7 +487,7 @@ def main():
             st.markdown("**State Population Figures:** Census 2011")
             st.markdown("")
             
-            st.markdown("**Comorbidity Multipliers (Diabetes 2.1×, Hypertension 2.3×):**")
+            st.markdown("**Comorbidity**")
             st.markdown("- [Das et al., 2022 - Association of overweight and obesity with hypertension, diabetes and comorbidity](https://bmjopen.bmj.com/content/12/7/e052822)")
             st.markdown("- [Yamada et al., 2023 - Obesity and risk for its comorbidities](https://www.nature.com/articles/s41598-023-29276-7)")
             st.markdown("")
@@ -502,7 +502,7 @@ def main():
             st.markdown("- [Transforming healthcare in tier 2 & 3 cities (Express Healthcare, 2024)](https://www.expresshealthcare.in/news/transforming-healthcare-in-tier-2-tier-3-cities-with-health-it/447241/)")
             st.markdown("- [Health Insurance Coverage in India (Ministry of Health & Family Welfare)](https://prc.mohfw.gov.in/fileDownload?fileName=Health+Insurance+Coverage+in+India+Insights+for+National+Health+Protection+Scheme.pdf)")
         
-        st.caption("**Applicable to:** State obesity prevalence, district hotspots, urban/rural comparison, comorbidity estimates, city tier assignments, market penetration")
+
         
     with tab2:
         st.markdown("## 👥 Gender & Age Segmentation")
@@ -553,7 +553,7 @@ def main():
             st.markdown("**Source:** General epidemiological patterns and NFHS-5 trends")
 
         
-        st.caption("**Applicable to:** Gender-specific prevalence, Age-group distribution")
+
 
     with tab3:
         treatment_data = comprehensive_analysis['treatment_patterns']
@@ -585,7 +585,7 @@ def main():
                 st.markdown(f"[{url}]({url})")
                 st.markdown("")
         
-        st.caption("**Applicable to:** AOD market value, GLP-1 growth rate, patient acceptance, surgery costs, lifestyle intervention clinical basis")
+
 
 
 if __name__ == '__main__':

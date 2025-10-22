@@ -153,16 +153,16 @@ class StructuredMarketIntelligenceEngine:
 
         return {
             'tier_1': {
-                'avg_obesity_prevalence': tier_city_calc['tier_1']['avg_obesity_prevalence'],
-                'market_penetration_potential': 85 
+                'avg_obesity_prevalence': tier_city_calc['tier_1']['avg_obesity_prevalence']
+                
             },
             'tier_2': {
-                'avg_obesity_prevalence': tier_city_calc['tier_2']['avg_obesity_prevalence'],
-                'market_penetration_potential': 58 
+                'avg_obesity_prevalence': tier_city_calc['tier_2']['avg_obesity_prevalence']
+                
             },
             'tier_3': {
-                'avg_obesity_prevalence': tier_city_calc['tier_3']['avg_obesity_prevalence'],
-                'market_penetration_potential': 28 
+                'avg_obesity_prevalence': tier_city_calc['tier_3']['avg_obesity_prevalence']
+                
             }
         }
     
@@ -497,7 +497,7 @@ def main():
             st.markdown("- [Understanding Indian city classification (360 Realtors, 2024)](https://www.360realtors.com/blog/post/understanding-indian-city-classification-in-tier-i-ii-iii-and-iv-blid749)")
             st.markdown("")
             
-            st.markdown("**Market Penetration Potential (85%, 58%, 28%):**")
+            st.markdown("**Market Penetration Potential :**")
             st.markdown("- [Marketing Healthcare Services in Tier 2 & 3 Cities (SocialChamps, 2025)](https://socialchamps.com/marketing-healthcare-services-in-tier-2-3-indian-cities-strategies-for-2025/)")
             st.markdown("- [Transforming healthcare in tier 2 & 3 cities (Express Healthcare, 2024)](https://www.expresshealthcare.in/news/transforming-healthcare-in-tier-2-tier-3-cities-with-health-it/447241/)")
             st.markdown("- [Health Insurance Coverage in India (Ministry of Health & Family Welfare)](https://prc.mohfw.gov.in/fileDownload?fileName=Health+Insurance+Coverage+in+India+Insights+for+National+Health+Protection+Scheme.pdf)")

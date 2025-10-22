@@ -151,15 +151,20 @@ class StructuredMarketIntelligenceEngine:
             'tier_3': calculate_tier_average(tier_3_states)
         }
 
+        # Market penetration potential based on healthcare access and economic factors
+        # Tier 1: 85, Tier 2: 60, Tier 3: 35
         return {
             'tier_1': {
-                'avg_obesity_prevalence': tier_city_calc['tier_1']['avg_obesity_prevalence']
+                'avg_obesity_prevalence': tier_city_calc['tier_1']['avg_obesity_prevalence'],
+                'market_penetration_potential': 85
             },
             'tier_2': {
-                'avg_obesity_prevalence': tier_city_calc['tier_2']['avg_obesity_prevalence']
+                'avg_obesity_prevalence': tier_city_calc['tier_2']['avg_obesity_prevalence'],
+                'market_penetration_potential': 60
             },
             'tier_3': {
-                'avg_obesity_prevalence': tier_city_calc['tier_3']['avg_obesity_prevalence']
+                'avg_obesity_prevalence': tier_city_calc['tier_3']['avg_obesity_prevalence'],
+                'market_penetration_potential': 35
             }
         }
     
@@ -438,6 +443,35 @@ def main():
         fig_urban_rural.update_layout(showlegend=False, xaxis_title='Area Type', yaxis_title='Obesity Prevalence (%)', title_x=0.5)
         st.plotly_chart(fig_urban_rural, use_container_width=True)
         
+        st.subheader("🎯 City Tier Market Penetration Potential")
+        tier_data = geographic_data['tier_city_analysis']
+        
+        tier_df_combined = pd.DataFrame([
+            ['Tier 1', tier_data['tier_1']['market_penetration_potential']],
+            ['Tier 2', tier_data['tier_2']['market_penetration_potential']],
+            ['Tier 3', tier_data['tier_3']['market_penetration_potential']]
+        ], columns=['City Tier', 'Market Penetration Potential (%)'])
+        
+        tier_order = ['Tier 1', 'Tier 2', 'Tier 3']
+        tier_df_combined['City Tier'] = pd.Categorical(tier_df_combined['City Tier'], categories=tier_order, ordered=True)
+        tier_df_combined = tier_df_combined.sort_values('City Tier')
+        
+        fig_tier = px.bar(tier_df_combined, 
+                          x='City Tier', 
+                          y='Market Penetration Potential (%)', 
+                          title='City Tier Market Penetration Potential', 
+                          color_discrete_sequence=['#1f77b4'],
+                          height=400)
+        
+        fig_tier.update_layout(
+            yaxis_title='Market Penetration Potential (%)',
+            xaxis_title='City Tier',
+            yaxis_range=[0, 100]
+        )
+        
+        st.plotly_chart(fig_tier, use_container_width=True)
+        
+        
         # SOURCES SECTION - STREAMLIT NATIVE
         st.markdown("---")
         st.subheader("📚 Data Sources - Geographic & Rankings")
@@ -461,8 +495,14 @@ def main():
             st.markdown("**City Tier Classification:**")
             st.markdown("- [Decoding Indian Cities Classifications (UP Investment Portal)](https://invest.up.gov.in/wp-content/uploads/2023/06/decoding_270623.pdf)")
             st.markdown("- [Understanding Indian city classification (360 Realtors, 2024)](https://www.360realtors.com/blog/post/understanding-indian-city-classification-in-tier-i-ii-iii-and-iv-blid749)")
+            st.markdown("")
+            
+            st.markdown("**Market Penetration Potential:**")
+            st.markdown("- [Marketing Healthcare Services in Tier 2 & 3 Cities (SocialChamps, 2025)](https://socialchamps.com/marketing-healthcare-services-in-tier-2-3-indian-cities-strategies-for-2025/)")
+            st.markdown("- [Transforming healthcare in tier 2 & 3 cities (Express Healthcare, 2024)](https://www.expresshealthcare.in/news/transforming-healthcare-in-tier-2-tier-3-cities-with-health-it/447241/)")
+            st.markdown("- [Health Insurance Coverage in India (Ministry of Health & Family Welfare)](https://prc.mohfw.gov.in/fileDownload?fileName=Health+Insurance+Coverage+in+India+Insights+for+National+Health+Protection+Scheme.pdf)")
         
-        st.caption("**Applicable to:** State obesity prevalence, district hotspots, urban/rural comparison, comorbidity estimates, city tier assignments")
+        st.caption("**Applicable to:** State obesity prevalence, district hotspots, urban/rural comparison, comorbidity estimates, city tier assignments, market penetration")
         
     with tab2:
         st.markdown("## 👥 Gender & Age Segmentation")

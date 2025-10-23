@@ -278,7 +278,7 @@ class StructuredMarketIntelligenceEngine:
             'Jhajjar': {'state': 'Haryana', 'tier': 'Tier 3'},
             
             # Karnataka - 4 districts
-            'Bangalore': {'state': 'Karnataka', 'tier': 'Tier 1'},
+            'Bengaluru': {'state': 'Karnataka', 'tier': 'Tier 1'},
             'Mysore': {'state': 'Karnataka', 'tier': 'Tier 2'},
             'Mangalore': {'state': 'Karnataka', 'tier': 'Tier 2'},
             'Hubli': {'state': 'Karnataka', 'tier': 'Tier 2'},
@@ -504,7 +504,6 @@ def main():
         st.plotly_chart(fig_urban_rural, use_container_width=True)
         
         st.subheader("🎯 City Tier Market Penetration Potential")
-        st.markdown("*Based on obesity prevalence adjusted for healthcare access, urbanization, and economic factors*")
         
         tier_data = geographic_data['tier_city_analysis']
         

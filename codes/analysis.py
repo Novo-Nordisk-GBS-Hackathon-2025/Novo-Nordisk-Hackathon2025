@@ -172,7 +172,6 @@ class StructuredMarketIntelligenceEngine:
         }
 
         # Market penetration potential based on healthcare access and economic factors
-        # Tier 1: 85, Tier 2: 60, Tier 3: 35
         return {
             'tier_1': {
                 'avg_obesity_prevalence': tier_city_calc['tier_1']['avg_obesity_prevalence'],
@@ -189,7 +188,7 @@ class StructuredMarketIntelligenceEngine:
         }
     
     def scrape_gender_based_prevalence(self):
-        """ gender prevalence and age distribution."""
+        """Gender prevalence and age distribution."""
         
         gender_analysis = {
             'male_obesity': {
@@ -217,9 +216,9 @@ class StructuredMarketIntelligenceEngine:
         top_10_states = sorted(state_obesity_data.items(), key=lambda x: x[1]['obese_population'], reverse=True)[:10]
         top_10_state_names = [state[0] for state in top_10_states]
         
-        # Original districts from research papers + comprehensive additions from all top 10 states
-        districts_comprehensive = {
-            # Tamil Nadu - Southern hotspot (Source: PLoS ONE 2024)
+        # Districts explicitly mentioned in the three research papers cited
+        districts_from_sources = {
+            # PLoS ONE 2024 - Explicitly mentioned districts
             'Kanniyakumari': {'state': 'Tamil Nadu', 'tier': 'Tier 2'},
             'Coimbatore': {'state': 'Tamil Nadu', 'tier': 'Tier 2'},
             'Thiruvallur': {'state': 'Tamil Nadu', 'tier': 'Tier 2'},
@@ -234,31 +233,21 @@ class StructuredMarketIntelligenceEngine:
             'Madurai': {'state': 'Tamil Nadu', 'tier': 'Tier 2'},
             'Erode': {'state': 'Tamil Nadu', 'tier': 'Tier 2'},
             
-            # Kerala - Southern hotspot (Source: PLoS ONE 2024)
             'Thiruvananthapuram': {'state': 'Kerala', 'tier': 'Tier 2'},
             'Kollam': {'state': 'Kerala', 'tier': 'Tier 3'},
             'Pathanamthitta': {'state': 'Kerala', 'tier': 'Tier 3'},
             'Thrissur': {'state': 'Kerala', 'tier': 'Tier 2'},
             'Alappuzha': {'state': 'Kerala', 'tier': 'Tier 3'},
             'Kottayam': {'state': 'Kerala', 'tier': 'Tier 3'},
-            'Kochi': {'state': 'Kerala', 'tier': 'Tier 2'},
-            'Kozhikode': {'state': 'Kerala', 'tier': 'Tier 2'},
             
-            # Andhra Pradesh - Southern hotspot (Source: PLoS ONE 2024)
             'Guntur': {'state': 'Andhra Pradesh', 'tier': 'Tier 2'},
             'West Godavari': {'state': 'Andhra Pradesh', 'tier': 'Tier 3'},
             'East Godavari': {'state': 'Andhra Pradesh', 'tier': 'Tier 3'},
             'Krishna': {'state': 'Andhra Pradesh', 'tier': 'Tier 3'},
-            'Visakhapatnam': {'state': 'Andhra Pradesh', 'tier': 'Tier 2'},
-            'Vijayawada': {'state': 'Andhra Pradesh', 'tier': 'Tier 2'},
             
-            # Telangana - Southern hotspot (Source: PLoS ONE 2024)
             'Hyderabad': {'state': 'Telangana', 'tier': 'Tier 1'},
             'Medchal-Malkajgiri': {'state': 'Telangana', 'tier': 'Tier 2'},
-            'Rangareddy': {'state': 'Telangana', 'tier': 'Tier 2'},
-            'Warangal': {'state': 'Telangana', 'tier': 'Tier 2'},
             
-            # Punjab - Northern hotspot (Source: PLoS ONE 2024)
             'Sahibzada Ajit Singh': {'state': 'Punjab', 'tier': 'Tier 2'},
             'Jalandhar': {'state': 'Punjab', 'tier': 'Tier 2'},
             'Fatehgarh Sahib': {'state': 'Punjab', 'tier': 'Tier 3'},
@@ -270,99 +259,16 @@ class StructuredMarketIntelligenceEngine:
             'Amritsar': {'state': 'Punjab', 'tier': 'Tier 2'},
             'Hoshiarpur': {'state': 'Punjab', 'tier': 'Tier 3'},
             
-            # Haryana - Northern hotspot (Source: PLoS ONE 2024)
             'Jhajjar': {'state': 'Haryana', 'tier': 'Tier 3'},
             'Ambala': {'state': 'Haryana', 'tier': 'Tier 2'},
             'Panchkula': {'state': 'Haryana', 'tier': 'Tier 2'},
-            'Gurgaon': {'state': 'Haryana', 'tier': 'Tier 1'},
-            'Faridabad': {'state': 'Haryana', 'tier': 'Tier 2'},
-            'Panipat': {'state': 'Haryana', 'tier': 'Tier 2'},
             
-            # Gujarat - Western hotspot outliers (Source: PLoS ONE 2024)
             'Kachchh': {'state': 'Gujarat', 'tier': 'Tier 3'},
-            'Ahmedabad': {'state': 'Gujarat', 'tier': 'Tier 1'},
-            'Surat': {'state': 'Gujarat', 'tier': 'Tier 1'},
-            'Vadodara': {'state': 'Gujarat', 'tier': 'Tier 2'},
-            'Rajkot': {'state': 'Gujarat', 'tier': 'Tier 2'},
-            'Gandhinagar': {'state': 'Gujarat', 'tier': 'Tier 2'},
-            
-            # Maharashtra - Western hotspot outliers (Source: PLoS ONE 2024)
             'Dhule': {'state': 'Maharashtra', 'tier': 'Tier 3'},
             'Jalgaon': {'state': 'Maharashtra', 'tier': 'Tier 3'},
-            'Mumbai': {'state': 'Maharashtra', 'tier': 'Tier 1'},
-            'Pune': {'state': 'Maharashtra', 'tier': 'Tier 1'},
-            'Nagpur': {'state': 'Maharashtra', 'tier': 'Tier 2'},
-            'Nashik': {'state': 'Maharashtra', 'tier': 'Tier 2'},
-            'Thane': {'state': 'Maharashtra', 'tier': 'Tier 2'},
-            'Aurangabad': {'state': 'Maharashtra', 'tier': 'Tier 2'},
-            
-            # Karnataka - Southern hotspot (Source: BMC Public Health 2024)
-            'Bangalore Urban': {'state': 'Karnataka', 'tier': 'Tier 1'},
-            'Mysore': {'state': 'Karnataka', 'tier': 'Tier 2'},
-            'Mangaluru': {'state': 'Karnataka', 'tier': 'Tier 2'},
-            'Belgaum': {'state': 'Karnataka', 'tier': 'Tier 2'},
-            'Hubli': {'state': 'Karnataka', 'tier': 'Tier 2'},
-            'Dakshina Kannada': {'state': 'Karnataka', 'tier': 'Tier 2'},
-            
-            # West Bengal - High obesity burden (Source: BMC Public Health 2024)
-            'Kolkata': {'state': 'West Bengal', 'tier': 'Tier 1'},
-            'Howrah': {'state': 'West Bengal', 'tier': 'Tier 2'},
-            'North 24 Parganas': {'state': 'West Bengal', 'tier': 'Tier 2'},
-            'South 24 Parganas': {'state': 'West Bengal', 'tier': 'Tier 3'},
-            'Darjeeling': {'state': 'West Bengal', 'tier': 'Tier 3'},
-            
-            # Uttar Pradesh - Largest obese population (Source: BMC Public Health 2024)
-            'Lucknow': {'state': 'Uttar Pradesh', 'tier': 'Tier 1'},
-            'Kanpur': {'state': 'Uttar Pradesh', 'tier': 'Tier 2'},
-            'Ghaziabad': {'state': 'Uttar Pradesh', 'tier': 'Tier 2'},
-            'Agra': {'state': 'Uttar Pradesh', 'tier': 'Tier 2'},
-            'Meerut': {'state': 'Uttar Pradesh', 'tier': 'Tier 2'},
-            'Varanasi': {'state': 'Uttar Pradesh', 'tier': 'Tier 2'},
-            'Gautam Buddha Nagar': {'state': 'Uttar Pradesh', 'tier': 'Tier 1'},
-            'Allahabad': {'state': 'Uttar Pradesh', 'tier': 'Tier 2'},
-            
-            # Bihar - Significant obesity burden
-            'Patna': {'state': 'Bihar', 'tier': 'Tier 2'},
-            'Gaya': {'state': 'Bihar', 'tier': 'Tier 3'},
-            'Muzaffarpur': {'state': 'Bihar', 'tier': 'Tier 3'},
-            
-            # Rajasthan
-            'Jaipur': {'state': 'Rajasthan', 'tier': 'Tier 1'},
-            'Jodhpur': {'state': 'Rajasthan', 'tier': 'Tier 2'},
-            'Udaipur': {'state': 'Rajasthan', 'tier': 'Tier 2'},
-            'Kota': {'state': 'Rajasthan', 'tier': 'Tier 2'},
-            
-            # Major urban centers and union territories (Source: Multiple NFHS-5 studies)
-            'New Delhi': {'state': 'Delhi', 'tier': 'Tier 1'},
-            'East Delhi': {'state': 'Delhi', 'tier': 'Tier 1'},
-            'West Delhi': {'state': 'Delhi', 'tier': 'Tier 1'},
-            'South Delhi': {'state': 'Delhi', 'tier': 'Tier 1'},
-            'North Delhi': {'state': 'Delhi', 'tier': 'Tier 1'},
-            'Chandigarh': {'state': 'Chandigarh', 'tier': 'Tier 1'},
-            'Puducherry': {'state': 'Puducherry', 'tier': 'Tier 2'},
-            
-            # Other significant districts from remaining states
-            'Bhubaneswar': {'state': 'Odisha', 'tier': 'Tier 2'},
-            'Cuttack': {'state': 'Odisha', 'tier': 'Tier 2'},
-            'Guwahati': {'state': 'Assam', 'tier': 'Tier 2'},
-            'Ranchi': {'state': 'Jharkhand', 'tier': 'Tier 2'},
-            'Jamshedpur': {'state': 'Jharkhand', 'tier': 'Tier 2'},
-            'Raipur': {'state': 'Chhattisgarh', 'tier': 'Tier 2'},
-            'Indore': {'state': 'Madhya Pradesh', 'tier': 'Tier 2'},
-            'Bhopal': {'state': 'Madhya Pradesh', 'tier': 'Tier 2'},
-            'Dehradun': {'state': 'Uttarakhand', 'tier': 'Tier 2'},
-            'North Goa': {'state': 'Goa', 'tier': 'Tier 2'},
-            'Imphal West': {'state': 'Manipur', 'tier': 'Tier 2'},
-            'West Tripura': {'state': 'Tripura', 'tier': 'Tier 2'},
-            'East Sikkim': {'state': 'Sikkim', 'tier': 'Tier 2'},
-            'Srinagar': {'state': 'Jammu and Kashmir', 'tier': 'Tier 2'},
-            'Shimla': {'state': 'Himachal Pradesh', 'tier': 'Tier 2'},
-            'Aizawl': {'state': 'Mizoram', 'tier': 'Tier 2'},
-            'East Khasi Hills': {'state': 'Meghalaya', 'tier': 'Tier 3'},
-            'Kohima': {'state': 'Nagaland', 'tier': 'Tier 3'},
         }
         
-        filtered_districts = {k: v for k, v in districts_comprehensive.items() if v['state'] in top_10_state_names}
+        filtered_districts = {k: v for k, v in districts_from_sources.items() if v['state'] in top_10_state_names}
         
         geographic_data = {
             'state_ranking': state_obesity_data,
@@ -533,7 +439,7 @@ def main():
         st.plotly_chart(fig_top10, use_container_width=True)
         
         st.subheader("🔝 Major Districts to Target from Top 10 States")
-        st.markdown("**Comprehensive district targeting strategy including obesity hotspots and major urban centers**")
+        st.markdown("**District targeting strategy based on obesity hotspots explicitly identified in research literature**")
         
         top_10_state_names = display_ranking.head(10).index.tolist()
         districts_comprehensive = geographic_data['district_data']['comprehensive']

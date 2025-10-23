@@ -421,8 +421,8 @@ def main():
     st.markdown(
         """
         <div class="main-header">
-            <h1>🎯 Wegovy Market Intelligence Dashboard</h1>
-            <p><strong>Strategic insights for obesity treatment market in India</strong></p>
+            <h2> A comprehensive market analysis to quantify obesity prevalence, patient profiles, and treatment patterns in India, providing data-driven insights to inform the commercial strategy for Wegovy</h2>
+            <p><strong>Analysis Areas:</strong> Geographic & Rankings • Gender • Treatment</p>
         </div>
         """,
         unsafe_allow_html=True
@@ -512,7 +512,7 @@ def main():
             ['Tier 1', tier_data['Tier 1']['market_penetration_potential']],
             ['Tier 2', tier_data['Tier 2']['market_penetration_potential']],
             ['Tier 3', tier_data['Tier 3']['market_penetration_potential']]
-        ], columns=['City Tier', 'Market Penetration Potential (%)'])
+        ], columns=['City Tier', 'Market Penetration Potential'])
         
         tier_order = ['Tier 1', 'Tier 2', 'Tier 3']
         tier_df_combined['City Tier'] = pd.Categorical(tier_df_combined['City Tier'], categories=tier_order, ordered=True)
@@ -520,44 +520,18 @@ def main():
         
         fig_tier = px.bar(tier_df_combined, 
                           x='City Tier', 
-                          y='Market Penetration Potential (%)', 
+                          y='Market Penetration Potential', 
                           title='City Tier Market Penetration Potential (Data-Driven)', 
                           color_discrete_sequence=['#1f77b4'],
-                          height=400,
-                          text='Market Penetration Potential (%)')
+                          height=400)
         
-        fig_tier.update_traces(texttemplate='%{text:.1f}%', textposition='outside')
         fig_tier.update_layout(
-            yaxis_title='Market Penetration Potential (%)',
+            yaxis_title='Market Penetration Potential',
             xaxis_title='City Tier',
-            yaxis_range=[0, max(tier_df_combined['Market Penetration Potential (%)']) * 1.15]
+            yaxis_range=[0, max(tier_df_combined['Market Penetration Potential']) * 1.15]
         )
         
         st.plotly_chart(fig_tier, use_container_width=True)
-        
-        # Display tier breakdown details
-        st.markdown("#### Tier Analysis Breakdown")
-        tier_breakdown_df = pd.DataFrame({
-            'Tier': ['Tier 1', 'Tier 2', 'Tier 3'],
-            'Avg Obesity (%)': [
-                tier_data['Tier 1']['avg_obesity_prevalence'],
-                tier_data['Tier 2']['avg_obesity_prevalence'],
-                tier_data['Tier 3']['avg_obesity_prevalence']
-            ],
-            'Adjustment Factor': ['1.2x (High Access)', '1.0x (Moderate Access)', '0.7x (Lower Access)'],
-            'Market Potential (%)': [
-                tier_data['Tier 1']['market_penetration_potential'],
-                tier_data['Tier 2']['market_penetration_potential'],
-                tier_data['Tier 3']['market_penetration_potential']
-            ],
-            'Districts': [
-                tier_data['Tier 1']['district_count'],
-                tier_data['Tier 2']['district_count'],
-                tier_data['Tier 3']['district_count']
-            ]
-        })
-        st.dataframe(tier_breakdown_df, use_container_width=True)
-        
         
         # SOURCES SECTION - STREAMLIT NATIVE
         st.markdown("---")

@@ -3,7 +3,7 @@ import pandas as pd
 import plotly.express as px
 
 st.set_page_config(
-    page_title="Wegovy Comprehensive Market Analysis for strategies",
+    page_title="Wegovy Market Intelligence Dashboard",
     layout="wide",
     initial_sidebar_state="collapsed",
     page_icon="🎯"
@@ -222,86 +222,86 @@ class StructuredMarketIntelligenceEngine:
         # ENHANCED DISTRICT CLASSIFICATION based on PLoS ONE 2024 research and official tier classifications
         districts_comprehensive = {
             # Tamil Nadu - 15 districts
-            'Kanniyakumari': {'state': 'Tamil Nadu', 'tier': 'Tier 2', 'obesity_level': 'Highest (54%)'},
-            'Coimbatore': {'state': 'Tamil Nadu', 'tier': 'Tier 2', 'obesity_level': 'Very High (>40%)'},
-            'Thiruvallur': {'state': 'Tamil Nadu', 'tier': 'Tier 2', 'obesity_level': 'Very High (>40%)'},
-            'Kancheepuram': {'state': 'Tamil Nadu', 'tier': 'Tier 2', 'obesity_level': 'Very High (>40%)'},
-            'Vellore': {'state': 'Tamil Nadu', 'tier': 'Tier 2', 'obesity_level': 'Very High (>40%)'},
-            'Tiruppur': {'state': 'Tamil Nadu', 'tier': 'Tier 2', 'obesity_level': 'Very High (>40%)'},
-            'Thanjavur': {'state': 'Tamil Nadu', 'tier': 'Tier 2', 'obesity_level': 'Very High (>40%)'},
-            'Thoothukkudi': {'state': 'Tamil Nadu', 'tier': 'Tier 2', 'obesity_level': 'Very High (>40%)'},
-            'Madurai': {'state': 'Tamil Nadu', 'tier': 'Tier 2', 'obesity_level': 'Very High (>40%)'},
-            'Erode': {'state': 'Tamil Nadu', 'tier': 'Tier 2', 'obesity_level': 'Very High (>40%)'},
-            'Salem': {'state': 'Tamil Nadu', 'tier': 'Tier 2', 'obesity_level': 'Moderate'},
-            'Tiruchirappalli': {'state': 'Tamil Nadu', 'tier': 'Tier 2', 'obesity_level': 'Moderate'},
-            'Chennai': {'state': 'Tamil Nadu', 'tier': 'Tier 1', 'obesity_level': 'Very High (>40%)'},
-            'Namakkal': {'state': 'Tamil Nadu', 'tier': 'Tier 3', 'obesity_level': 'Very High (>40%)'},
-            'Theni': {'state': 'Tamil Nadu', 'tier': 'Tier 3', 'obesity_level': 'Very High (>40%)'},
+            'Kanniyakumari': {'state': 'Tamil Nadu', 'tier': 'Tier 2'},
+            'Coimbatore': {'state': 'Tamil Nadu', 'tier': 'Tier 2'},
+            'Thiruvallur': {'state': 'Tamil Nadu', 'tier': 'Tier 2'},
+            'Kancheepuram': {'state': 'Tamil Nadu', 'tier': 'Tier 2'},
+            'Vellore': {'state': 'Tamil Nadu', 'tier': 'Tier 2'},
+            'Tiruppur': {'state': 'Tamil Nadu', 'tier': 'Tier 2'},
+            'Thanjavur': {'state': 'Tamil Nadu', 'tier': 'Tier 2'},
+            'Thoothukkudi': {'state': 'Tamil Nadu', 'tier': 'Tier 2'},
+            'Madurai': {'state': 'Tamil Nadu', 'tier': 'Tier 2'},
+            'Erode': {'state': 'Tamil Nadu', 'tier': 'Tier 2'},
+            'Salem': {'state': 'Tamil Nadu', 'tier': 'Tier 2'},
+            'Tiruchirappalli': {'state': 'Tamil Nadu', 'tier': 'Tier 2'},
+            'Chennai': {'state': 'Tamil Nadu', 'tier': 'Tier 1'},
+            'Namakkal': {'state': 'Tamil Nadu', 'tier': 'Tier 3'},
+            'Theni': {'state': 'Tamil Nadu', 'tier': 'Tier 3'},
             
             # Kerala - 8 districts
-            'Thiruvananthapuram': {'state': 'Kerala', 'tier': 'Tier 2', 'obesity_level': 'Very High (>40%)'},
-            'Thrissur': {'state': 'Kerala', 'tier': 'Tier 2', 'obesity_level': 'Very High (>40%)'},
-            'Kochi': {'state': 'Kerala', 'tier': 'Tier 2', 'obesity_level': 'Moderate'},
-            'Kozhikode': {'state': 'Kerala', 'tier': 'Tier 2', 'obesity_level': 'Moderate'},
-            'Kollam': {'state': 'Kerala', 'tier': 'Tier 3', 'obesity_level': 'Very High (>40%)'},
-            'Pathanamthitta': {'state': 'Kerala', 'tier': 'Tier 3', 'obesity_level': 'Very High (>40%)'},
-            'Alappuzha': {'state': 'Kerala', 'tier': 'Tier 3', 'obesity_level': 'Very High (>40%)'},
-            'Kottayam': {'state': 'Kerala', 'tier': 'Tier 3', 'obesity_level': 'Very High (>40%)'},
+            'Thiruvananthapuram': {'state': 'Kerala', 'tier': 'Tier 2'},
+            'Thrissur': {'state': 'Kerala', 'tier': 'Tier 2'},
+            'Kochi': {'state': 'Kerala', 'tier': 'Tier 2'},
+            'Kozhikode': {'state': 'Kerala', 'tier': 'Tier 2'},
+            'Kollam': {'state': 'Kerala', 'tier': 'Tier 3'},
+            'Pathanamthitta': {'state': 'Kerala', 'tier': 'Tier 3'},
+            'Alappuzha': {'state': 'Kerala', 'tier': 'Tier 3'},
+            'Kottayam': {'state': 'Kerala', 'tier': 'Tier 3'},
             
             # Andhra Pradesh - 6 districts
-            'Guntur': {'state': 'Andhra Pradesh', 'tier': 'Tier 2', 'obesity_level': 'Very High (>40%)'},
-            'Visakhapatnam': {'state': 'Andhra Pradesh', 'tier': 'Tier 2', 'obesity_level': 'Moderate'},
-            'Vijayawada': {'state': 'Andhra Pradesh', 'tier': 'Tier 2', 'obesity_level': 'Moderate'},
-            'West Godavari': {'state': 'Andhra Pradesh', 'tier': 'Tier 3', 'obesity_level': 'Very High (>40%)'},
-            'East Godavari': {'state': 'Andhra Pradesh', 'tier': 'Tier 3', 'obesity_level': 'Very High (>40%)'},
-            'Krishna': {'state': 'Andhra Pradesh', 'tier': 'Tier 3', 'obesity_level': 'Very High (>40%)'},
+            'Guntur': {'state': 'Andhra Pradesh', 'tier': 'Tier 2'},
+            'Visakhapatnam': {'state': 'Andhra Pradesh', 'tier': 'Tier 2'},
+            'Vijayawada': {'state': 'Andhra Pradesh', 'tier': 'Tier 2'},
+            'West Godavari': {'state': 'Andhra Pradesh', 'tier': 'Tier 3'},
+            'East Godavari': {'state': 'Andhra Pradesh', 'tier': 'Tier 3'},
+            'Krishna': {'state': 'Andhra Pradesh', 'tier': 'Tier 3'},
             
             # Telangana - 2 districts
-            'Hyderabad': {'state': 'Telangana', 'tier': 'Tier 1', 'obesity_level': 'Very High (>40%)'},
-            'Medchal-Malkajgiri': {'state': 'Telangana', 'tier': 'Tier 2', 'obesity_level': 'Very High (>40%)'},
+            'Hyderabad': {'state': 'Telangana', 'tier': 'Tier 1'},
+            'Medchal-Malkajgiri': {'state': 'Telangana', 'tier': 'Tier 2'},
             
             # Punjab - 10 districts
-            'Sahibzada Ajit Singh Nagar': {'state': 'Punjab', 'tier': 'Tier 2', 'obesity_level': 'Very High (>40%)'},
-            'Jalandhar': {'state': 'Punjab', 'tier': 'Tier 2', 'obesity_level': 'Very High (>40%)'},
-            'Ludhiana': {'state': 'Punjab', 'tier': 'Tier 2', 'obesity_level': 'Very High (>40%)'},
-            'Patiala': {'state': 'Punjab', 'tier': 'Tier 2', 'obesity_level': 'Very High (>40%)'},
-            'Amritsar': {'state': 'Punjab', 'tier': 'Tier 2', 'obesity_level': 'Very High (>40%)'},
-            'Fatehgarh Sahib': {'state': 'Punjab', 'tier': 'Tier 3', 'obesity_level': 'Very High (>40%)'},
-            'Rupnagar': {'state': 'Punjab', 'tier': 'Tier 3', 'obesity_level': 'Very High (>40%)'},
-            'Kapurthala': {'state': 'Punjab', 'tier': 'Tier 3', 'obesity_level': 'Very High (>40%)'},
-            'Shahid Bhagat Singh Nagar': {'state': 'Punjab', 'tier': 'Tier 3', 'obesity_level': 'Very High (>40%)'},
-            'Hoshiarpur': {'state': 'Punjab', 'tier': 'Tier 3', 'obesity_level': 'Very High (>40%)'},
+            'Sahibzada Ajit Singh Nagar': {'state': 'Punjab', 'tier': 'Tier 2'},
+            'Jalandhar': {'state': 'Punjab', 'tier': 'Tier 2'},
+            'Ludhiana': {'state': 'Punjab', 'tier': 'Tier 2'},
+            'Patiala': {'state': 'Punjab', 'tier': 'Tier 2'},
+            'Amritsar': {'state': 'Punjab', 'tier': 'Tier 2'},
+            'Fatehgarh Sahib': {'state': 'Punjab', 'tier': 'Tier 3'},
+            'Rupnagar': {'state': 'Punjab', 'tier': 'Tier 3'},
+            'Kapurthala': {'state': 'Punjab', 'tier': 'Tier 3'},
+            'Shahid Bhagat Singh Nagar': {'state': 'Punjab', 'tier': 'Tier 3'},
+            'Hoshiarpur': {'state': 'Punjab', 'tier': 'Tier 3'},
             
             # Haryana - 5 districts
-            'Ambala': {'state': 'Haryana', 'tier': 'Tier 2', 'obesity_level': 'Very High (>40%)'},
-            'Panchkula': {'state': 'Haryana', 'tier': 'Tier 2', 'obesity_level': 'Very High (>40%)'},
-            'Faridabad': {'state': 'Haryana', 'tier': 'Tier 2', 'obesity_level': 'Moderate'},
-            'Gurgaon': {'state': 'Haryana', 'tier': 'Tier 2', 'obesity_level': 'Moderate'},
-            'Jhajjar': {'state': 'Haryana', 'tier': 'Tier 3', 'obesity_level': 'Very High (>40%)'},
+            'Ambala': {'state': 'Haryana', 'tier': 'Tier 2'},
+            'Panchkula': {'state': 'Haryana', 'tier': 'Tier 2'},
+            'Faridabad': {'state': 'Haryana', 'tier': 'Tier 2'},
+            'Gurgaon': {'state': 'Haryana', 'tier': 'Tier 2'},
+            'Jhajjar': {'state': 'Haryana', 'tier': 'Tier 3'},
             
             # Karnataka - 4 districts
-            'Bangalore': {'state': 'Karnataka', 'tier': 'Tier 1', 'obesity_level': 'High'},
-            'Mysore': {'state': 'Karnataka', 'tier': 'Tier 2', 'obesity_level': 'Moderate'},
-            'Mangalore': {'state': 'Karnataka', 'tier': 'Tier 2', 'obesity_level': 'Moderate'},
-            'Hubli': {'state': 'Karnataka', 'tier': 'Tier 2', 'obesity_level': 'Moderate'},
+            'Bangalore': {'state': 'Karnataka', 'tier': 'Tier 1'},
+            'Mysore': {'state': 'Karnataka', 'tier': 'Tier 2'},
+            'Mangalore': {'state': 'Karnataka', 'tier': 'Tier 2'},
+            'Hubli': {'state': 'Karnataka', 'tier': 'Tier 2'},
             
             # Gujarat - 3 districts
-            'Ahmedabad': {'state': 'Gujarat', 'tier': 'Tier 1', 'obesity_level': 'Moderate'},
-            'Surat': {'state': 'Gujarat', 'tier': 'Tier 2', 'obesity_level': 'Moderate'},
-            'Kachchh': {'state': 'Gujarat', 'tier': 'Tier 3', 'obesity_level': 'Outlier (High-Low)'},
+            'Ahmedabad': {'state': 'Gujarat', 'tier': 'Tier 1'},
+            'Surat': {'state': 'Gujarat', 'tier': 'Tier 2'},
+            'Kachchh': {'state': 'Gujarat', 'tier': 'Tier 3'},
             
             # Maharashtra - 5 districts
-            'Mumbai': {'state': 'Maharashtra', 'tier': 'Tier 1', 'obesity_level': 'Moderate'},
-            'Pune': {'state': 'Maharashtra', 'tier': 'Tier 1', 'obesity_level': 'Moderate'},
-            'Nagpur': {'state': 'Maharashtra', 'tier': 'Tier 2', 'obesity_level': 'Moderate'},
-            'Dhule': {'state': 'Maharashtra', 'tier': 'Tier 3', 'obesity_level': 'Outlier (High-Low)'},
-            'Jalgaon': {'state': 'Maharashtra', 'tier': 'Tier 3', 'obesity_level': 'Outlier (High-Low)'},
+            'Mumbai': {'state': 'Maharashtra', 'tier': 'Tier 1'},
+            'Pune': {'state': 'Maharashtra', 'tier': 'Tier 1'},
+            'Nagpur': {'state': 'Maharashtra', 'tier': 'Tier 2'},
+            'Dhule': {'state': 'Maharashtra', 'tier': 'Tier 3'},
+            'Jalgaon': {'state': 'Maharashtra', 'tier': 'Tier 3'},
             
             # West Bengal - 1 district
-            'Kolkata': {'state': 'West Bengal', 'tier': 'Tier 1', 'obesity_level': 'Moderate'},
+            'Kolkata': {'state': 'West Bengal', 'tier': 'Tier 1'},
             
             # Delhi - 1 district
-            'Delhi': {'state': 'Delhi', 'tier': 'Tier 1', 'obesity_level': 'Very High (41%)'},
+            'Delhi': {'state': 'Delhi', 'tier': 'Tier 1'},
         }
         
         filtered_districts = {k: v for k, v in districts_comprehensive.items() if v['state'] in top_10_state_names}
@@ -423,8 +423,8 @@ def main():
     st.markdown(
         """
         <div class="main-header">
-            <h2>A comprehensive market analysis to quantify obesity prevalence, patient profiles, and treatment patterns in India, providing data-driven insights to inform the commercial strategy for Wegovy</h2>
-            <p><strong>Analysis Areas:</strong> Geographic & Rankings • Gender • Treatment</p>
+            <h1>🎯 Wegovy Market Intelligence Dashboard</h1>
+            <p><strong>Strategic insights for obesity treatment market in India</strong></p>
         </div>
         """,
         unsafe_allow_html=True
@@ -445,7 +445,6 @@ def main():
 
     with tab1:
         st.markdown("## 🗺️ Geographic Analysis & State Rankings")
-        st.markdown("*Comprehensive geographic analysis with state rankings by obese patient count*")
         
         geographic_data = comprehensive_analysis['geographic_segmentation']
         state_calculations = comprehensive_analysis['state_obese_calculations']
@@ -474,8 +473,7 @@ def main():
         fig_top10.update_xaxes(tickangle=45)
         st.plotly_chart(fig_top10, use_container_width=True)
         
-        st.subheader("🔝 Major Districts to Target from Top 10 States (with Tier Classification)")
-        st.markdown("**District targeting strategy based on obesity hotspots explicitly identified in research literature**")
+        st.subheader("🔝 Priority Districts from Top 10 States")
         
         top_10_state_names = display_ranking.head(10).index.tolist()
         districts_comprehensive = geographic_data['district_data']['comprehensive']
@@ -485,13 +483,12 @@ def main():
         districts_df['state_rank'] = districts_df['state'].map(state_rank_map)
         districts_df = districts_df.sort_values(['state_rank', 'tier', 'state'], ascending=[True, True, True])
         
-        display_districts = districts_df[['state', 'tier', 'obesity_level']].copy()
-        display_districts.columns = ['State', 'City Tier', 'Obesity Level']
+        display_districts = districts_df[['state', 'tier']].copy()
+        display_districts.columns = ['State', 'City Tier']
         
         st.dataframe(display_districts, use_container_width=True)
         
-        # Tier distribution summary
-        st.markdown("### 📈 District Tier Distribution Summary")
+        # Tier distribution summary with district counts
         tier_data = geographic_data['tier_city_analysis']
         
         col1, col2, col3 = st.columns(3)
@@ -587,7 +584,6 @@ def main():
         
     with tab2:
         st.markdown("## 👥 Gender & Age Segmentation")
-        st.markdown("*Analysis of obesity prevalence segmented by gender and age group*")
         
         gender_data = comprehensive_analysis['gender_analysis']
         
